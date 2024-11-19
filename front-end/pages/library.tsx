@@ -4,12 +4,16 @@ import styles from '@styles/home.module.css';
 import LibraryTable from '@components/libraryTable';
 import { Game } from '@types';
 import { useEffect, useState } from 'react';
-import GameService from '@services/GameService';
 import LibraryService from '@services/LibraryService';
+import { getBalance } from './balance';
 
 const userId = 1;
 
-const Library: React.FC = () => {
+interface LibraryProps {
+    balance: number;
+}
+
+const Library: React.FC<LibraryProps> = ({ balance }) => {
     const [games, setGames] = useState<Array<Game>>([]);
 
     const getGames = async () => {
@@ -30,7 +34,7 @@ const Library: React.FC = () => {
                 <title>Setback | Library</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header />
+            <Header balance={balance} />
             <main className={styles.main}>
                 <span>
                     <h1>Library</h1>
@@ -44,6 +48,14 @@ const Library: React.FC = () => {
             </main>
         </>
     )
+};
+
+export async function getServerSideProps() {
+    const balance = await getBalance();
+
+    return {
+        props: { balance },
+    };
 }
 
 export default Library;

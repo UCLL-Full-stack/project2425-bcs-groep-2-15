@@ -23,8 +23,20 @@ const newUser = (username: string, password: string, library: Library, profile: 
     return userDb.newUser(user);
 }
 
+const getUserBalance = (id: number): number => {
+    const user = getUserById(id);
+    return userDb.getBalance(user);
+}
+
+const addUserBalance = (id: number, amount: number): number => {
+    const user = getUserById(id);
+    return userDb.addBalance(user, amount);
+}
+
 export default {
     getAllUsers,
     getUserById,
     newUser,
+    getUserBalance,
+    addUserBalance,
 };

@@ -8,6 +8,7 @@ import { gameRouter } from './controller/game.routes';
 import { libraryRouter } from './controller/library.routes';
 import { purchaseRouter } from './controller/purchase.routes';
 import { userRouter } from './controller/user.routes';
+import { profileRouter } from './controller/profile.routes';
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use('/games', gameRouter);
 app.use('/libraries', libraryRouter);
 app.use('/purchases', purchaseRouter);
 app.use('/users', userRouter);
+app.use('/profiles', profileRouter);
 
 app.get('/status', (req, res) => {
     res.json({ message: 'Back-end is running...' });

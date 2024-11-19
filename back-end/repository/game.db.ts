@@ -3,33 +3,33 @@ import { Game } from '../model/game';
 const games = [
     new Game({
         id: 1,
-        title: "Epic Quest",
-        image: "/images/placeholder.png",
+        title: "Eden Sword",
+        image: "/images/games/1_eden_sword.png",
         categories: ["Adventure", "RPG"],
         price: 59.99
     }),
 
     new Game({
         id: 2,
-        title: "Battle Arena",
-        image: "/images/placeholder.png",
+        title: "Nexus",
+        image: "/images/games/2_nexus.png",
+        categories: ["FPS", "Action"],
+        price: 69.99
+    }),
+
+    new Game({
+        id: 3,
+        title: "Snake Triad",
+        image: "/images/games/3_snake_triad.png",
         categories: ["Fighting", "Action"],
         price: 39.99,
         discount: 10
     }),
 
     new Game({
-        id: 3,
-        title: "Cyber Assault",
-        image: "/images/placeholder.png",
-        categories: ["FPS", "Action"],
-        price: 69.99
-    }),
-
-    new Game({
         id: 4,
-        title: "Mystic Lands",
-        image: "/images/placeholder.png",
+        title: "Project Salvo",
+        image: "/images/games/4_project_salvo.png",
         categories: ["Adventure", "RPG"],
         price: 49.99
     }),
