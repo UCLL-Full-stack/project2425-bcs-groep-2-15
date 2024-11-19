@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Game } from '@types';
 import LibraryService from '@services/LibraryService';
 import PurchaseService from '@services/PurchaseService';
+import { getBalance } from '../pages/balance';
 
 interface StoreTableProps {
-    games?: Array<Game>;
+    games: Array<Game>;
+    updateBalance: () => void;
 }
 
 const userId = 1;
 
-const StoreTable: React.FC<StoreTableProps> = ({ games = [] }) => {
+const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
     const [libraryGames, setLibraryGames] = useState<Game[]>([]);
 
     const fetchLibraryGames = async () => {
@@ -28,14 +30,14 @@ const StoreTable: React.FC<StoreTableProps> = ({ games = [] }) => {
     const handlePurchase = async (game: Game) => {
         const confirmPurchase = window.confirm("Are you sure you want to purchase this game?");
         if (confirmPurchase) {
-            await PurchaseService.newPurchase(userId, game.id);
-            await fetchLibraryGames();
-            // if () {
-            //     window.alert("You do not have enough money in your balance.")
-            // }
-            // else {
-                window.location.reload();
-            // }
+            if (await getBalance() < game.price) {
+                window.alert("You do not have enough money in your balance.")
+            }
+            else {
+                await PurchaseService.newPurchase(userId, game.id);
+                await fetchLibraryGames();
+                updateBalance();
+            }
         }
     };
 

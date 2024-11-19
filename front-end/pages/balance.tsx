@@ -8,13 +8,13 @@ import userService from '@services/UserService';
 
 const userId = 1;
 
-const Home: React.FC = () => {
+const Balance: React.FC = () => {
     const [balance, setBalance] = useState<number | null>(null);
 
     const getBalance = async () => {
         const response = await UserService.getUserBalance(userId);
         const balance = await response.json();
-        setBalance(balance);
+        setBalance(balance.toFixed(2));
     };
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
 
     const handleAddBalance = async (amount: number) => {
         await userService.addUserBalance(userId, amount);
-        getBalance();
+        await getBalance();
     };
 
     return (
@@ -34,7 +34,7 @@ const Home: React.FC = () => {
                 <title>Setback | Balance</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header />
+            <Header balance={balance!} />
             <main className={styles.main}>
                 <span>
                     <h1>Balance</h1>
@@ -56,6 +56,21 @@ const Home: React.FC = () => {
             </main>
         </>
     )
-}
+};
 
-export default Home;
+export const getBalance = async (): Promise<number> => {
+    let balance = 0.00;
+
+    try {
+        const response = await UserService.getUserById(userId);
+        const userData = await response.json();
+        balance = parseFloat(userData.balance);
+    } catch (error) {
+        console.error("Error fetching user balance:", error);
+    }
+
+    // @ts-ignore
+    return balance.toFixed(2);
+};
+
+export default Balance;
