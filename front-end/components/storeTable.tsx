@@ -45,7 +45,7 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
     return (
         <>
             {games.length > 0 && (
-                <table className="table table-hover" id={style.storeTable}>
+                <table className="table table-hover">
                     <thead>
                     <tr>
                         <th scope="col"></th>

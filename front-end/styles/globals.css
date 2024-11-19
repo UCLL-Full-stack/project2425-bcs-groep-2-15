@@ -64,3 +64,13 @@ h1{
 p{
     color:white;;
 }
+
+.table-hover tbody tr:hover {
+    background-color: black;
+    color:white;
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    color: white;
+}
