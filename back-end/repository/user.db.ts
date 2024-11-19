@@ -20,7 +20,7 @@ const users = [
 
 const getAllUsers = (): User[] => users;
 
-const getUserById = (id: number ): User | null => {
+const getUserById = (id: number): User | null => {
     return users.find((user) => user.getId() === id) || null;
 };
 
@@ -29,8 +29,19 @@ const newUser = (user: User): User => {
     return user;
 }
 
+const getBalance = (user: User): number => {
+    return user.getBalance();
+}
+
+const addBalance = (user: User, amount: number): number => {
+    user.setBalance(user.getBalance() + amount);
+    return user.getBalance();
+}
+
 export default {
     getUserById,
     getAllUsers,
     newUser,
+    getBalance,
+    addBalance,
 };

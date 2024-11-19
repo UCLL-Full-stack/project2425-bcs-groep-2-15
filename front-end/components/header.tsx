@@ -45,7 +45,7 @@ const Header: React.FC = () => {
                 </nav>
             </div>
             <div>
-                <Link href="/" className={styles.balance}>
+                <Link href="/balance" className={styles.balance}>
                     { `Balance: €${balance}` }
                 </Link>
             </div>

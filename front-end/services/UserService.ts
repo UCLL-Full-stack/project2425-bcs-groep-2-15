@@ -28,12 +28,33 @@ const newUser = async (username: string, password: string, library: Library, pro
         },
         body: JSON.stringify({ username, password, balance, library, profile })
     })
-}
+};
+
+const getUserBalance = async (id: number) => {
+    return fetch(`${BASE_URL}/users/${id}/balance`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+};
+
+const addUserBalance = async (id: number, amount: number) => {
+    return fetch(`${BASE_URL}/users/${id}/balance`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount })
+    });
+};
 
 const UserService = {
     getAllUsers,
     getUserById,
     newUser,
+    getUserBalance,
+    addUserBalance,
 };
 
 export default UserService;
