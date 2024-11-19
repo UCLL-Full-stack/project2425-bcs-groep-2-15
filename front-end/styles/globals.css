@@ -14,6 +14,7 @@ a {
 
 * {
     box-sizing: border-box;
+    background-color: black;
 }
 
 img {
@@ -45,4 +46,20 @@ ul {
 button {
     padding: 0.5rem 1rem;
     font-weight: bold;
+}
+
+td {
+    color:#19a9e4;
+}
+
+tr{
+    color:#19a9e4;
+}
+
+h1{
+    color:#19a9e4;
+}
+
+p{
+    color:#19a9e4;;
 }

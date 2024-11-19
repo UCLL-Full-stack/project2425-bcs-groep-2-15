@@ -1,0 +1,36 @@
+.purchaseButton {
+    color: black;
+    background-color:#19a9e4;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+}
+
+.purchaseButton:hover {
+    background-color: white;
+    color: black;
+}
+
+.purchasedButton {
+    color: black;
+    background-color:gray;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: default;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.discountButton {
+    color: white;
+    background-color:yellowgreen;
+    border: 2px solid black;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+}

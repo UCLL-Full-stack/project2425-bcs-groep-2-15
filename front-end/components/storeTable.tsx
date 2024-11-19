@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Game } from '@types';
 import LibraryService from '@services/LibraryService';
 import PurchaseService from '@services/PurchaseService';
+import style from "../styles/store.module.css"
 
 interface StoreTableProps {
     games?: Array<Game>;
@@ -65,13 +66,21 @@ const StoreTable: React.FC<StoreTableProps> = ({ games = [] }) => {
                             </td>
                             <td>{game.title}</td>
                             <td>{game.categories.join(', ')}</td>
-                            <td>{game.discount}%</td>
+                            <td>
+                                {game.discount && game.discount > 0 ? (
+                                <span className={style.discountButton}>{`${game.discount}%`}</span>
+                                    ) : (
+                                     ''
+                                     )}
+                            </td>
+
+
                             <td>€{game.price.toFixed(2)}</td>
                             <td>
                                 {libraryGames?.some((ownedGame) => ownedGame.id === game.id) ? (
-                                    <span>Purchased</span>
+                                    <span className={style.purchasedButton}>Purchased</span>
                                 ) : (
-                                    <a href="#" onClick={() => handlePurchase(game)}>PURCHASE</a>
+                                    <a href="#" onClick={() => handlePurchase(game)} className={style.purchaseButton}> Purchase </a>
                                 )}
                             </td>
                         </tr>
