@@ -6,10 +6,15 @@ import { Game, Profile, User } from '@types';
 import LibraryService from '@services/LibraryService';
 import ProfileService from '@services/ProfileService';
 import UserService from '@services/UserService';
+import balance, { getBalance } from './balance';
 
 const userId = 1;
 
-const Profile: React.FC = () => {
+interface ProfileProps {
+    balance: number;
+}
+
+const Profile: React.FC<ProfileProps> = ({ balance }) => {
     const [profile, setProfile] = useState<Profile | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const [games, setGames] = useState<Game[]>([]);
@@ -49,7 +54,7 @@ const Profile: React.FC = () => {
                 <title>Setback | Profile</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header />
+            <Header balance={balance} />
             <main className={styles.main}>
                 <span>
                     <h1>Profile</h1>
@@ -97,6 +102,14 @@ const Profile: React.FC = () => {
             </main>
         </>
     )
+};
+
+export async function getServerSideProps() {
+    const balance = await getBalance();
+
+    return {
+        props: { balance },
+    };
 }
 
 export default Profile;
