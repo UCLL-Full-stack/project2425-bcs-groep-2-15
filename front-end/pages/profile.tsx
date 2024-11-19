@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
-import LibraryTable from '@components/libraryTable';
 import React, { useEffect, useState } from 'react';
 import { Game, Profile, User } from '@types';
 import LibraryService from '@services/LibraryService';
@@ -11,41 +10,36 @@ import UserService from '@services/UserService';
 const userId = 1;
 
 const Profile: React.FC = () => {
-    const [profile, setProfile] = useState<Profile>();
-    const [user, setUser] = useState<User>();
-    const [games, setGames] = useState<Array<Game>>([]);
-
-    const getProfile = async () => {
-        const response = await ProfileService.getProfileById(userId);
-        const profile = await response.json();
-        setProfile(profile);
-    }
-
-    const getUser = async () => {
-        const response = await UserService.getUserById(userId);
-        const user = await response.json();
-        setUser(user);
-    }
-
-    const getGames = async () => {
-        const response = await LibraryService.getAllLibraryGames(userId);
-        const games = await response.json();
-        setGames(games);
-    }
+    const [profile, setProfile] = useState<Profile | null>(null);
+    const [user, setUser] = useState<User | null>(null);
+    const [games, setGames] = useState<Game[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-            getProfile()
-            getUser()
-            getGames()
-        },
-        []
-    )
+        const fetchData = async () => {
+            try {
+                const [profileResponse, userResponse, gamesResponse] = await Promise.all([
+                    ProfileService.getProfileById(userId),
+                    UserService.getUserById(userId),
+                    LibraryService.getAllLibraryGames(userId),
+                ]);
 
-    if (!profile) {
-        return <div>Loading...</div>;
+                setProfile(await profileResponse.json());
+                setUser(await userResponse.json());
+                setGames(await gamesResponse.json());
+            } catch (err) {
+                setError('Failed to load data. Please try again later.');
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (error) {
+        return <div>{error}</div>;
     }
 
-    if (!user) {
+    if (!profile || !user) {
         return <div>Loading...</div>;
     }
 
