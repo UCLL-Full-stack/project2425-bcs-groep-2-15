@@ -3,8 +3,8 @@ import { Profile } from '../model/profile';
 const profiles = [
     new Profile({
         id: 1,
-        description: "This is my profile",
-        profilePic: "/images/placeholder.png"
+        description: "This is my profile.",
+        profilePic: "/images/profile/2.png"
     })
 ];
 

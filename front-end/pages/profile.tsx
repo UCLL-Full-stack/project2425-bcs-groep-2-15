@@ -65,7 +65,7 @@ const Profile: React.FC<ProfileProps> = ({ balance }) => {
                         <img
                             src={profile.profilePic}
                             alt="Profile picture"
-                            style={{ width: '250px', height: 'auto' }}
+                            style={{ width: '150px', height: 'auto' }}
                         />
                     </div>
                     <div>
