@@ -45,32 +45,33 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
     return (
         <>
             {games.length > 0 && (
-                <table className="table table-hover">
+                <table className={style.table}>
                     <thead>
                     <tr>
                         <th scope="col"></th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Categories</th>
-                        <th scope="col">Discount</th>
-                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                     {games.map((game, index) => (
                         <tr key={index}>
-                            <td>
+                            <td className={style.image}>
                                 <img
                                     src={game.image}
                                     alt={game.title}
-                                    style={{ width: '150px', height: 'auto' }}
                                 />
                             </td>
-                            <td>{game.title}</td>
-                            <td>{game.categories.join(', ')}</td>
+                            <td className={style.titleAndCategories}>
+                                <div className={style.title}>{game.title}</div>
+                                <div className={style.categories}>{game.categories.join(', ')}</div>
+                            </td>
                             <td>
                                 {game.discount && game.discount > 0 ? (
-                                    <span className={style.discountButton}>{`${game.discount}%`}</span>
+                                    <span className={style.discount}>{`-${game.discount}%`}</span>
                                 ) : (
                                     ''
                                 )}
