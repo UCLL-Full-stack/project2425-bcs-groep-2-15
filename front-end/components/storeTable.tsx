@@ -70,17 +70,18 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
                             <td>{game.categories.join(', ')}</td>
                             <td>
                                 {game.discount && game.discount > 0 ? (
-                                <span className={style.discountButton}>{`${game.discount}%`}</span>
-                                    ) : (
-                                     ''
-                                     )}
+                                    <span className={style.discountButton}>{`${game.discount}%`}</span>
+                                ) : (
+                                    ''
+                                )}
                             </td>
                             <td>€{game.price.toFixed(2)}</td>
                             <td>
                                 {libraryGames?.some((ownedGame) => ownedGame.id === game.id) ? (
                                     <span className={style.purchasedButton}>Purchased</span>
                                 ) : (
-                                    <a href="#" onClick={() => handlePurchase(game)} className={style.purchaseButton}> Purchase </a>
+                                    <a href="#" onClick={() => handlePurchase(game)}
+                                       className={style.purchaseButton}> Purchase </a>
                                 )}
                             </td>
                         </tr>
