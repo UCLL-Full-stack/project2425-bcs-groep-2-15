@@ -25,14 +25,6 @@ model User {
   profileId Int
 }
 
-model Library {
-  id           Int    @id @default(autoincrement())
-  games        Game[]
-  achievements Int
-  timePlayed   Int
-  User         User[]
-}
-
 model Profile {
   id          Int    @id @default(autoincrement())
   description String
@@ -51,15 +43,33 @@ model Purchase {
 }
 
 model Game {
-  id         Int        @id @default(autoincrement())
-  Library    Library?   @relation(fields: [libraryId], references: [id])
-  libraryId  Int?
-  Purchase   Purchase[]
+  id         Int     @id @default(autoincrement())
   title      String
   image      String
   categories Genre[]
   price      Float
   discount   Int?
+
+  Purchase         Purchase[]
+  GamesInLibraries GamesInLibraries[]
+}
+
+model Library {
+  id           Int    @id @default(autoincrement())
+  achievements Int
+  timePlayed   Int
+  User         User[]
+
+  GamesInLibraries GamesInLibraries[]
+}
+
+model GamesInLibraries {
+  game      Game    @relation(fields: [gameId], references: [id])
+  gameId    Int
+  library   Library @relation(fields: [libraryId], references: [id])
+  libraryId Int
+
+  @@id([gameId, libraryId])
 }
 
 enum Genre {

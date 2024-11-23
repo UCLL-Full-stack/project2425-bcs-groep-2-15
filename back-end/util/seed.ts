@@ -69,13 +69,9 @@ const main = async () => {
 
     const library1 = await prisma.library.create({
         data: {
-            games: {
-                connect: [
-                    { id: edenSword.id },
-                ]
-            },
             achievements: 0,
-            timePlayed: 0
+            timePlayed: 0,
+            GamesInLibraries: {}
         },
     });
 

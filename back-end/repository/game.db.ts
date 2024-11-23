@@ -6,7 +6,6 @@ const getAllGames = async (): Promise<Game[]> => {
     return result.map(gameData => new Game(gameData));
 };
 
-
 const getGameById = async (id: number): Promise<Game | null> => {
     const gameData = await database.game.findUnique({
         where: { id },

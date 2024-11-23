@@ -23,7 +23,6 @@ describe("Library Service", () => {
 
     beforeEach(() => {
         (libraryDB.getLibraryById as jest.Mock).mockReturnValue(mockLibrary);
-        (libraryDB.getAllLibraryGames as jest.Mock).mockReturnValue([mockGame]);
     });
 
     it("should return all games in the library", () => {

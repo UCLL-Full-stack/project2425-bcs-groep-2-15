@@ -14,7 +14,7 @@ const getPurchaseById = (id: number): Purchase => {
     return purchaseDb.getPurchaseById(id)!;
 }
 
-const newPurchase = async (userId: number, gameId: number): Promise<Purchase> => {
+const newPurchase = async (userId: number, gameId: number): Promise<void> => {
     const user = userDb.getUserById(userId);
     if (!user) {
         throw new Error(`User with id ${userId} not found`);
@@ -32,7 +32,7 @@ const newPurchase = async (userId: number, gameId: number): Promise<Purchase> =>
     }
 
     user.setBalance(user.getBalance() - game.getPrice());
-    return purchaseDb.newPurchase(user, game);
+    await purchaseDb.newPurchase(user, game);
 }
 
 export default {

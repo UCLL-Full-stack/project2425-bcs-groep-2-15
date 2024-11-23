@@ -14,15 +14,6 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Library" (
-    "id" SERIAL NOT NULL,
-    "achievements" INTEGER NOT NULL,
-    "timePlayed" INTEGER NOT NULL,
-
-    CONSTRAINT "Library_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Profile" (
     "id" SERIAL NOT NULL,
     "description" TEXT NOT NULL,
@@ -45,7 +36,6 @@ CREATE TABLE "Purchase" (
 -- CreateTable
 CREATE TABLE "Game" (
     "id" SERIAL NOT NULL,
-    "libraryId" INTEGER,
     "title" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "categories" "Genre"[],
@@ -53,6 +43,23 @@ CREATE TABLE "Game" (
     "discount" INTEGER,
 
     CONSTRAINT "Game_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Library" (
+    "id" SERIAL NOT NULL,
+    "achievements" INTEGER NOT NULL,
+    "timePlayed" INTEGER NOT NULL,
+
+    CONSTRAINT "Library_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "GamesInLibraries" (
+    "gameId" INTEGER NOT NULL,
+    "libraryId" INTEGER NOT NULL,
+
+    CONSTRAINT "GamesInLibraries_pkey" PRIMARY KEY ("gameId","libraryId")
 );
 
 -- CreateIndex
@@ -71,4 +78,7 @@ ALTER TABLE "Purchase" ADD CONSTRAINT "Purchase_userId_fkey" FOREIGN KEY ("userI
 ALTER TABLE "Purchase" ADD CONSTRAINT "Purchase_gameId_fkey" FOREIGN KEY ("gameId") REFERENCES "Game"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Game" ADD CONSTRAINT "Game_libraryId_fkey" FOREIGN KEY ("libraryId") REFERENCES "Library"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "GamesInLibraries" ADD CONSTRAINT "GamesInLibraries_gameId_fkey" FOREIGN KEY ("gameId") REFERENCES "Game"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "GamesInLibraries" ADD CONSTRAINT "GamesInLibraries_libraryId_fkey" FOREIGN KEY ("libraryId") REFERENCES "Library"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
