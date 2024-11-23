@@ -2,14 +2,25 @@ import { Game } from '../model/game';
 import { Purchase } from '../model/purchase';
 import { User } from '../model/user';
 import { PrismaClient } from '@prisma/client';
+import database from './database';
 
-const purchases: Purchase[] = [];
 const prisma = new PrismaClient();
 
-const getAllPurchases = (): Purchase[] => purchases;
+const mapPurchase = (purchaseData: any): Purchase => {
+    return new Purchase(purchaseData);
+};
 
-const getPurchaseById = (id: number): Purchase | null => {
-    return purchases.find((purchase) => purchase.getId() === id) || null;
+const getAllPurchases = async (): Promise<Purchase[]> => {
+    const purchasesData = await database.purchase.findMany();
+    return purchasesData.map(mapPurchase);
+};
+
+const getPurchaseById = async (id: number): Promise<Purchase | null> => {
+    const purchaseData = await database.purchase.findUnique({
+        where: { id }
+    });
+
+    return purchaseData ? mapPurchase(purchaseData) : null;
 };
 
 const newPurchase = async (user: User, game: Game): Promise<void> => {

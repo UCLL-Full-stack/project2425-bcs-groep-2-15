@@ -1,22 +1,10 @@
 import { User } from '../model/user';
-import { Game } from '../model/game';
 import database from './database';
-import { $Enums, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 const mapUser = (userData: any): User => {
-    const games = userData.library.GamesInLibraries.map((entry: {
-        game: {
-            id: number;
-            title: string;
-            image: string;
-            categories: $Enums.Genre[];
-            price: number;
-            discount?: number | null | undefined;
-        };
-    }) => new Game(entry.game));
-
     return new User({
         id: userData.id,
         username: userData.username,
@@ -28,77 +16,52 @@ const mapUser = (userData: any): User => {
     });
 };
 
-const getAllUsers = async (): Promise<User[]> => {
-    const usersData = await database.user.findMany({
-        include: {
-            library: {
-                include: {
-                    GamesInLibraries: {
-                        include: {
-                            game: true
-                        }
-                    }
-                }
-            },
-            profile: true,
-            purchases: true
-        }
-    });
+const getUsersCommonQuery = () => ({
+    include: {
+        library: { include: { GamesInLibraries: { include: { game: true } } } },
+        profile: true,
+        purchases: true
+    }
+});
 
+const getAllUsers = async (): Promise<User[]> => {
+    const usersData = await database.user.findMany(getUsersCommonQuery());
     return usersData.map(mapUser);
 };
 
 const getUserById = async (id: number): Promise<User | null> => {
     const userData = await database.user.findUnique({
         where: { id },
-        include: {
-            library: {
-                include: {
-                    GamesInLibraries: {
-                        include: {
-                            game: true
-                        }
-                    }
-                }
-            },
-            profile: true,
-            purchases: true
-        }
+        ...getUsersCommonQuery()
     });
-
-    if (!userData) {
-        return null;
-    }
-
-    return mapUser(userData);
+    return userData ? mapUser(userData) : null;
 };
 
-
 const newUser = async (user: User): Promise<void> => {
-    const userData = await database.user.create({
+    const { username, password, balance, library, profile, purchases } = user;
+
+    await database.user.create({
         data: {
-            username: user.username,
-            password: user.password,
-            balance: user.balance,
+            username,
+            password,
+            balance,
             library: {
                 create: {
-                    achievements: user.library.achievements,
-                    timePlayed: user.library.timePlayed,
+                    achievements: library.achievements,
+                    timePlayed: library.timePlayed,
                     GamesInLibraries: {
-                        create: user.library.games.map(game => ({
-                            gameId: game.id
-                        }))
+                        create: library.games.map(game => ({ gameId: game.id }))
                     }
                 }
             },
             profile: {
                 create: {
-                    description: user.profile.getDescription(),
-                    profilePic: user.getProfile().getProfilePic()
+                    description: profile.getDescription(),
+                    profilePic: profile.getProfilePic()
                 }
             },
             purchases: {
-                create: user.purchases.map(purchase => ({
+                create: purchases.map(purchase => ({
                     cost: purchase.cost,
                     date: purchase.date,
                     gameId: purchase.game.id
@@ -108,10 +71,7 @@ const newUser = async (user: User): Promise<void> => {
     });
 };
 
-
-const getBalance = (user: User): number => {
-    return user.getBalance();
-};
+const getBalance = (user: User): number => user.getBalance();
 
 const addBalance = async (user: User, amount: number): Promise<number> => {
     user.setBalance(user.getBalance() + amount);

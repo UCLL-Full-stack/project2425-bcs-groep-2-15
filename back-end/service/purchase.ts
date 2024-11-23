@@ -3,9 +3,9 @@ import { Purchase } from '../model/purchase';
 import userDb from '../repository/user.db';
 import gameDb from '../repository/game.db';
 
-const getAllPurchases = (): Purchase[] => purchaseDb.getAllPurchases();
+const getAllPurchases = async (): Promise<Purchase[]> => await purchaseDb.getAllPurchases();
 
-const getPurchaseById = (id: number): Purchase => {
+const getPurchaseById = (id: number): Promise<Purchase | null> => {
     if (purchaseDb.getPurchaseById(id) === null) {
         throw new Error(`Purchase with id ${id} not found`);
     }
