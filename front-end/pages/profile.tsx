@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Header from '@components/header';
-import styles from '@styles/home.module.css';
+import styles from '@styles/profile.module.css';
 import React, { useEffect, useState } from 'react';
 import { Game, Profile, User } from '@types';
 import LibraryService from '@services/LibraryService';
@@ -56,10 +56,10 @@ const Profile: React.FC<ProfileProps> = ({ balance }) => {
             </Head>
             <Header balance={balance} />
             <main className={styles.main}>
-                <span>
+                {/* <span>
                     <h1>Profile</h1>
-                </span>
-
+                </span> */}
+                <div className={styles.container}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                     <div>
                         <img
@@ -75,8 +75,8 @@ const Profile: React.FC<ProfileProps> = ({ balance }) => {
                 </div>
 
                 <div style={{ marginTop: '5%' }}>
-                    <h2>Owned games:</h2>
-                    <table className="table table-hover">
+                    {/* <h2>Owned games:</h2> */}
+                    <table className={styles.profileTable}>
                         <thead>
                         <tr>
                             <th scope="col"></th>
@@ -99,6 +99,8 @@ const Profile: React.FC<ProfileProps> = ({ balance }) => {
                         </tbody>
                     </table>
                 </div>
+                </div>
+
             </main>
         </>
     )

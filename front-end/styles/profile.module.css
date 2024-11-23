@@ -1,0 +1,90 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    min-height: 100vh;
+    font-family: "Source Code Pro", sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.profileTable tr{
+        margin-bottom: 10px;
+    }
+
+
+
+.container {
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #1e1e1e;
+    width: 90%;
+    max-width: 650px;
+}
+
+.profileTable {
+    width: 100%;
+    border-collapse: collapse; 
+    color: #e0e0e0;
+    margin-top: 5%;
+}
+
+.profileTable td {
+    padding: 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.profileTable th {
+    background-color: #333;
+    border-bottom: 2px solid #444;
+    border-right: 1px solid #444;
+    color: #f0f0f0;
+    font-size: 1rem;
+}
+
+.profileTable th:last-child {
+    border-right: none;
+}
+
+.profileTable td {
+    background-color: #2a2a2a;
+    border-right: 1px solid #444;
+}
+
+.profileTable td:last-child {
+    border-right: none;
+}
+
+.profileTable tr:hover td {
+    background-color: #3a3a3a;
+}
+
+.profileTable th:hover {
+    background-color: #555;
+    cursor: pointer;
+}
+
+.profileTable td img {
+    width: 150px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.profileTable th,
+.profileTable td {
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .profileTable {
+        font-size: 0.9rem;
+    }
+}
