@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  password  String
+  library   Library    @relation(fields: [libraryId], references: [id])
+  profile   Profile    @relation(fields: [profileId], references: [id])
+  purchases Purchase[]
+  balance   Float
+  libraryId Int
+  profileId Int
+}
+
+model Library {
+  id           Int    @id @default(autoincrement())
+  games        Game[]
+  achievements Int
+  timePlayed   Int
+  User         User[]
+}
+
+model Profile {
+  id          Int    @id @default(autoincrement())
+  description String
+  profilePic  String
+  User        User[]
+}
+
+model Purchase {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  cost   Float
+  user   User     @relation(fields: [userId], references: [id])
+  game   Game     @relation(fields: [gameId], references: [id])
+  userId Int
+  gameId Int
+}
+
+model Game {
+  id         Int        @id @default(autoincrement())
+  Library    Library?   @relation(fields: [libraryId], references: [id])
+  libraryId  Int?
+  Purchase   Purchase[]
+  title      String
+  image      String
+  categories Genre[]
+  price      Float
+  discount   Int?
+}
+
+enum Genre {
+  Action
+  Adventure
+  Fighting
+  FPS
+  RPG
+}

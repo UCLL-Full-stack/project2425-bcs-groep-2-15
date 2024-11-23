@@ -5,7 +5,7 @@ import gameDb from './game.db';
 const libraries = [
     new Library({
         id: 1,
-        games: [gameDb.getGameById(1)!],
+        games: [],
         achievements: 0,
         timePlayed: 0
     })

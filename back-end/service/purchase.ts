@@ -14,20 +14,22 @@ const getPurchaseById = (id: number): Purchase => {
     return purchaseDb.getPurchaseById(id)!;
 }
 
-const newPurchase = (userId: number, gameId: number): Purchase => {
+const newPurchase = async (userId: number, gameId: number): Promise<Purchase> => {
     const user = userDb.getUserById(userId);
     if (!user) {
         throw new Error(`User with id ${userId} not found`);
     }
 
-    const game = gameDb.getGameById(gameId);
+    const game = await gameDb.getGameById(gameId);
     if (!game) {
         throw new Error(`Game with id ${gameId} not found`);
     }
 
-    if (user.getBalance() < game.getPrice()) {{
-        throw new Error("Game's price is higher than user's balance")
-    }}
+    if (user.getBalance() < game.getPrice()) {
+        {
+            throw new Error("Game's price is higher than user's balance")
+        }
+    }
 
     user.setBalance(user.getBalance() - game.getPrice());
     return purchaseDb.newPurchase(user, game);
