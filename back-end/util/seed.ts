@@ -84,15 +84,6 @@ const main = async () => {
             balance: 99.99
         }
     });
-
-    const purchase1 = await prisma.purchase.create({
-        data: {
-            date: '2024-09-23T12:00:00.000Z',
-            cost: edenSword.price,
-            user: { connect: { id: user1.id } },
-            game: { connect: { id: edenSword.id } }
-        }
-    });
 };
 
 (async () => {
