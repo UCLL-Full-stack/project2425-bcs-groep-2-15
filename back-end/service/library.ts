@@ -9,7 +9,7 @@ const getAllLibraryGames = async (userId: number): Promise<Game[]> => {
         throw new Error(`Library with id ${userId} not found`);
     }
     return library.getGames();
-}
+};
 
 const getLibraryById = async (id: number): Promise<Library | null> => {
     const library = await database.library.findUnique({
@@ -17,10 +17,10 @@ const getLibraryById = async (id: number): Promise<Library | null> => {
         include: {
             GamesInLibraries: {
                 include: {
-                    game: true,
-                },
-            },
-        },
+                    game: true
+                }
+            }
+        }
     });
 
     if (!library) {
@@ -33,9 +33,9 @@ const getLibraryById = async (id: number): Promise<Library | null> => {
         id: library.id,
         games: games,
         achievements: library.achievements,
-        timePlayed: library.timePlayed,
+        timePlayed: library.timePlayed
     });
-}
+};
 
 const addGameToLibrary = async (id: number, game: Game): Promise<Game> => {
     const library = await getLibraryById(id);
@@ -44,7 +44,7 @@ const addGameToLibrary = async (id: number, game: Game): Promise<Game> => {
     }
 
     if (library.getGames().some(ownedGame => ownedGame.id === game.id)) {
-        throw new Error("Game is already owned.");
+        throw new Error('Game is already owned.');
     }
 
     await database.library.update({
@@ -52,17 +52,17 @@ const addGameToLibrary = async (id: number, game: Game): Promise<Game> => {
         data: {
             GamesInLibraries: {
                 create: {
-                    gameId: game.id,
-                },
-            },
-        },
+                    gameId: game.id
+                }
+            }
+        }
     });
 
     return game;
-}
+};
 
 export default {
     getAllLibraryGames,
     getLibraryById,
-    addGameToLibrary,
+    addGameToLibrary
 };

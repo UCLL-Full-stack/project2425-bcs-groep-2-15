@@ -1,5 +1,4 @@
-// import { Game } from './Game';
-import { Game } from '../model/game';
+import { Game } from './game';
 
 
 export class Library {

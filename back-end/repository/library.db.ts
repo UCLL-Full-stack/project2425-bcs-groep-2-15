@@ -7,10 +7,10 @@ const getAllLibraries = async (): Promise<Library[]> => {
         include: {
             GamesInLibraries: {
                 include: {
-                    game: true,
-                },
-            },
-        },
+                    game: true
+                }
+            }
+        }
     });
 
     return librariesData.map(libraryData => {
@@ -20,7 +20,7 @@ const getAllLibraries = async (): Promise<Library[]> => {
             id: libraryData.id,
             games: games,
             achievements: libraryData.achievements,
-            timePlayed: libraryData.timePlayed,
+            timePlayed: libraryData.timePlayed
         });
     });
 };
@@ -32,10 +32,10 @@ const getLibraryById = async (id: number): Promise<Library | null> => {
         include: {
             GamesInLibraries: {
                 include: {
-                    game: true,
-                },
-            },
-        },
+                    game: true
+                }
+            }
+        }
     });
 
     if (!libraryData) {
@@ -48,7 +48,7 @@ const getLibraryById = async (id: number): Promise<Library | null> => {
         id: libraryData.id,
         games: games,
         achievements: libraryData.achievements,
-        timePlayed: libraryData.timePlayed,
+        timePlayed: libraryData.timePlayed
     });
 };
 
@@ -65,5 +65,5 @@ export default {
     getAllLibraries,
     getLibraryById,
     getAllLibraryGames,
-    addGameToLibrary,
+    addGameToLibrary
 };

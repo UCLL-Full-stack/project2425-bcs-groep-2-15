@@ -6,7 +6,7 @@ import { Game, Profile, User } from '@types';
 import LibraryService from '@services/LibraryService';
 import ProfileService from '@services/ProfileService';
 import UserService from '@services/UserService';
-import balance, { getBalance } from './balance';
+import { getBalance } from './balance';
 
 const userId = 1;
 
@@ -26,7 +26,7 @@ const Profile: React.FC<ProfileProps> = ({ balance }) => {
                 const [profileResponse, userResponse, gamesResponse] = await Promise.all([
                     ProfileService.getProfileById(userId),
                     UserService.getUserById(userId),
-                    LibraryService.getAllLibraryGames(userId),
+                    LibraryService.getAllLibraryGames(userId)
                 ]);
 
                 setProfile(await profileResponse.json());
@@ -101,14 +101,14 @@ const Profile: React.FC<ProfileProps> = ({ balance }) => {
                 </div>
             </main>
         </>
-    )
+    );
 };
 
 export async function getServerSideProps() {
     const balance = await getBalance();
 
     return {
-        props: { balance },
+        props: { balance }
     };
 }
 

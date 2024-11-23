@@ -142,7 +142,7 @@ libraryRouter.post('/games', async (req: Request, res: Response, next: NextFunct
         const game: Game = req.body;
 
         if (!id || isNaN(Number(id))) {
-            return res.status(400).json({ error: "Missing or invalid `id` parameter" });
+            return res.status(400).json({ error: 'Missing or invalid `id` parameter' });
         }
 
         const addedGame = await libraryService.addGameToLibrary(Number(id), game);

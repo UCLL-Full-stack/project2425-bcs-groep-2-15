@@ -1,21 +1,19 @@
-import { Game } from '../model/game';
 import purchaseDb from '../repository/purchase.db';
 import { Purchase } from '../model/purchase';
-import { User } from '../model/user';
 import userDb from '../repository/user.db';
 import gameDb from '../repository/game.db';
 
-const getAllPurchases = (): Purchase[] => purchaseDb.getAllPurchases()
+const getAllPurchases = (): Purchase[] => purchaseDb.getAllPurchases();
 
 const getPurchaseById = (id: number): Purchase => {
     if (purchaseDb.getPurchaseById(id) === null) {
         throw new Error(`Purchase with id ${id} not found`);
     }
     return purchaseDb.getPurchaseById(id)!;
-}
+};
 
 const newPurchase = async (userId: number, gameId: number): Promise<void> => {
-    const user = userDb.getUserById(userId);
+    const user = await userDb.getUserById(userId);
     if (!user) {
         throw new Error(`User with id ${userId} not found`);
     }
@@ -27,16 +25,15 @@ const newPurchase = async (userId: number, gameId: number): Promise<void> => {
 
     if (user.getBalance() < game.getPrice()) {
         {
-            throw new Error("Game's price is higher than user's balance")
+            throw new Error('Game\'s price is higher than user\'s balance');
         }
     }
 
-    user.setBalance(user.getBalance() - game.getPrice());
     await purchaseDb.newPurchase(user, game);
-}
+};
 
 export default {
     getAllPurchases,
     getPurchaseById,
-    newPurchase,
+    newPurchase
 };

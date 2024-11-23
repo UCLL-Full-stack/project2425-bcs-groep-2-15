@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,23 +15,26 @@ model User {
   profile   Profile    @relation(fields: [profileId], references: [id])
   purchases Purchase[]
   balance   Float
-  libraryId Int
-  profileId Int
+
+  libraryId Int @unique
+  profileId Int @unique
 }
 
 model Profile {
   id          Int    @id @default(autoincrement())
   description String
   profilePic  String
-  User        User[]
+
+  User User? @relation
 }
 
 model Purchase {
-  id     Int      @id @default(autoincrement())
-  date   DateTime
-  cost   Float
-  user   User     @relation(fields: [userId], references: [id])
-  game   Game     @relation(fields: [gameId], references: [id])
+  id   Int      @id @default(autoincrement())
+  date DateTime
+  cost Float
+  user User     @relation(fields: [userId], references: [id])
+  game Game     @relation(fields: [gameId], references: [id])
+
   userId Int
   gameId Int
 }
@@ -55,10 +52,10 @@ model Game {
 }
 
 model Library {
-  id           Int    @id @default(autoincrement())
+  id           Int   @id @default(autoincrement())
   achievements Int
   timePlayed   Int
-  User         User[]
+  User         User? @relation
 
   GamesInLibraries GamesInLibraries[]
 }

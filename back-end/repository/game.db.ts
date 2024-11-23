@@ -8,7 +8,7 @@ const getAllGames = async (): Promise<Game[]> => {
 
 const getGameById = async (id: number): Promise<Game | null> => {
     const gameData = await database.game.findUnique({
-        where: { id },
+        where: { id }
     });
     if (!gameData) {
         return null;
@@ -18,5 +18,5 @@ const getGameById = async (id: number): Promise<Game | null> => {
 
 export default {
     getAllGames,
-    getGameById,
+    getGameById
 };
