@@ -14,7 +14,7 @@ const games = [
         title: "Nexus",
         image: "/images/games/2_nexus.png",
         categories: ["FPS", "Action"],
-        price: 69.99
+        price: 29.99
     }),
 
     new Game({
@@ -31,16 +31,16 @@ const games = [
         title: "Project Salvo",
         image: "/images/games/4_project_salvo.png",
         categories: ["Adventure", "RPG"],
-        price: 49.99
+        price: 39.99,
+        discount: 25
     }),
 
     new Game({
         id: 5,
-        title: "Warriors United",
-        image: "/images/placeholder.png",
-        categories: ["Action", "Fighting"],
-        price: 44.99,
-        discount: 25
+        title: "Project Salvo: Salvation",
+        image: "/images/games/5_project_salvo_salvation.png",
+        categories: ["Adventure", "RPG"],
+        price: 59.99
     }),
 
 ];

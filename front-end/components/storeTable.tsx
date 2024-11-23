@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Game } from '@types';
 import LibraryService from '@services/LibraryService';
 import PurchaseService from '@services/PurchaseService';
+import style from "../styles/store.module.css"
 import { getBalance } from '../pages/balance';
 
 interface StoreTableProps {
@@ -44,36 +45,43 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
     return (
         <>
             {games.length > 0 && (
-                <table className="table table-hover">
+                <table className={style.table}>
                     <thead>
                     <tr>
                         <th scope="col"></th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Categories</th>
-                        <th scope="col">Discount</th>
-                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                     {games.map((game, index) => (
                         <tr key={index}>
-                            <td>
+                            <td className={style.image}>
                                 <img
                                     src={game.image}
                                     alt={game.title}
-                                    style={{ width: '150px', height: 'auto' }}
                                 />
                             </td>
-                            <td>{game.title}</td>
-                            <td>{game.categories.join(', ')}</td>
-                            <td>{game.discount}%</td>
-                            <td>€{game.price.toFixed(2)}</td>
-                            <td>
-                                {libraryGames?.some((ownedGame) => ownedGame.id === game.id) ? (
-                                    <span>Purchased</span>
+                            <td className={style.titleAndCategories}>
+                                <div className={style.title}>{game.title}</div>
+                                <div className={style.categories}>{game.categories.join(', ')}</div>
+                            </td>
+                            <td className={style.discountColumn}>
+                                {game.discount && game.discount > 0 ? (
+                                    <span className={style.discount}>{`-${game.discount}%`}</span>
                                 ) : (
-                                    <a href="#" onClick={() => handlePurchase(game)}>PURCHASE</a>
+                                    ''
+                                )}
+                            </td>
+                            <td className={style.price}>€{game.price.toFixed(2)}</td>
+                            <td className={style.purchaseColumn}>
+                                {libraryGames?.some((ownedGame) => ownedGame.id === game.id) ? (
+                                    <span className={style.purchasedButton}>Purchased</span>
+                                ) : (
+                                    <a href="#" onClick={() => handlePurchase(game)}
+                                       className={style.purchaseButton}> Purchase </a>
                                 )}
                             </td>
                         </tr>

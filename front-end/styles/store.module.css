@@ -1,0 +1,103 @@
+.table {
+    width: 70%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.table td {
+    background-color: #0f1517;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+
+.table tbody tr:hover td {
+    background-color: #1b1e28;
+    .categories {
+        background-color: #1b1e28;
+    }
+    .title {
+        background-color: #1b1e28;
+    }
+}
+
+.image {
+    width: 10%;
+    padding: 0.5%;
+}
+
+.titleAndCategories {
+    width: 40%;
+    padding: 0.5%;
+}
+
+.title {
+    text-align: left;
+    font-weight: bold;
+    font-size: 2rem;
+    background-color: #0f1517;
+}
+
+.categories {
+    text-align: left;
+    color: gray;
+    font-size: 1rem;
+    background-color: #0f1517;
+}
+
+.discountColumn {
+    width: 10%;
+}
+
+.discount {
+    color: white;
+    background-color: yellowgreen;
+    border: 2px solid black;
+    padding: 5% 7%;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    float: right;
+}
+
+.price {
+    padding-right: 2%;
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-align: right;
+    width: 7%;
+}
+
+.purchaseColumn {
+    width: 6%;
+}
+
+.purchaseButton {
+    color: black;
+    background-color: #19a9e4;
+    border: 2px solid black;
+    padding: 10% 15%;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+}
+
+.purchaseButton:hover {
+    background-color: white;
+    color: black;
+}
+
+.purchasedButton {
+    color: black;
+    background-color: rgba(128, 128, 128, 0.45);
+    border: 2px solid black;
+    padding: 10% 11%;
+    font-size: 1rem;
+    cursor: default;
+    transition: background-color 0.3s, color 0.3s;
+    width: 2%;
+}
+
