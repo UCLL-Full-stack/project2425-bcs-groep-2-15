@@ -12,7 +12,7 @@ const getPurchaseById = (id: number): Promise<Purchase | null> => {
     return purchaseDb.getPurchaseById(id)!;
 };
 
-const newPurchase = async (userId: number, gameId: number): Promise<void> => {
+const newPurchase = async (userId: number, gameId: number) => {
     const user = await userDb.getUserById(userId);
     if (!user) {
         throw new Error(`User with id ${userId} not found`);

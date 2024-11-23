@@ -13,7 +13,7 @@ const getUserById = (id: number): Promise<User | null> => {
     return userDb.getUserById(id)!;
 };
 
-const newUser = async (username: string, password: string, library: Library, profile: Profile, balance: number): Promise<void> => {
+const newUser = async (username: string, password: string, library: Library, profile: Profile, balance: number) => {
     const id = (await userDb.getAllUsers()).length + 1;
     const purchases: Purchase[] = [];
     const user = new User({ id, username, password, library, profile, purchases, balance });

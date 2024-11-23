@@ -23,7 +23,7 @@ const getPurchaseById = async (id: number): Promise<Purchase | null> => {
     return purchaseData ? mapPurchase(purchaseData) : null;
 };
 
-const newPurchase = async (user: User, game: Game): Promise<void> => {
+const newPurchase = async (user: User, game: Game) => {
     user.setBalance(user.getBalance() - game.getPrice());
     await prisma.user.update({
         where: { id: user.id },

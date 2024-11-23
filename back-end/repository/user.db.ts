@@ -37,7 +37,7 @@ const getUserById = async (id: number): Promise<User | null> => {
     return userData ? mapUser(userData) : null;
 };
 
-const newUser = async (user: User): Promise<void> => {
+const newUser = async (user: User) => {
     const { username, password, balance, library, profile, purchases } = user;
 
     await database.user.create({
@@ -75,10 +75,12 @@ const getBalance = (user: User): number => user.getBalance();
 
 const addBalance = async (user: User, amount: number): Promise<number> => {
     user.setBalance(user.getBalance() + amount);
+
     await prisma.user.update({
         where: { id: user.id },
         data: { balance: user.balance }
     });
+
     return user.getBalance();
 };
 
