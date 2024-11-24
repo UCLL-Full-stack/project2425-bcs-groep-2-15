@@ -256,7 +256,7 @@ userRouter.get('/:id/balance', async (req: Request, res: Response, next: NextFun
  *       404:
  *         description: User not found.
  */
-userRouter.patch('/:id/balance', async (req: Request, res: Response, next: NextFunction) => {
+userRouter.post('/:id/balance', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
         const { amount } = req.body;
@@ -269,13 +269,13 @@ userRouter.patch('/:id/balance', async (req: Request, res: Response, next: NextF
             return res.status(400).json({ error: 'Invalid `amount` parameter' });
         }
 
-        const user = userService.getUserById(Number(id));
+        const user = await userService.getUserById(Number(id));
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        const newBalance = userService.addUserBalance(Number(id), Number(amount));
-        res.status(200).json({ balance: newBalance });
+        const newBalance = await userService.addUserBalance(Number(id), Number(amount));
+        res.status(201).json({ balance: newBalance });
     } catch (error) {
         next(error);
     }

@@ -1,6 +1,5 @@
-import { User } from '../model/user';
-// import { Game } from './Game';
-import { Game } from '../model/game';
+import { User } from './user';
+import { Game } from './game';
 
 export class Purchase {
     id: number;
