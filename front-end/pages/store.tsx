@@ -21,7 +21,7 @@ const Store: React.FC<StoreProps> = ({ balance }) => {
         const response = await GameService.getAllGames();
         const games = await response.json();
         setGames(games);
-    }
+    };
 
     useEffect(() => {
         getGames();
@@ -49,13 +49,13 @@ const Store: React.FC<StoreProps> = ({ balance }) => {
                 <StoreTable games={games} updateBalance={updateBalance} />
             </main>
         </>
-    )
+    );
 };
 
 export async function getServerSideProps() {
     const balance = await getBalance();
     return {
-        props: { balance },
+        props: { balance }
     };
 }
 

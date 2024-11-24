@@ -4,13 +4,13 @@ const getAllLibraryGames = async (userId: number) => {
     return fetch(`${BASE_URL}/libraries/${userId}/games`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+            'Content-Type': 'application/json'
+        }
+    });
 };
 
 const LibraryService = {
-    getAllLibraryGames,
+    getAllLibraryGames
 };
 
 export default LibraryService;

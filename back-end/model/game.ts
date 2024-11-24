@@ -6,7 +6,7 @@ export class Game {
     image: string;
     categories: Genre[];
     price: number;
-    discount?: number;
+    discount?: number | null;
 
     constructor(game: {
         id: number;
@@ -14,7 +14,7 @@ export class Game {
         image: string;
         categories: Genre[];
         price: number;
-        discount?: number;
+        discount?: number | null;
     }) {
         this.validate(game);
 
@@ -47,7 +47,7 @@ export class Game {
     }
 
     getDiscount(): number | undefined {
-        if (this.discount) {
+        if (this.discount !== undefined && this.discount !== null) {
             return this.discount;
         }
     }
@@ -57,7 +57,7 @@ export class Game {
         image: string;
         categories: Genre[];
         price: number;
-        discount?: number;
+        discount?: number | null;
     }) {
         if (!game.title?.trim()) {
             throw new Error('Title is required');
@@ -65,7 +65,7 @@ export class Game {
         if (!game.image?.trim()) {
             throw new Error('Image is required');
         }
-        if (game.categories.length < 0) {
+        if (game.categories.length === 0) {
             throw new Error('At least one category is required');
         }
         if (!game.price) {
