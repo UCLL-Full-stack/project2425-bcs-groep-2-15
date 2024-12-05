@@ -1,0 +1,60 @@
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    height: 100%;
+    font-family: "Source Code Pro", sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.balanceSection {
+    background-color: #1e1e1e;
+    border: 2px solid #444;
+    border-radius: 10px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 650px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.balanceHeader {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.profileTable {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.buttonRow {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+}
+
+.actionButton {
+    background-color: #444;
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.actionButton:hover {
+    background-color: #1e1e1e;
+}
+
+.actionButton:active {
+    background-color: #1e1e1e;
+}

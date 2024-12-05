@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
 import React, { useEffect, useState } from 'react';
+import LibraryService from '@services/LibraryService';
 import UserService from '@services/UserService';
 import userService from '@services/UserService';
 
@@ -17,10 +18,8 @@ const Balance: React.FC = () => {
     };
 
     useEffect(() => {
-            getBalance();
-        },
-        []
-    );
+        getBalance();
+    }, []);
 
     const handleAddBalance = async (amount: number) => {
         await userService.addUserBalance(userId, amount);
@@ -34,37 +33,43 @@ const Balance: React.FC = () => {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
             <Header balance={balance!} />
-            <main className={styles.main}>
-                <span>
-                    <h1>Balance</h1>
-                </span>
+            <main className={styles.container}>
+                <div className={styles.balanceSection}>
+                    <div className={styles.balanceHeader}>
+                        <h1>Balance</h1>
+                        <h2>Your current balance is:</h2>
+                        <h3>€{balance?.toFixed(2)}</h3>
+                    </div>
 
-                <div>
-                    <h2>Your current balance is:</h2>
-                    <h3>€{balance}</h3>
-                </div>
-
-                <div style={{ marginTop: '3%' }}>
-                    <h2>Add funds:</h2>
-                    <a href="#" onClick={() => handleAddBalance(5)}>€5</a>
-                    <a href="#" onClick={() => handleAddBalance(10)}>€10</a>
-                    <a href="#" onClick={() => handleAddBalance(20)}>€20</a>
-                    <a href="#" onClick={() => handleAddBalance(50)}>€50</a>
-                    <a href="#" onClick={() => handleAddBalance(100)}>€100</a>
+                    <div className={styles.profileTable}>
+                        <h2>Add funds:</h2>
+                        <div className={styles.buttonRow}>
+                            {[5, 10, 20, 50, 100].map((amount) => (
+                                <button
+                                    key={amount}
+                                    className={styles.actionButton}
+                                    onClick={() => handleAddBalance(amount)}
+                                >
+                                    €{amount}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </main>
         </>
-    );
+    )
 };
 
 export const getBalance = async (): Promise<number> => {
-    let balance = 0.00;
+    let balance = 0.0;
 
     try {
-        const response = await UserService.getUserBalance(userId);
-        balance = await response.json();
+        const response = await UserService.getUserById(userId);
+        const userData = await response.json();
+        balance = parseFloat(userData.balance);
     } catch (error) {
-        console.error('Error fetching user balance:', error);
+        console.error("Error fetching user balance:", error);
     }
 
     // @ts-ignore

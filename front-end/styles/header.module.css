@@ -1,5 +1,5 @@
 .header {
-    background-color: black;
+    background-color: #0f1517;
     padding: 10px 20px;
     display: flex;
     align-items: center;
@@ -10,6 +10,7 @@
     flex: 1;
     display: flex;
     justify-content: center;
+    background-color: #0f1517;
 }
 
 .logo {
@@ -27,6 +28,7 @@
 
 .nav {
     display: flex;
+    width: 100%;
 }
 
 .nav .link {
@@ -40,6 +42,8 @@
     padding: 2vw 2.5vw;
     font-size: 3vw;
     margin: 0 15px;
+    width: 100%;
+    /* background-color: black; */
 }
 
 .nav .link:hover {
@@ -50,6 +54,7 @@
 .balance {
     color: white;
     text-decoration: none;
+    background-color: black;
 }
 
 @media (min-width: 720px) {
