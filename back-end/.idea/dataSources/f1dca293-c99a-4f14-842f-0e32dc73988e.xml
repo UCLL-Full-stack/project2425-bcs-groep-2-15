@@ -3,9 +3,17 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>953</IntrospectionStateNumber>
+      <Grants>1||-9223372036854775808|c|G
+1||10|c|G
+1||10|C|G
+1||10|T|G
+4||-9223372036854775808|c|G
+4||10|c|G
+4||10|C|G
+4||10|T|G</Grants>
+      <IntrospectionStateNumber>4502</IntrospectionStateNumber>
       <ServerVersion>17.0</ServerVersion>
-      <StartupTime>1732346267</StartupTime>
+      <StartupTime>1733383393</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -800,7 +808,7 @@ false Zulu
 14650||10|C|G
 14650||-9223372036854775808|U|G
 14650||10|U|G</Grants>
-      <IntrospectionStateNumber>953</IntrospectionStateNumber>
+      <IntrospectionStateNumber>4502</IntrospectionStateNumber>
       <ObjectId>16843</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4721,492 +4729,547 @@ false Zulu
       <OwnerName>postgres</OwnerName>
     </schema>
     <schema id="265" parent="2" name="public">
-      <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>953</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-11-23.08:45:45</LastIntrospectionLocalTimestamp>
-      <ObjectId>2200</ObjectId>
-      <StateNumber>532</StateNumber>
-      <OwnerName>pg_database_owner</OwnerName>
+      <IntrospectionStateNumber>4502</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-12-05.10:46:58</LastIntrospectionLocalTimestamp>
+      <ObjectId>24147</ObjectId>
+      <StateNumber>4465</StateNumber>
+      <OwnerName>postgres</OwnerName>
     </schema>
     <object-type id="266" parent="265" name="Genre">
       <Labels>Action
 Adventure
 Fighting
 FPS
-RPG
-a</Labels>
-      <ObjectId>16858</ObjectId>
-      <StateNumber>889</StateNumber>
+RPG</Labels>
+      <ObjectId>24158</ObjectId>
+      <StateNumber>4468</StateNumber>
       <SubCategory>enum</SubCategory>
       <SubKind>enum</SubKind>
       <OwnerName>postgres</OwnerName>
     </object-type>
     <sequence id="267" parent="265" name="Game_id_seq">
-      <ObjectId>16901</ObjectId>
+      <ObjectId>24194</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
     <sequence id="268" parent="265" name="Library_id_seq">
-      <ObjectId>16878</ObjectId>
+      <ObjectId>24203</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
     <sequence id="269" parent="265" name="Profile_id_seq">
-      <ObjectId>16885</ObjectId>
+      <ObjectId>24178</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
     <sequence id="270" parent="265" name="Purchase_id_seq">
-      <ObjectId>16894</ObjectId>
+      <ObjectId>24187</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
     <sequence id="271" parent="265" name="User_id_seq">
-      <ObjectId>16869</ObjectId>
+      <ObjectId>24169</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <OwnerName>postgres</OwnerName>
     </sequence>
     <table id="272" parent="265" name="Game">
-      <ObjectId>16902</ObjectId>
-      <StateNumber>889</StateNumber>
+      <ObjectId>24195</ObjectId>
+      <StateNumber>4468</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="273" parent="265" name="Library">
-      <ObjectId>16879</ObjectId>
-      <StateNumber>889</StateNumber>
+    <table id="273" parent="265" name="GamesInLibraries">
+      <ObjectId>24210</ObjectId>
+      <StateNumber>4468</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="274" parent="265" name="Profile">
-      <ObjectId>16886</ObjectId>
-      <StateNumber>889</StateNumber>
+    <table id="274" parent="265" name="Library">
+      <ObjectId>24204</ObjectId>
+      <StateNumber>4468</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="275" parent="265" name="Purchase">
-      <ObjectId>16895</ObjectId>
-      <StateNumber>889</StateNumber>
+    <table id="275" parent="265" name="Profile">
+      <ObjectId>24179</ObjectId>
+      <StateNumber>4468</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="276" parent="265" name="User">
-      <ObjectId>16870</ObjectId>
-      <StateNumber>889</StateNumber>
+    <table id="276" parent="265" name="Purchase">
+      <ObjectId>24188</ObjectId>
+      <StateNumber>4468</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="277" parent="265" name="_prisma_migrations">
-      <ObjectId>16846</ObjectId>
-      <StateNumber>883</StateNumber>
+    <table id="277" parent="265" name="User">
+      <ObjectId>24170</ObjectId>
+      <StateNumber>4468</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <column id="278" parent="272" name="id">
+    <table id="278" parent="265" name="_prisma_migrations">
+      <ObjectId>24148</ObjectId>
+      <StateNumber>4466</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <column id="279" parent="272" name="id">
       <DefaultExpression>nextval(&apos;&quot;Game_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16901</SequenceId>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="279" parent="272" name="libraryId">
-      <Position>2</Position>
-      <StateNumber>889</StateNumber>
-      <StoredType>integer|0s</StoredType>
+      <SequenceId>24194</SequenceId>
       <TypeId>23</TypeId>
     </column>
     <column id="280" parent="272" name="title">
       <NotNull>1</NotNull>
-      <Position>3</Position>
-      <StateNumber>889</StateNumber>
+      <Position>2</Position>
+      <StateNumber>4468</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="281" parent="272" name="image">
       <NotNull>1</NotNull>
-      <Position>4</Position>
-      <StateNumber>889</StateNumber>
+      <Position>3</Position>
+      <StateNumber>4468</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="282" parent="272" name="categories">
-      <Position>5</Position>
-      <StateNumber>889</StateNumber>
+      <Position>4</Position>
+      <StateNumber>4468</StateNumber>
       <StoredType>&quot;Genre&quot;[]|0s</StoredType>
-      <TypeId>16857</TypeId>
+      <TypeId>24157</TypeId>
     </column>
     <column id="283" parent="272" name="price">
       <NotNull>1</NotNull>
-      <Position>6</Position>
-      <StateNumber>889</StateNumber>
+      <Position>5</Position>
+      <StateNumber>4468</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
     <column id="284" parent="272" name="discount">
-      <Position>7</Position>
-      <StateNumber>889</StateNumber>
+      <Position>6</Position>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="285" parent="272" name="Game_libraryId_fkey">
-      <ColNames>libraryId</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16931</ObjectId>
-      <OnDelete>set-null</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <StateNumber>889</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>16879</RefTableId>
-    </foreign-key>
-    <index id="286" parent="272" name="Game_pkey">
+    <index id="285" parent="272" name="Game_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16908</ObjectId>
+      <ObjectId>24201</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="287" parent="272" name="Game_pkey">
+    <key id="286" parent="272" name="Game_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16909</ObjectId>
+      <ObjectId>24202</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
-      <UnderlyingIndexId>16908</UnderlyingIndexId>
+      <StateNumber>4468</StateNumber>
+      <UnderlyingIndexId>24201</UnderlyingIndexId>
     </key>
-    <column id="288" parent="273" name="id">
+    <column id="287" parent="273" name="gameId">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>4468</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="288" parent="273" name="libraryId">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>4468</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <foreign-key id="289" parent="273" name="GamesInLibraries_gameId_fkey">
+      <ColNames>gameId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>24238</ObjectId>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>4468</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>24195</RefTableId>
+    </foreign-key>
+    <foreign-key id="290" parent="273" name="GamesInLibraries_libraryId_fkey">
+      <ColNames>libraryId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>24243</ObjectId>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>4468</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>24204</RefTableId>
+    </foreign-key>
+    <index id="291" parent="273" name="GamesInLibraries_pkey">
+      <ColNames>gameId
+libraryId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>24213</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>4468</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="292" parent="273" name="GamesInLibraries_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>24214</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>4468</StateNumber>
+      <UnderlyingIndexId>24213</UnderlyingIndexId>
+    </key>
+    <column id="293" parent="274" name="id">
       <DefaultExpression>nextval(&apos;&quot;Library_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16878</SequenceId>
+      <SequenceId>24203</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="289" parent="273" name="achievements">
+    <column id="294" parent="274" name="achievements">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="290" parent="273" name="timePlayed">
+    <column id="295" parent="274" name="timePlayed">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="291" parent="273" name="Library_pkey">
+    <index id="296" parent="274" name="Library_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16883</ObjectId>
+      <ObjectId>24208</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="292" parent="273" name="Library_pkey">
+    <key id="297" parent="274" name="Library_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16884</ObjectId>
+      <ObjectId>24209</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
-      <UnderlyingIndexId>16883</UnderlyingIndexId>
+      <StateNumber>4468</StateNumber>
+      <UnderlyingIndexId>24208</UnderlyingIndexId>
     </key>
-    <column id="293" parent="274" name="id">
+    <column id="298" parent="275" name="id">
       <DefaultExpression>nextval(&apos;&quot;Profile_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16885</SequenceId>
+      <SequenceId>24178</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="294" parent="274" name="description">
+    <column id="299" parent="275" name="description">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="295" parent="274" name="profilePic">
+    <column id="300" parent="275" name="profilePic">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <index id="296" parent="274" name="Profile_pkey">
+    <index id="301" parent="275" name="Profile_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16892</ObjectId>
+      <ObjectId>24185</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="297" parent="274" name="Profile_pkey">
+    <key id="302" parent="275" name="Profile_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16893</ObjectId>
+      <ObjectId>24186</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
-      <UnderlyingIndexId>16892</UnderlyingIndexId>
+      <StateNumber>4468</StateNumber>
+      <UnderlyingIndexId>24185</UnderlyingIndexId>
     </key>
-    <column id="298" parent="275" name="id">
+    <column id="303" parent="276" name="id">
       <DefaultExpression>nextval(&apos;&quot;Purchase_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16894</SequenceId>
+      <SequenceId>24187</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="299" parent="275" name="date">
+    <column id="304" parent="276" name="date">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>timestamp(3)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="300" parent="275" name="cost">
+    <column id="305" parent="276" name="cost">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
-    <column id="301" parent="275" name="userId">
+    <column id="306" parent="276" name="userId">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="302" parent="275" name="gameId">
+    <column id="307" parent="276" name="gameId">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="303" parent="275" name="Purchase_userId_fkey">
+    <foreign-key id="308" parent="276" name="Purchase_userId_fkey">
       <ColNames>userId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16921</ObjectId>
+      <ObjectId>24228</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>16870</RefTableId>
+      <RefTableId>24170</RefTableId>
     </foreign-key>
-    <foreign-key id="304" parent="275" name="Purchase_gameId_fkey">
+    <foreign-key id="309" parent="276" name="Purchase_gameId_fkey">
       <ColNames>gameId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16926</ObjectId>
+      <ObjectId>24233</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>16902</RefTableId>
+      <RefTableId>24195</RefTableId>
     </foreign-key>
-    <index id="305" parent="275" name="Purchase_pkey">
+    <index id="310" parent="276" name="Purchase_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16899</ObjectId>
+      <ObjectId>24192</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="306" parent="275" name="Purchase_pkey">
+    <key id="311" parent="276" name="Purchase_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16900</ObjectId>
+      <ObjectId>24193</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
-      <UnderlyingIndexId>16899</UnderlyingIndexId>
+      <StateNumber>4468</StateNumber>
+      <UnderlyingIndexId>24192</UnderlyingIndexId>
     </key>
-    <column id="307" parent="276" name="id">
+    <column id="312" parent="277" name="id">
       <DefaultExpression>nextval(&apos;&quot;User_id_seq&quot;&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
-      <SequenceId>16869</SequenceId>
+      <SequenceId>24169</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="308" parent="276" name="username">
+    <column id="313" parent="277" name="username">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="309" parent="276" name="password">
+    <column id="314" parent="277" name="password">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="310" parent="276" name="balance">
+    <column id="315" parent="277" name="balance">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
-    <column id="311" parent="276" name="libraryId">
+    <column id="316" parent="277" name="libraryId">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="312" parent="276" name="profileId">
+    <column id="317" parent="277" name="profileId">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="313" parent="276" name="User_libraryId_fkey">
+    <foreign-key id="318" parent="277" name="User_libraryId_fkey">
       <ColNames>libraryId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16911</ObjectId>
+      <ObjectId>24218</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>16879</RefTableId>
+      <RefTableId>24204</RefTableId>
     </foreign-key>
-    <foreign-key id="314" parent="276" name="User_profileId_fkey">
+    <foreign-key id="319" parent="277" name="User_profileId_fkey">
       <ColNames>profileId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16916</ObjectId>
+      <ObjectId>24223</ObjectId>
       <OnDelete>restrict</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>16886</RefTableId>
+      <RefTableId>24179</RefTableId>
     </foreign-key>
-    <index id="315" parent="276" name="User_pkey">
+    <index id="320" parent="277" name="User_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16876</ObjectId>
+      <ObjectId>24176</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
+      <StateNumber>4468</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="316" parent="276" name="User_username_key">
+    <index id="321" parent="277" name="User_username_key">
       <ColNames>username</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16910</ObjectId>
-      <StateNumber>889</StateNumber>
+      <ObjectId>24215</ObjectId>
+      <StateNumber>4468</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="317" parent="276" name="User_pkey">
+    <index id="322" parent="277" name="User_libraryId_key">
+      <ColNames>libraryId</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16877</ObjectId>
+      <ObjectId>24216</ObjectId>
+      <StateNumber>4468</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="323" parent="277" name="User_profileId_key">
+      <ColNames>profileId</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>24217</ObjectId>
+      <StateNumber>4468</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="324" parent="277" name="User_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>24177</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>889</StateNumber>
-      <UnderlyingIndexId>16876</UnderlyingIndexId>
+      <StateNumber>4468</StateNumber>
+      <UnderlyingIndexId>24176</UnderlyingIndexId>
     </key>
-    <column id="318" parent="277" name="id">
+    <column id="325" parent="278" name="id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>4466</StateNumber>
       <StoredType>varchar(36)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="319" parent="277" name="checksum">
+    <column id="326" parent="278" name="checksum">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>4466</StateNumber>
       <StoredType>varchar(64)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="320" parent="277" name="finished_at">
+    <column id="327" parent="278" name="finished_at">
       <Position>3</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>4466</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="321" parent="277" name="migration_name">
+    <column id="328" parent="278" name="migration_name">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>4466</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="322" parent="277" name="logs">
+    <column id="329" parent="278" name="logs">
       <Position>5</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>4466</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="323" parent="277" name="rolled_back_at">
+    <column id="330" parent="278" name="rolled_back_at">
       <Position>6</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>4466</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="324" parent="277" name="started_at">
+    <column id="331" parent="278" name="started_at">
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>4466</StateNumber>
       <StoredType>timestamp with time zone|0s</StoredType>
       <TypeId>1184</TypeId>
     </column>
-    <column id="325" parent="277" name="applied_steps_count">
+    <column id="332" parent="278" name="applied_steps_count">
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
-      <StateNumber>883</StateNumber>
+      <StateNumber>4466</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="326" parent="277" name="_prisma_migrations_pkey">
+    <index id="333" parent="278" name="_prisma_migrations_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16853</ObjectId>
+      <ObjectId>24155</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>883</StateNumber>
+      <StateNumber>4466</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="327" parent="277" name="_prisma_migrations_pkey">
+    <key id="334" parent="278" name="_prisma_migrations_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>16854</ObjectId>
+      <ObjectId>24156</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>883</StateNumber>
-      <UnderlyingIndexId>16853</UnderlyingIndexId>
+      <StateNumber>4466</StateNumber>
+      <UnderlyingIndexId>24155</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>

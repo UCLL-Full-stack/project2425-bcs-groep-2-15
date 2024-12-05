@@ -17,11 +17,11 @@ const Home: React.FC<HomeProps> = ({ balance }) => {
             <Header balance={balance} />
             <main className={styles.main}>
                 <span>
-                    <h1>Setback</h1>
+                    <h1 className={styles.title}>Setback</h1>
                 </span>
 
                 <div className={styles.description}>
-                    <p>Welcome to the Setback platform.</p>
+                    <h2>Welcome to the Setback platform.</h2>
                 </div>
             </main>
         </>

@@ -14,6 +14,9 @@ const userId = 1;
 
 const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
     const [libraryGames, setLibraryGames] = useState<Game[]>([]);
+    const [filter, setFilter] = useState<'all' | 'discounts' | 'category'>('all');
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [categories, setCategories] = useState<string[]>([]);
 
     const fetchLibraryGames = async () => {
         try {
@@ -28,6 +31,11 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
         fetchLibraryGames();
     }, []);
 
+    useEffect(() => {
+        const allCategories = Array.from(new Set(games.flatMap(game => game.categories)));
+        setCategories(allCategories);
+    }, [games]);
+
     const handlePurchase = async (game: Game) => {
         const confirmPurchase = window.confirm('Are you sure you want to purchase this game?');
         if (confirmPurchase) {
@@ -41,9 +49,45 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
         }
     };
 
+    const filterGames = () => {
+        let filteredGames = [...games];
+
+        if (filter === 'discounts') {
+            filteredGames = filteredGames.filter(game => game.discount && game.discount > 0);
+        }
+
+        if (filter === 'category' && selectedCategory) {
+            filteredGames = filteredGames.filter(game =>
+                game.categories.includes(selectedCategory)
+            );
+        }
+
+        return filteredGames;
+    };
+
     return (
         <>
-            {games.length > 0 && (
+            <div className={style.filterButtons}>
+                <button onClick={() => setFilter('all')} className={style.filterButton}>All</button>
+                <button onClick={() => setFilter('discounts')} className={style.filterButton}>Discounts</button>
+                <button onClick={() => setFilter('category')} className={style.filterButton}>By category</button>
+            </div>
+
+            {filter === 'category' && (
+                <div className={style.categorySelect}>
+                    <select
+                        value={selectedCategory || ''}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                        <option value="">Select a category</option>
+                        {categories.map((category, index) => (
+                            <option key={index} value={category}>{category}</option>
+                        ))}
+                    </select>
+                </div>
+            )}
+
+            {filterGames().length > 0 && (
                 <table className={style.table}>
                     <thead>
                     <tr>
@@ -55,7 +99,7 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {games.map((game, index) => (
+                    {filterGames().map((game, index) => (
                         <tr key={index}>
                             <td className={style.image}>
                                 <img
@@ -79,8 +123,7 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
                                 {libraryGames?.some((ownedGame) => ownedGame.id === game.id) ? (
                                     <span className={style.purchasedButton}>Purchased</span>
                                 ) : (
-                                    <a href="#" onClick={() => handlePurchase(game)}
-                                       className={style.purchaseButton}> Purchase </a>
+                                    <a href="#" onClick={() => handlePurchase(game)} className={style.purchaseButton}> Purchase </a>
                                 )}
                             </td>
                         </tr>

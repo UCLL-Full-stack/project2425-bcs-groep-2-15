@@ -7,10 +7,14 @@
     font-family: "Source Code Pro", sans-serif;
 }
 
-  
-
 .main h1 {
 }
 
 .main h2 {
+}
+
+.title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 3rem;
 }

@@ -41,11 +41,8 @@ const Store: React.FC<StoreProps> = ({ balance }) => {
             <Header balance={balancer} />
             <main className={styles.main}>
                 <span>
-                    <h1>Setback Store</h1>
+                    <h1 className={styles.title}>Setback Store</h1>
                 </span>
-                <div className={styles.description}>
-                    <p>Check out our catalog.</p>
-                </div>
                 <StoreTable games={games} updateBalance={updateBalance} />
             </main>
         </>

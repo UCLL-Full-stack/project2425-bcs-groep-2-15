@@ -1,8 +1,7 @@
 import Head from 'next/head';
 import Header from '@components/header';
-import styles from '@styles/home.module.css';
+import styles from '@styles/balance.module.css';
 import React, { useEffect, useState } from 'react';
-import LibraryService from '@services/LibraryService';
 import UserService from '@services/UserService';
 import userService from '@services/UserService';
 
@@ -38,7 +37,7 @@ const Balance: React.FC = () => {
                     <div className={styles.balanceHeader}>
                         <h1>Balance</h1>
                         <h2>Your current balance is:</h2>
-                        <h3>€{balance?.toFixed(2)}</h3>
+                        <h3>€{balance}</h3>
                     </div>
 
                     <div className={styles.profileTable}>

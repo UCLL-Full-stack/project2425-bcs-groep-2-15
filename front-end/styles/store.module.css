@@ -103,3 +103,47 @@
     width: 2%;
 }
 
+.filterButtons {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.filterButton {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #19a9e4;
+    color: white;
+    border: 2px solid black;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.filterButton:hover {
+    background-color: white;
+    color: #19a9e4;
+}
+
+.categorySelect select {
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    background-color: #0f1517;
+    color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 10px;
+    outline: none;
+}
+
+.selectedCategory {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #19a9e4;
+    font-weight: bold;
+}
