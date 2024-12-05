@@ -32,7 +32,7 @@ export async function getServerSideProps() {
     const balance = await getBalance();
 
     return {
-        props: { balance },
+        props: { balance }
     };
 }
 

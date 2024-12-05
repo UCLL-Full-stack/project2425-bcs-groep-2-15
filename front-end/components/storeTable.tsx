@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Game } from '@types';
 import LibraryService from '@services/LibraryService';
 import PurchaseService from '@services/PurchaseService';
-import style from "../styles/store.module.css"
+import style from '../styles/store.module.css';
 import { getBalance } from '../pages/balance';
 
 interface StoreTableProps {
@@ -20,7 +20,7 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
             const response = await LibraryService.getAllLibraryGames(userId);
             setLibraryGames(await response.json());
         } catch (error) {
-            console.error("Error fetching library games:", error);
+            console.error('Error fetching library games:', error);
         }
     };
 
@@ -29,12 +29,11 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
     }, []);
 
     const handlePurchase = async (game: Game) => {
-        const confirmPurchase = window.confirm("Are you sure you want to purchase this game?");
+        const confirmPurchase = window.confirm('Are you sure you want to purchase this game?');
         if (confirmPurchase) {
             if (await getBalance() < game.price) {
-                window.alert("You do not have enough money in your balance.")
-            }
-            else {
+                window.alert('You do not have enough money in your balance.');
+            } else {
                 await PurchaseService.newPurchase(userId, game.id);
                 await fetchLibraryGames();
                 updateBalance();

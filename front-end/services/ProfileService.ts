@@ -4,23 +4,23 @@ const getAllProfiles = async () => {
     return fetch(`${BASE_URL}/profiles/`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+            'Content-Type': 'application/json'
+        }
+    });
 };
 
 const getProfileById = async (userId: number) => {
     return fetch(`${BASE_URL}/profiles/${userId}/`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+            'Content-Type': 'application/json'
+        }
+    });
 };
 
 const LibraryService = {
     getAllProfiles,
-    getProfileById,
+    getProfileById
 };
 
 export default LibraryService;

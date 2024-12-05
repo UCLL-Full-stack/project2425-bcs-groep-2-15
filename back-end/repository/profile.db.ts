@@ -1,17 +1,19 @@
 import { Profile } from '../model/profile';
+import database from './database';
 
-const profiles = [
-    new Profile({
-        id: 1,
-        description: "This is my profile.",
-        profilePic: "/images/profile/2.png"
-    })
-];
+const getAllProfiles = async (): Promise<Profile[]> => {
+    const result = await database.profile.findMany();
+    return result.map(profileData => new Profile(profileData));
+};
 
-const getAllProfiles = (): Profile[] => profiles;
-
-const getProfileById = (id: number ): Profile | null => {
-    return profiles.find((profile) => profile.getId() === id) || null;
+const getProfileById = async (id: number): Promise<Profile | null> => {
+    const profileData = await database.profile.findUnique({
+        where: { id }
+    });
+    if (!profileData) {
+        return null;
+    }
+    return new Profile(profileData);
 };
 
 // const newProfile = (user: User, game: Game): Purchase => {
@@ -21,5 +23,5 @@ const getProfileById = (id: number ): Profile | null => {
 
 export default {
     getAllProfiles,
-    getProfileById,
+    getProfileById
 };

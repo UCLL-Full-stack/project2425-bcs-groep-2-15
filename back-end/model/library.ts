@@ -1,12 +1,11 @@
-// import { Game } from './Game';
-import { Game } from '../model/game';
+import { Game } from './game';
 
 
 export class Library {
-    private id: number;
-    private games: Game[];
-    private achievements: number;
-    private timePlayed: number;
+    id: number;
+    games: Game[];
+    achievements: number;
+    timePlayed: number;
 
     constructor(library: {
         id: number;
