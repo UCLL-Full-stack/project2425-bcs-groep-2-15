@@ -13,19 +13,18 @@ const LibraryTable: React.FC<Props> = ({ games }: Props) => {
             style={{
                 display: 'flex',
                 fontFamily: 'Arial, sans-serif',
-                height: '500px', // Adjusted height for a compact layout
-                width: '900px', // Overall width of the container
-                margin: '20px auto', // Center the layout on the page
+                height: '500px', 
+                width: '900px', 
+                margin: '20px auto', 
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                 borderRadius: '8px',
                 overflow: 'hidden',
-                border: '1px solid #ddd',
+                border: '2px solid #333',
             }}
         >
-            {/* Sidebar */}
             <div
                 style={{
-                    width: '25%', // Sidebar takes 25% of the total width
+                    width: '25%', 
                     backgroundColor: '#212529',
                     color: '#fff',
                     display: 'flex',
@@ -54,7 +53,6 @@ const LibraryTable: React.FC<Props> = ({ games }: Props) => {
                 ))}
             </div>
 
-            {/* Main Content */}
             <div
                 style={{
                     flex: 1,
