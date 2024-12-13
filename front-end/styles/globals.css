@@ -65,7 +65,7 @@ h1{
 }
 
 p{
-    color:white;;
+    color:white;
 }
 
 .table-hover tbody tr:hover {
@@ -81,4 +81,8 @@ p{
 
 main{
     background-color: #121212;
+}
+
+strong {
+    color:white;
 }

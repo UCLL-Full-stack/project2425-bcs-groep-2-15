@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Game } from '@types';
 
 type Props = {
@@ -6,35 +6,97 @@ type Props = {
 };
 
 const LibraryTable: React.FC<Props> = ({ games }: Props) => {
+    const [selectedGame, setSelectedGame] = useState<Game | null>(null);
+
     return (
-        <>
-            {games && (
-                <table className="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Categories</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {games.map((game, index) => (
-                        <tr key={index}>
-                            <td>
-                                <img
-                                    src={game.image}
-                                    alt={game.title}
-                                    style={{ width: '150px', height: 'auto' }}
-                                />
-                            </td>
-                            <td>{game.title}</td>
-                            <td>{game.categories.join(', ')}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            )}
-        </>
+        <div
+            style={{
+                display: 'flex',
+                fontFamily: 'Arial, sans-serif',
+                height: '500px', // Adjusted height for a compact layout
+                width: '900px', // Overall width of the container
+                margin: '20px auto', // Center the layout on the page
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                border: '1px solid #ddd',
+            }}
+        >
+            {/* Sidebar */}
+            <div
+                style={{
+                    width: '25%', // Sidebar takes 25% of the total width
+                    backgroundColor: '#212529',
+                    color: '#fff',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                }}
+            >
+                {games.map((game, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setSelectedGame(game)}
+                        style={{
+                            padding: '12px',
+                            textAlign: 'left',
+                            backgroundColor: selectedGame?.title === game.title ? '#2a2a2a' : '#212529',
+                            border: 'none',
+                            color: '#fff',
+                            cursor: 'pointer',
+                            outline: 'none',
+                            borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+                            fontSize: '14px',
+                        }}
+                    >
+                        {game.title}
+                    </button>
+                ))}
+            </div>
+
+            {/* Main Content */}
+            <div
+                style={{
+                    flex: 1,
+                    padding: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: selectedGame ? 'flex-start' : 'center',
+                    backgroundColor: '#2a2a2a',
+                }}
+            >
+                {selectedGame ? (
+                    <div
+                        style={{
+                            width: '100%',
+                            textAlign: 'center',
+                        }}
+                    >
+                        <img
+                            src={selectedGame.image}
+                            alt={selectedGame.title}
+                            style={{
+                                width: '30rem',
+                                height: 'auto',
+                                marginBottom: '15px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                            }}
+                        />
+                        <h2 style={{ fontSize: '20px', marginBottom: '10px' }}>{selectedGame.title}</h2>
+                        <p style={{ fontSize: '16px', margin: '5px 0', color: '#333' }}>
+                            <strong>Time played:</strong> {selectedGame.playTime}h
+                        </p>
+                        <p style={{ fontSize: '16px', margin: '5px 0', color: '#333' }}>
+                            <strong>Achievements:</strong> {selectedGame.achievementsUnlocked}/{selectedGame.totalAchievements}
+                        </p>
+                    </div>
+                ) : (
+                    <p style={{ fontSize: '16px', color: '#666' }}>Please select a game from the sidebar.</p>
+                )}
+            </div>
+        </div>
     );
 };
 
