@@ -1,3 +1,5 @@
-import { Genre as PrismaGenre } from '@prisma/client';
+type Genre = 'Action' | 'Adventure' | 'Fighting' | 'FPS' | 'RPG';
 
-export type Genre = PrismaGenre;
+export {
+    Genre,
+};

@@ -21,7 +21,7 @@ const Store: React.FC<StoreProps> = ({ balance }) => {
         const response = await GameService.getAllGames();
         const games = await response.json();
         setGames(games);
-    };
+    }
 
     useEffect(() => {
         getGames();
@@ -41,18 +41,21 @@ const Store: React.FC<StoreProps> = ({ balance }) => {
             <Header balance={balancer} />
             <main className={styles.main}>
                 <span>
-                    <h1 className={styles.title}>Setback Store</h1>
+                    <h1>Setback Store</h1>
                 </span>
+                <div className={styles.description}>
+                    <p>Check out our catalog.</p>
+                </div>
                 <StoreTable games={games} updateBalance={updateBalance} />
             </main>
         </>
-    );
+    )
 };
 
 export async function getServerSideProps() {
     const balance = await getBalance();
     return {
-        props: { balance }
+        props: { balance },
     };
 }
 

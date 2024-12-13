@@ -10,15 +10,13 @@ Make sure to download the LTS version.
 
 ### VSCode
 
-Throughout the lessons we'll use VSCode for the exercises. Make sure you have the following extensions downloaded and
-enabled:
+Throughout the lessons we'll use VSCode for the exercises. Make sure you have the following extensions downloaded and enabled:
 
-- Prettier - Code formatter
-- Auto Rename Tag
-- GitLens - Git supercharged
+-   Prettier - Code formatter
+-   Auto Rename Tag
+-   GitLens - Git supercharged
 
-Open the settings of VSCode, search for **Format on save** and make sure it's checked. This assures that every time you
-save a file, it's being formatted according to the code style rules described in **.prettier.rc**.
+Open the settings of VSCode, search for **Format on save** and make sure it's checked. This assures that every time you save a file, it's being formatted according to the code style rules described in **.prettier.rc**.
 
 Replace the values with your local configuration.
 

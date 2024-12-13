@@ -20,13 +20,13 @@ const Library: React.FC<LibraryProps> = ({ balance }) => {
         const response = await LibraryService.getAllLibraryGames(userId);
         const games = await response.json();
         setGames(games);
-    };
+    }
 
     useEffect(() => {
-            getGames();
+            getGames()
         },
         []
-    );
+    )
 
     return (
         <>
@@ -37,24 +37,24 @@ const Library: React.FC<LibraryProps> = ({ balance }) => {
             <Header balance={balance} />
             <main className={styles.main}>
                 <span>
-                    <h1 className={styles.title}>Library</h1>
+                    <h1>Library</h1>
                 </span>
 
-                {games.length > 0 ? (
-                    <LibraryTable games={games} />
-                ) : (
-                    <h2>You do not own any games yet.</h2>
-                    )}
+                <div className={styles.description}>
+                    <p>Here are your games.</p>
+                </div>
+
+                <LibraryTable games={games} />
             </main>
         </>
-    );
+    )
 };
 
 export async function getServerSideProps() {
     const balance = await getBalance();
 
     return {
-        props: { balance }
+        props: { balance },
     };
 }
 

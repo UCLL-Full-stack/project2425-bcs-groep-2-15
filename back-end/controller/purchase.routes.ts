@@ -87,13 +87,13 @@ purchaseRouter.get('/:id', async (req: Request, res: Response, next: NextFunctio
         const { id } = req.params;
 
         if (isNaN(Number(id))) {
-            return res.status(400).json({ error: 'Invalid `id` parameter' });
+            return res.status(400).json({ error: "Invalid `id` parameter" });
         }
 
         const purchase = await purchaseService.getPurchaseById(Number(id));
 
         if (!purchase) {
-            return res.status(404).json({ error: 'Purchase not found' });
+            return res.status(404).json({ error: "Purchase not found" });
         }
 
         res.status(200).json(purchase);
@@ -136,11 +136,11 @@ purchaseRouter.post('/', async (req: Request, res: Response, next: NextFunction)
         const { userId, gameId } = req.body;
 
         if (!userId) {
-            return res.status(400).json({ error: 'Missing userId' });
+            return res.status(400).json({ error: "Missing userId" });
         }
 
         if (!gameId) {
-            return res.status(400).json({ error: 'Missing gameId' });
+            return res.status(400).json({ error: "Missing gameId" });
         }
 
         const newPurchase = await purchaseService.newPurchase(userId, gameId);

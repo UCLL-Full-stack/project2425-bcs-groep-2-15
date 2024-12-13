@@ -3,13 +3,13 @@ import { Profile } from '../model/profile';
 import { Purchase } from './purchase';
 
 export class User {
-    id: number;
-    username: string;
-    password: string;
-    library: Library;
-    profile: Profile;
-    purchases: Purchase[];
-    balance: number;
+    private id: number;
+    private username: string;
+    private password: string;
+    private library: Library;
+    private profile: Profile;
+    private purchases: Purchase[];
+    private balance: number;
 
     constructor(user: {
         id: number;

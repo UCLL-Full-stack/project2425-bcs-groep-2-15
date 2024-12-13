@@ -10,7 +10,7 @@ const Header: React.FC<HeaderProps> = ({ balance }) => {
         <header className={styles.header}>
             <div>
                 <Link href="/" className={styles.logo}>
-                    <img src={'/images/logo.png'} alt={'logo'} />
+                    <img src={"/images/logo.png"} alt={"logo"} />
                 </Link>
             </div>
             <div className={styles.container}>
@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ balance }) => {
             </div>
             <div>
                 <Link href="/balance" className={styles.balance}>
-                    {`Balance: €${balance}`}
+                    { `Balance: €${balance}` }
                 </Link>
             </div>
         </header>

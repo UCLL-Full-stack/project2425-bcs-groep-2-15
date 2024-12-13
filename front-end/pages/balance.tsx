@@ -3,7 +3,6 @@ import Header from '@components/header';
 import styles from '@styles/balance.module.css';
 import React, { useEffect, useState } from 'react';
 import UserService from '@services/UserService';
-import userService from '@services/UserService';
 
 const userId = 1;
 
@@ -12,8 +11,9 @@ const Balance: React.FC = () => {
 
     const getBalance = async () => {
         const response = await UserService.getUserBalance(userId);
-        const balance = await response.json();
-        setBalance(balance.toFixed(2));
+        const rawBalance = await response.json();
+
+        setBalance(Number(rawBalance.toFixed(2)));
     };
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const Balance: React.FC = () => {
     }, []);
 
     const handleAddBalance = async (amount: number) => {
-        await userService.addUserBalance(userId, amount);
+        await UserService.addUserBalance(userId, amount);
         await getBalance();
     };
 
@@ -37,7 +37,7 @@ const Balance: React.FC = () => {
                     <div className={styles.balanceHeader}>
                         <h1>Balance</h1>
                         <h2>Your current balance is:</h2>
-                        <h3>€{balance}</h3>
+                        <h3>€{balance?.toFixed(2)}</h3>
                     </div>
 
                     <div className={styles.profileTable}>
@@ -57,7 +57,7 @@ const Balance: React.FC = () => {
                 </div>
             </main>
         </>
-    )
+    );
 };
 
 export const getBalance = async (): Promise<number> => {
@@ -68,11 +68,10 @@ export const getBalance = async (): Promise<number> => {
         const userData = await response.json();
         balance = parseFloat(userData.balance);
     } catch (error) {
-        console.error("Error fetching user balance:", error);
+        console.error('Error fetching user balance:', error);
     }
 
-    // @ts-ignore
-    return balance.toFixed(2);
+    return balance;
 };
 
 export default Balance;

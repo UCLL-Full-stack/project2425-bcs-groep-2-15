@@ -1,12 +1,13 @@
-import { User } from './user';
-import { Game } from './game';
+import { User } from '../model/user';
+// import { Game } from './Game';
+import { Game } from '../model/game';
 
 export class Purchase {
-    id: number;
-    date: Date;
-    cost: number;
-    user: User;
-    game: Game;
+    private id: number;
+    private date: Date;
+    private cost: number;
+    private user: User;
+    private game: Game;
 
     constructor(purchase: {
         id: number;

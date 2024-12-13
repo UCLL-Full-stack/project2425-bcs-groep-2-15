@@ -1,93 +1,47 @@
 import { User } from '../model/user';
-import database from './database';
-import { PrismaClient } from '@prisma/client';
+import { Game } from '../model/game';
+import libraryDb from './library.db';
+import profileDb from './profile.db';
+import { Library } from '../model/library';
+import purchase from '../service/purchase';
+import purchaseDb from './purchase.db';
 
-const prisma = new PrismaClient();
+const users = [
+    new User({
+        id: 1,
+        username: "User",
+        password: "1234",
+        library: libraryDb.getLibraryById(1)!,
+        profile: profileDb.getProfileById(1)!,
+        purchases: [],
+        balance: 99.99
+    })
+];
 
-const mapUser = (userData: any): User => {
-    return new User({
-        id: userData.id,
-        username: userData.username,
-        password: userData.password,
-        balance: userData.balance,
-        library: userData.library,
-        profile: userData.profile,
-        purchases: userData.purchases
-    });
+const getAllUsers = (): User[] => users;
+
+const getUserById = (id: number): User | null => {
+    return users.find((user) => user.getId() === id) || null;
 };
 
-const getUsersCommonQuery = () => ({
-    include: {
-        library: { include: { GamesInLibraries: { include: { game: true } } } },
-        profile: true,
-        purchases: true
-    }
-});
+const newUser = (user: User): User => {
+    users.push(user);
+    return user;
+}
 
-const getAllUsers = async (): Promise<User[]> => {
-    const usersData = await database.user.findMany(getUsersCommonQuery());
-    return usersData.map(mapUser);
-};
-
-const getUserById = async (id: number): Promise<User | null> => {
-    const userData = await database.user.findUnique({
-        where: { id },
-        ...getUsersCommonQuery()
-    });
-    return userData ? mapUser(userData) : null;
-};
-
-const newUser = async (user: User) => {
-    const { username, password, balance, library, profile, purchases } = user;
-
-    await database.user.create({
-        data: {
-            username,
-            password,
-            balance,
-            library: {
-                create: {
-                    achievements: library.achievements,
-                    timePlayed: library.timePlayed,
-                    GamesInLibraries: {
-                        create: library.games.map(game => ({ gameId: game.id }))
-                    }
-                }
-            },
-            profile: {
-                create: {
-                    description: profile.getDescription(),
-                    profilePic: profile.getProfilePic()
-                }
-            },
-            purchases: {
-                create: purchases.map(purchase => ({
-                    cost: purchase.cost,
-                    date: purchase.date,
-                    gameId: purchase.game.id
-                }))
-            }
-        }
-    });
-};
-
-const getBalance = (user: User): number => user.getBalance();
-
-const addBalance = async (user: User, amount: number): Promise<number> => {
-    user.setBalance(user.getBalance() + amount);
-
-    await prisma.user.update({
-        where: { id: user.id },
-        data: { balance: user.balance }
-    });
-
+const getBalance = (user: User): number => {
     return user.getBalance();
-};
+}
+
+const addBalance = (user: User, amount: number): number => {
+    user.setBalance(user.getBalance() + amount);
+    return user.getBalance();
+}
 
 export default {
     getUserById,
     getAllUsers,
     newUser,
     getBalance,
-    addBalance
+    addBalance,
 };

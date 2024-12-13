@@ -36,10 +36,10 @@ const swaggerOpts = {
         openapi: '3.0.0',
         info: {
             title: 'Setback API',
-            version: '1.0.0'
-        }
+            version: '1.0.0',
+        },
     },
-    apis: ['./controller/*.routes.ts']
+    apis: ['./controller/*.routes.ts'],
 };
 const swaggerSpec = swaggerJSDoc(swaggerOpts);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

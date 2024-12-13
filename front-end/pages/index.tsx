@@ -17,11 +17,11 @@ const Home: React.FC<HomeProps> = ({ balance }) => {
             <Header balance={balance} />
             <main className={styles.main}>
                 <span>
-                    <h1 className={styles.title}>Setback</h1>
+                    <h1>Setback</h1>
                 </span>
 
                 <div className={styles.description}>
-                    <h2>Welcome to the Setback platform.</h2>
+                    <p>Welcome to the Setback platform.</p>
                 </div>
             </main>
         </>
@@ -32,7 +32,7 @@ export async function getServerSideProps() {
     const balance = await getBalance();
 
     return {
-        props: { balance }
+        props: { balance },
     };
 }
 
