@@ -24,6 +24,9 @@ const Header: React.FC<HeaderProps> = ({ balance }) => {
                     <Link href="/profile" className={styles.link}>
                         Profile
                     </Link>
+                    <Link href="/login" className={styles.link}>
+                        Login
+                    </Link>
                 </nav>
             </div>
             <div>

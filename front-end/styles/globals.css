@@ -1,11 +1,13 @@
+/* Global styles */
 html,
 body {
     padding: 0;
     margin: 0;
     font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-        Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-        sans-serif;
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
     background-color: #121212;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 a {
@@ -15,7 +17,6 @@ a {
 
 * {
     box-sizing: border-box;
-    /* background-color: #1f1e1e; */
 }
 
 img {
@@ -51,33 +52,39 @@ button {
 }
 
 td {
-    color:white;
+    color: white;
 }
 
-
-tr{
-    color:white;
+tr {
+    color: white;
 }
 
-h1{
-    color:white;
+h1 {
+    color: white;
 }
 
-p{
-    color:white;;
+p {
+    color: white;
 }
 
 .table-hover tbody tr:hover {
     background-color: black;
-    color:white;
+    color: white;
 }
 
 .table-hover tbody tr:hover td,
 .table-hover tbody tr:hover th {
     color: white;
-      
 }
 
-main{
+main {
     background-color: #121212;
+}
+
+strong {
+    color: white;
+}
+
+label {
+    color: white;
 }
