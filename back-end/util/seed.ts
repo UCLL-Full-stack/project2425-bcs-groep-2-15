@@ -81,7 +81,8 @@ const main = async () => {
             library: { connect: { id: library1.id } },
             profile: { connect: { id: profile1.id } },
             purchases: undefined,
-            balance: 99.99
+            balance: 99.99,
+            role: 'User'
         }
     });
 };

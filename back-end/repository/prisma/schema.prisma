@@ -15,6 +15,7 @@ model User {
   profile   Profile    @relation(fields: [profileId], references: [id])
   purchases Purchase[]
   balance   Float
+  role      Role       @default(User)
 
   libraryId Int @unique
   profileId Int @unique
@@ -75,4 +76,10 @@ enum Genre {
   Fighting
   FPS
   RPG
+}
+
+enum Role {
+  User
+  Tester
+  Admin
 }

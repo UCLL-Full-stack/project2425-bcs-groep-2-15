@@ -3,6 +3,10 @@ import { User } from '../model/user';
 import userDb from '../repository/user.db';
 import { Library } from '../model/library';
 import { Profile } from '../model/profile';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import {Role} from "../types";
+import { AuthenticationResponse, UserInput } from '../types';
 
 const getAllUsers = async (): Promise<User[]> => await userDb.getAllUsers();
 
@@ -13,10 +17,17 @@ const getUserById = (id: number): Promise<User | null> => {
     return userDb.getUserById(id)!;
 };
 
-const newUser = async (username: string, password: string, library: Library, profile: Profile, balance: number) => {
+const getUserByUsername = (username: string): Promise<User | null> => {
+    if (userDb.getUserByUsername(username) === null) {
+        throw new Error(`User with username ${username} not found`);
+    }
+    return userDb.getUserByUsername(username)!;
+};
+
+const newUser = async (username: string, password: string, library: Library, profile: Profile, balance: number, role: Role) => {
     const id = (await userDb.getAllUsers()).length + 1;
     const purchases: Purchase[] = [];
-    const user = new User({ id, username, password, library, profile, purchases, balance });
+    const user = new User({ id, username, password, library, profile, purchases, balance, role });
     return userDb.newUser(user);
 };
 
@@ -28,6 +39,33 @@ const getUserBalance = async (id: number): Promise<number> => {
 const addUserBalance = async (id: number, amount: number): Promise<number> => {
     const user = await getUserById(id);
     return userDb.addBalance(user!, amount);
+};
+
+const login = async({ username, password, role }: UserInput): Promise<AuthenticationResponse> => {
+    const user = await getByUsername({ username: username });
+    const result = bcrypt.compare(password, user.getPassword());
+
+    if (result) {
+        throw new Error('Error');
+    }
+
+    return {
+        token: generateJwtToken({username: username, role: user.getRole()}),
+        username: username,
+        fullname: user.getFirstName() + ' ' + user.getLastName(),
+        role: role
+    }
+};
+
+const generateJwtToken = ({ username, role }): string => {
+    const options = { expireIn: `${process.env.JWT_EXPIRES_HOURS}h`, issuer: 'courses_app'};
+
+    try {
+        return jwt.sign({ username }, process.env.JWT_SECRET, options);
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error generating JWT token, see server log for details.');
+    }
 };
 
 export default {

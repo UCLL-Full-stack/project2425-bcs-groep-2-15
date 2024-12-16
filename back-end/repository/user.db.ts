@@ -12,7 +12,8 @@ const mapUser = (userData: any): User => {
         balance: userData.balance,
         library: userData.library,
         profile: userData.profile,
-        purchases: userData.purchases
+        purchases: userData.purchases,
+        role: userData.role
     });
 };
 
@@ -36,6 +37,14 @@ const getUserById = async (id: number): Promise<User | null> => {
     });
     return userData ? mapUser(userData) : null;
 };
+
+const getUserByUsername = async (username: string): Promise<User | null> => {
+    const userData = await database.user.findUnique({
+        where: { username },
+        ...getUsersCommonQuery()
+    });
+    return userData ? mapUser(userData) : null;
+}
 
 const newUser = async (user: User) => {
     const { username, password, balance, library, profile, purchases } = user;
