@@ -6,27 +6,38 @@ import { Game } from '@types';
 import { useEffect, useState } from 'react';
 import LibraryService from '@services/LibraryService';
 import { getBalance } from './balance';
+import userService from '@services/UserService';
 
-interface LibraryProps {
-    balance: number;
-}
-
-const Library: React.FC<LibraryProps> = ({ balance }) => {
+const Library: React.FC = () => {
     const [games, setGames] = useState<Array<Game>>([]);
-
-    const userId = Number(sessionStorage.getItem('id'));
-
-    const getGames = async () => {
-        const response = await LibraryService.getAllLibraryGames(userId);
-        const games = await response.json();
-        setGames(games);
-    };
+    const [userId, setUserId] = useState<number>(1);
+    const [balance, setBalance] = useState<number>(0);
 
     useEffect(() => {
-            getGames();
-        },
-        []
-    );
+        const fetchUserId = async () => {
+            const storedUserId = await sessionStorage.getItem('id');
+            if (storedUserId) {
+                setUserId(Number(storedUserId));
+            }
+        }
+        fetchUserId();
+
+        const fetchUserBalance = async () => {
+            const user = await userService.getUserById(userId);
+            const userJson = await user.json();
+            if (userJson) {
+                setBalance(userJson.balance);
+            }
+        }
+        fetchUserBalance();
+
+        const getGames = async () => {
+            const response = await LibraryService.getAllLibraryGames(userId);
+            const games = await response.json();
+            setGames(games);
+        };
+        getGames();
+    }, []);
 
     return (
         <>
@@ -49,13 +60,5 @@ const Library: React.FC<LibraryProps> = ({ balance }) => {
         </>
     );
 };
-
-export async function getServerSideProps() {
-    const balance = await getBalance();
-
-    return {
-        props: { balance }
-    };
-}
 
 export default Library;

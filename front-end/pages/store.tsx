@@ -6,28 +6,43 @@ import StoreTable from '@components/storeTable';
 import React, { useEffect, useState } from 'react';
 import GameService from '@services/GameService';
 import { getBalance } from './balance';
+import { parse } from 'yaml';
+import userService from '@services/UserService';
 
-interface StoreProps {
-    balance: number;
-}
-
-const Store: React.FC<StoreProps> = ({ balance }) => {
-    const [balancer, setBalancer] = useState<number>(balance);
+const Store: React.FC = () => {
     const [games, setGames] = useState<Array<Game>>([]);
-
-    const getGames = async () => {
-        const response = await GameService.getAllGames();
-        const games = await response.json();
-        setGames(games);
-    };
+    const [userId, setUserId] = useState<number>(1);
+    const [balance, setBalance] = useState<number>(0);
 
     useEffect(() => {
+        const fetchUserId = async () => {
+            const storedUserId = await sessionStorage.getItem('id');
+            if (storedUserId) {
+                setUserId(Number(storedUserId));
+            }
+        }
+        fetchUserId();
+
+        const fetchUserBalance = async () => {
+            const user = await userService.getUserById(userId);
+            const userJson = await user.json();
+            if (userJson) {
+                setBalance(userJson.balance);
+            }
+        }
+        fetchUserBalance();
+
+        const getGames = async () => {
+            const response = await GameService.getAllGames();
+            const games = await response.json();
+            setGames(games);
+        };
         getGames();
     }, []);
 
     const updateBalance = async () => {
         const newBalance = await getBalance();
-        setBalancer(newBalance);
+        setBalance(newBalance);
     };
 
     return (
@@ -36,7 +51,7 @@ const Store: React.FC<StoreProps> = ({ balance }) => {
                 <title>Setback | Store</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header balance={balancer} />
+            <Header balance={balance} />
             <main className={styles.main}>
                 <span>
                     <h1 className={styles.title}>Setback Store</h1>
@@ -46,12 +61,5 @@ const Store: React.FC<StoreProps> = ({ balance }) => {
         </>
     );
 };
-
-export async function getServerSideProps() {
-    const balance = await getBalance();
-    return {
-        props: { balance }
-    };
-}
 
 export default Store;

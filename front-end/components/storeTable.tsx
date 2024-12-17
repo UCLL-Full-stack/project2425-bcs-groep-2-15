@@ -4,6 +4,7 @@ import LibraryService from '@services/LibraryService';
 import PurchaseService from '@services/PurchaseService';
 import style from '../styles/store.module.css';
 import { getBalance } from '../pages/balance';
+import userService from '@services/UserService';
 
 interface StoreTableProps {
     games: Array<Game>;
@@ -15,12 +16,27 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
     const [filter, setFilter] = useState<'all' | 'discounts' | 'category'>('all');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [categories, setCategories] = useState<string[]>([]);
+    const [userId, setUserId] = useState<number>(1);
+    const [balance, setBalance] = useState<number>(0);
 
-    const userIdString = sessionStorage.getItem('id');
-    if (!userIdString) {
-        throw new Error(`User with id ${userIdString} not found`);
-    }
-    const userId = Number(userIdString);
+    useEffect(() => {
+        const fetchUserId = async () => {
+            const storedUserId = await sessionStorage.getItem('id');
+            if (storedUserId) {
+                setUserId(Number(storedUserId));
+            }
+        }
+        fetchUserId();
+
+        const fetchUserBalance = async () => {
+            const user = await userService.getUserById(userId);
+            const userJson = await user.json();
+            if (userJson) {
+                setBalance(userJson.balance);
+            }
+        }
+        fetchUserBalance();
+    }, []);
 
     const fetchLibraryGames = async () => {
         try {
@@ -43,7 +59,7 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
     const handlePurchase = async (game: Game) => {
         const confirmPurchase = window.confirm('Are you sure you want to purchase this game?');
         if (confirmPurchase) {
-            if (await getBalance() < game.price) {
+            if (balance < game.price) {
                 window.alert('You do not have enough money in your balance.');
             } else {
                 await PurchaseService.newPurchase(userId, game.id);

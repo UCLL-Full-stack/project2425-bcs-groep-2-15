@@ -7,18 +7,35 @@ import LibraryService from '@services/LibraryService';
 import ProfileService from '@services/ProfileService';
 import UserService from '@services/UserService';
 import { getBalance } from './balance';
+import { parse } from 'yaml';
+import userService from '@services/UserService';
 
-interface ProfileProps {
-    balance: number;
-}
-
-const Profile: React.FC<ProfileProps> = ({ balance }) => {
+const Profile: React.FC = () => {
     const [profile, setProfile] = useState<Profile | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [userId, setUserId] = useState<number>(1);
+    const [balance, setBalance] = useState<number>(0);
 
-    const userId = Number(sessionStorage.getItem('id'));
+    useEffect(() => {
+        const fetchUserId = async () => {
+            const storedUserId = await sessionStorage.getItem('id');
+            if (storedUserId) {
+                setUserId(Number(storedUserId));
+            }
+        }
+        fetchUserId();
+
+        const fetchUserBalance = async () => {
+            const user = await userService.getUserById(userId);
+            const userJson = await user.json();
+            if (userJson) {
+                setBalance(userJson.balance);
+            }
+        }
+        fetchUserBalance();
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {

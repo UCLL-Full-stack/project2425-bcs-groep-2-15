@@ -2,12 +2,32 @@ import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
 import { getBalance } from './balance';
+import { useEffect, useState } from 'react';
+import userService from '@services/UserService';
 
-interface HomeProps {
-    balance: number;
-}
+const Home: React.FC = () => {
+    const [userId, setUserId] = useState<number>(1);
+    const [balance, setBalance] = useState<number>(0);
 
-const Home: React.FC<HomeProps> = ({ balance }) => {
+    useEffect(() => {
+        const fetchUserId = async () => {
+            const storedUserId = await sessionStorage.getItem('id');
+            if (storedUserId) {
+                setUserId(Number(storedUserId));
+            }
+        }
+        fetchUserId();
+
+        const fetchUserBalance = async () => {
+            const user = await userService.getUserById(userId);
+            const userJson = await user.json();
+            if (userJson) {
+                setBalance(userJson.balance);
+            }
+        }
+        fetchUserBalance();
+    }, []);
+
     return (
         <>
             <Head>

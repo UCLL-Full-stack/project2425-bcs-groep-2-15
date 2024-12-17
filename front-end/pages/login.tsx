@@ -55,7 +55,7 @@ const Login: React.FC<LoginProps> = ({ balance }) => {
                 <title>Setback | Login</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header balance={balance} />
+            <Header balance={null} />
             <main className={styles.main}>
                 <div className={styles.loginContainer}>
                     <h1 className={styles.title}>Login</h1>

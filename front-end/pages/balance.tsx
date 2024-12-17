@@ -7,7 +7,7 @@ import userService from '@services/UserService';
 
 const Balance: React.FC = () => {
     const [balance, setBalance] = useState<number | null>(null);
-    const [userId, setUserId] = useState<number>(0);
+    const [userId, setUserId] = useState<number>(1);
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -74,7 +74,7 @@ export const getBalance = async (): Promise<number> => {
     let balance = 0.0;
 
     try {
-        const response = await UserService.getUserById(userId);
+        const response = await UserService.getUserById(1);
         const userData = await response.json();
         balance = parseFloat(userData.balance);
     } catch (error) {

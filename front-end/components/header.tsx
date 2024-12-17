@@ -2,7 +2,7 @@ import Link from 'next/link';
 import styles from '@styles/header.module.css';
 
 interface HeaderProps {
-    balance: number;
+    balance: number | null;
 }
 
 const Header: React.FC<HeaderProps> = ({ balance }) => {
@@ -30,9 +30,13 @@ const Header: React.FC<HeaderProps> = ({ balance }) => {
                 </nav>
             </div>
             <div>
-                <Link href="/balance" className={styles.balance}>
-                    {`Balance: €${balance}`}
-                </Link>
+                {balance != null ? (
+                    <Link href="/balance" className={styles.balance}>
+                        {`Balance: €${balance}`}
+                    </Link>
+                ) : (
+                    <span className={styles.balance}>Balance: NaN</span>
+                )}
             </div>
         </header>
     );
