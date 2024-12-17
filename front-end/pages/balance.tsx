@@ -70,7 +70,7 @@ const Balance: React.FC = () => {
     )
 };
 
-export const getBalance = async (userId: number): Promise<number> => {
+export const getBalance = async (): Promise<number> => {
     let balance = 0.0;
 
     try {
