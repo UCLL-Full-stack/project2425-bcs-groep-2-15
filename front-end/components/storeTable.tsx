@@ -10,13 +10,17 @@ interface StoreTableProps {
     updateBalance: () => void;
 }
 
-const userId = 1;
-
 const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
     const [libraryGames, setLibraryGames] = useState<Game[]>([]);
     const [filter, setFilter] = useState<'all' | 'discounts' | 'category'>('all');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [categories, setCategories] = useState<string[]>([]);
+
+    const userIdString = sessionStorage.getItem('id');
+    if (!userIdString) {
+        throw new Error(`User with id ${userIdString} not found`);
+    }
+    const userId = Number(userIdString);
 
     const fetchLibraryGames = async () => {
         try {

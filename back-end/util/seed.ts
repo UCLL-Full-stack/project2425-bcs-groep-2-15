@@ -59,7 +59,7 @@ const main = async () => {
         }
     });
 
-    const library1 = await prisma.library.create({
+    const libraryUser = await prisma.library.create({
         data: {
             achievements: 0,
             timePlayed: 0,
@@ -67,22 +67,49 @@ const main = async () => {
         }
     });
 
-    const profile1 = await prisma.profile.create({
+    const libraryAdmin = await prisma.library.create({
+        data: {
+            achievements: 0,
+            timePlayed: 0,
+            GamesInLibraries: {}
+        }
+    });
+
+    const profileUser = await prisma.profile.create({
         data: {
             description: 'This is my profile.',
             profilePic: '/images/profile/2.png'
         }
     });
 
+    const profileAdmin = await prisma.profile.create({
+        data: {
+            description: 'This is my profile.',
+            profilePic: '/images/profile/3.png'
+        }
+    });
+
     const user1 = await prisma.user.create({
         data: {
-            username: 'User',
+            username: 'User123',
             password: '1234',
-            library: { connect: { id: library1.id } },
-            profile: { connect: { id: profile1.id } },
+            library: { connect: { id: libraryUser.id } },
+            profile: { connect: { id: profileUser.id } },
             purchases: undefined,
             balance: 99.99,
             role: 'User'
+        }
+    });
+
+    const user2 = await prisma.user.create({
+        data: {
+            username: 'Admin',
+            password: '1234',
+            library: { connect: { id: libraryAdmin.id } },
+            profile: { connect: { id: profileAdmin.id } },
+            purchases: undefined,
+            balance: 99999,
+            role: 'Admin'
         }
     });
 };

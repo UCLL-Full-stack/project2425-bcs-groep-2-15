@@ -7,14 +7,14 @@ import { useEffect, useState } from 'react';
 import LibraryService from '@services/LibraryService';
 import { getBalance } from './balance';
 
-const userId = 1;
-
 interface LibraryProps {
     balance: number;
 }
 
 const Library: React.FC<LibraryProps> = ({ balance }) => {
     const [games, setGames] = useState<Array<Game>>([]);
+
+    const userId = Number(sessionStorage.getItem('id'));
 
     const getGames = async () => {
         const response = await LibraryService.getAllLibraryGames(userId);

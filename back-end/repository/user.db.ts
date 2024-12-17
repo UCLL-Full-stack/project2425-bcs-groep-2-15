@@ -96,6 +96,7 @@ const addBalance = async (user: User, amount: number): Promise<number> => {
 export default {
     getUserById,
     getAllUsers,
+    getUserByUsername,
     newUser,
     getBalance,
     addBalance

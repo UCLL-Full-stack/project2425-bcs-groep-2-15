@@ -5,24 +5,34 @@ import React, { useEffect, useState } from 'react';
 import UserService from '@services/UserService';
 import userService from '@services/UserService';
 
-const userId = 1;
-
 const Balance: React.FC = () => {
     const [balance, setBalance] = useState<number | null>(null);
+    const [userId, setUserId] = useState<number>(0);
 
-    const getBalance = async () => {
+    useEffect(() => {
+        const fetchUserId = async () => {
+            const storedUserId = await sessionStorage.getItem('id');
+            if (storedUserId) {
+                setUserId(Number(storedUserId));
+            }
+        }
+
+        fetchUserId();
+    }, []);
+
+    const fetchBalance = async () => {
         const response = await UserService.getUserBalance(userId);
         const balance = await response.json();
         setBalance(balance.toFixed(2));
     };
 
     useEffect(() => {
-        getBalance();
+        fetchBalance();
     }, []);
 
     const handleAddBalance = async (amount: number) => {
         await userService.addUserBalance(userId, amount);
-        await getBalance();
+        await fetchBalance();
     };
 
     return (
@@ -60,7 +70,7 @@ const Balance: React.FC = () => {
     )
 };
 
-export const getBalance = async (): Promise<number> => {
+export const getBalance = async (userId: number): Promise<number> => {
     let balance = 0.0;
 
     try {

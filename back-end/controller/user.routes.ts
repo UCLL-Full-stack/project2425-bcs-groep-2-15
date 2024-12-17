@@ -105,6 +105,88 @@ userRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) =
     }
 });
 
+userRouter.get('/name/:username', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { username } = req.params;
+
+        if (!username || username.trim() === '') {
+            return res.status(400).json({ error: 'Invalid `username` parameter' });
+        }
+
+        const user = await userService.getUserByUsername(String(username));
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Login a user and return a JWT token.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: The username of the user trying to log in.
+ *               password:
+ *                 type: string
+ *                 description: The password of the user trying to log in.
+ *               role:
+ *                 type: string
+ *                 description: The role of the user.
+ *                 enum:
+ *                   - user
+ *                   - admin
+ *     responses:
+ *       200:
+ *         description: JWT token and user details upon successful login.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: The JWT token.
+ *                 username:
+ *                   type: string
+ *                   description: The username of the logged-in user.
+ *                 role:
+ *                   type: string
+ *                   description: The role of the logged-in user.
+ *       400:
+ *         description: Missing or invalid credentials.
+ *       401:
+ *         description: Invalid username or password.
+ */
+userRouter.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { username, password, role } = req.body;
+
+        if (!username || !password || !role) {
+            return res.status(400).json({ error: 'Missing username, password, or role' });
+        }
+
+        const authenticationResponse = await userService.login({ username, password, role });
+
+        res.status(200).json(authenticationResponse);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            if (error.message === 'Invalid credentials.') {
+                return res.status(401).json({ error: error.message });
+            }
+        }
+        next(error);
+    }
+});
+
 /**
  * @swagger
  * /users:
@@ -151,7 +233,7 @@ userRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) =
  */
 userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { username, password, balance, library, profile } = req.body;
+        const { username, password, balance, library, profile, role } = req.body;
 
         if (!username) {
             return res.status(400).json({ error: 'Missing username' });
@@ -173,7 +255,11 @@ userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
             return res.status(400).json({ error: 'Missing profile' });
         }
 
-        const user = userService.newUser(username, password, library, profile, balance);
+        if (!role) {
+            return res.status(400).json({ error: 'Missing role' });
+        }
+
+        const user = userService.newUser(username, password, library, profile, balance, role);
         res.status(201).json(user);
     } catch (error) {
         next(error);

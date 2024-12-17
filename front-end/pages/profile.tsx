@@ -8,8 +8,6 @@ import ProfileService from '@services/ProfileService';
 import UserService from '@services/UserService';
 import { getBalance } from './balance';
 
-const userId = 1;
-
 interface ProfileProps {
     balance: number;
 }
@@ -19,6 +17,8 @@ const Profile: React.FC<ProfileProps> = ({ balance }) => {
     const [user, setUser] = useState<User | null>(null);
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState<string | null>(null);
+
+    const userId = Number(sessionStorage.getItem('id'));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,7 +38,7 @@ const Profile: React.FC<ProfileProps> = ({ balance }) => {
         };
 
         fetchData();
-    }, []);
+    }, [userId]);
 
     if (error) {
         return <div>{error}</div>;

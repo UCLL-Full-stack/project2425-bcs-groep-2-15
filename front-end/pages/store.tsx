@@ -7,8 +7,6 @@ import React, { useEffect, useState } from 'react';
 import GameService from '@services/GameService';
 import { getBalance } from './balance';
 
-const userId = 1;
-
 interface StoreProps {
     balance: number;
 }

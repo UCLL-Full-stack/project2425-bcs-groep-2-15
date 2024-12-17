@@ -42,36 +42,50 @@ const addUserBalance = async (id: number, amount: number): Promise<number> => {
 };
 
 const login = async({ username, password, role }: UserInput): Promise<AuthenticationResponse> => {
-    const user = await getByUsername({ username: username });
-    const result = bcrypt.compare(password, user.getPassword());
+    if (!username || !password || !role) {
+        throw new Error("Missing arguments. Try again")
+    }
+    const user = await getUserByUsername(username);
+    if (!user) {
+        throw new Error(`User with username ${username} not found`);
+    }
+    const result = await bcrypt.compare(password, user.getPassword());
 
     if (result) {
         throw new Error('Error');
     }
 
     return {
-        token: generateJwtToken({username: username, role: user.getRole()}),
+        token: generateJwtToken(username, role),
         username: username,
-        fullname: user.getFirstName() + ' ' + user.getLastName(),
         role: role
     }
 };
 
-const generateJwtToken = ({ username, role }): string => {
-    const options = { expireIn: `${process.env.JWT_EXPIRES_HOURS}h`, issuer: 'courses_app'};
+const generateJwtToken = (username: string, role: Role): string => {
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+        throw new Error("JWT_SECRET is not defined in environment variables.");
+    }
+
+    const options = { expiresIn: `${process.env.JWT_EXPIRES_HOURS}h`, issuer: 'courses_app' };
 
     try {
-        return jwt.sign({ username }, process.env.JWT_SECRET, options);
+        return jwt.sign({ username, role }, jwtSecret, options);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw new Error('Error generating JWT token, see server log for details.');
     }
 };
 
+
 export default {
     getAllUsers,
     getUserById,
+    getUserByUsername,
     newUser,
     getUserBalance,
-    addUserBalance
+    addUserBalance,
+    login,
+    generateJwtToken,
 };

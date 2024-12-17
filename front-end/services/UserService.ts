@@ -20,6 +20,15 @@ const getUserById = async (id: number) => {
     });
 };
 
+const getUserByUsername = async (username: string) => {
+    return fetch(`${BASE_URL}/users/name/${username}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+};
+
 const newUser = async (username: string, password: string, library: Library, profile: Profile, balance: number) => {
     return fetch(`${BASE_URL}/users`, {
         method: 'POST',
@@ -27,6 +36,25 @@ const newUser = async (username: string, password: string, library: Library, pro
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ username, password, balance, library, profile })
+    });
+};
+
+const login = async (username: string, password: string, role: string) => {
+    const user = await getUserByUsername(username);
+    const userJson = await user.json();
+    sessionStorage.setItem("username", username);
+    sessionStorage.setItem("id", userJson.id);
+
+    return fetch(`${BASE_URL}/users/login`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username,
+            password,
+            role
+        }),
     });
 };
 
@@ -52,9 +80,11 @@ const addUserBalance = async (id: number, amount: number) => {
 const UserService = {
     getAllUsers,
     getUserById,
+    getUserByUsername,
     newUser,
+    login,
     getUserBalance,
-    addUserBalance
+    addUserBalance,
 };
 
 export default UserService;
