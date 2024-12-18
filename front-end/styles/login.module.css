@@ -37,7 +37,7 @@
     text-align: left;
 }
 
-.inputGroup input[type="username"], .inputGroup input[type="password"] {
+.inputGroup input[type="text"], .inputGroup input[type="password"] {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #ddd;
@@ -47,7 +47,7 @@
     transition: border-color 0.3s ease;
 }
 
-.inputGroup input[type="username"]:focus, .inputGroup input[type="password"]:focus {
+.inputGroup input[type="text"]:focus, .inputGroup input[type="password"]:focus {
     border-color: #007bff;
 }
 

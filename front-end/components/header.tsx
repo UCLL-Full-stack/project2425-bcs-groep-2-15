@@ -32,8 +32,9 @@ const Header: React.FC<HeaderProps> = ({ userId, balance }) => {
                 </nav>
             </div>
             <div>
+                
                 <Link href="/balance" className={styles.balance}>
-                    {userId != null ? `Balance: €${balance}` : null}
+                    {userId == null ? null : userId == 2 ? `Balance: ∞` : `Balance: €${balance}`}
                 </Link>
             </div>
         </header>

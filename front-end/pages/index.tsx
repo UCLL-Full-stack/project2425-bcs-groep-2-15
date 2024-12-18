@@ -56,12 +56,15 @@ const Home: React.FC = () => {
                             <h2><a href="/login">Log in here</a> to access the platform.</h2>
                         </div>
                     </>
+                ) : userId === 2 ? (
+                    <h1 className={styles.title}>= ADMIN INTERFACE =</h1>
                 ) : (
                     <h1 className={styles.title}>Welcome to Setback, {username}.</h1>
                 )}
             </main>
         </>
     );
+
 };
 
 export default Home;

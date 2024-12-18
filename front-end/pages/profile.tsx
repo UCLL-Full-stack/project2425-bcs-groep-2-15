@@ -9,6 +9,7 @@ import UserService from '@services/UserService';
 import { getBalance } from './balance';
 import { parse } from 'yaml';
 import userService from '@services/UserService';
+import ProfileInterface from '@components/profileInterface';
 
 const Profile: React.FC = () => {
     const [profile, setProfile] = useState<Profile | null>(null);
@@ -75,51 +76,7 @@ const Profile: React.FC = () => {
             </Head>
             <Header userId={userId} balance={balance} />
             <main className={styles.main}>
-                {/* <span>
-                    <h1>Profile</h1>
-                </span> */}
-                <div className={styles.container}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                    <div>
-                        <img
-                            src={profile.profilePic}
-                            alt="Profile picture"
-                            style={{ width: '150px', height: 'auto' }}
-                        />
-                    </div>
-                    <div>
-                        <h2>{user.username}</h2>
-                        <p>{profile.description}</p>
-                    </div>
-                </div>
-
-                <div style={{ marginTop: '5%' }}>
-                    {/* <h2>Owned games:</h2> */}
-                    <table className={styles.profileTable}>
-                        <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {games.map((game, index) => (
-                            <tr key={index}>
-                                <td>
-                                    <img
-                                        src={game.image}
-                                        alt={game.title}
-                                        style={{ width: '150px', height: 'auto' }}
-                                    />
-                                </td>
-                                <td>{game.title}</td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </div>
-                </div>
-
+                <ProfileInterface  games={games} profile={profile} user={user}/>
             </main>
         </>
     );
