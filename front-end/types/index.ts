@@ -28,6 +28,7 @@ export type User = {
     profile: Profile;
     purchases: Purchase[];
     balance: number;
+    role: string;
 };
 
 export type Purchase = {
