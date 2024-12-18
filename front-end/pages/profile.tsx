@@ -15,8 +15,8 @@ const Profile: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [userId, setUserId] = useState<number>(1);
-    const [balance, setBalance] = useState<number>(0);
+    const [userId, setUserId] = useState<number | null>(null);
+    const [balance, setBalance] = useState<number | null>(null);
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -28,29 +28,31 @@ const Profile: React.FC = () => {
         fetchUserId();
 
         const fetchUserBalance = async () => {
-            const user = await userService.getUserById(userId);
+            const user = await userService.getUserById(userId!);
             const userJson = await user.json();
             if (userJson) {
                 setBalance(userJson.balance);
             }
         }
         fetchUserBalance();
-    }, []);
+    }, [userId]);
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const [profileResponse, userResponse, gamesResponse] = await Promise.all([
-                    ProfileService.getProfileById(userId),
-                    UserService.getUserById(userId),
-                    LibraryService.getAllLibraryGames(userId)
-                ]);
+            if (userId) {
+                try {
+                    const [profileResponse, userResponse, gamesResponse] = await Promise.all([
+                        ProfileService.getProfileById(userId!),
+                        UserService.getUserById(userId!),
+                        LibraryService.getAllLibraryGames(userId!)
+                    ]);
 
-                setProfile(await profileResponse.json());
-                setUser(await userResponse.json());
-                setGames(await gamesResponse.json());
-            } catch (err) {
-                setError('Failed to load data. Please try again later.');
+                    setProfile(await profileResponse.json());
+                    setUser(await userResponse.json());
+                    setGames(await gamesResponse.json());
+                } catch (err) {
+                    setError('Failed to load data. Please try again later.');
+                }
             }
         };
 
@@ -71,7 +73,7 @@ const Profile: React.FC = () => {
                 <title>Setback | Profile</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header balance={balance} />
+            <Header userId={userId} balance={balance} />
             <main className={styles.main}>
                 {/* <span>
                     <h1>Profile</h1>
@@ -122,13 +124,5 @@ const Profile: React.FC = () => {
         </>
     );
 };
-
-export async function getServerSideProps() {
-    const balance = await getBalance();
-
-    return {
-        props: { balance }
-    };
-}
 
 export default Profile;

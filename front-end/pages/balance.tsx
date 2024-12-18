@@ -6,8 +6,8 @@ import UserService from '@services/UserService';
 import userService from '@services/UserService';
 
 const Balance: React.FC = () => {
+    const [userId, setUserId] = useState<number | null>(null);
     const [balance, setBalance] = useState<number | null>(null);
-    const [userId, setUserId] = useState<number>(1);
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -16,23 +16,26 @@ const Balance: React.FC = () => {
                 setUserId(Number(storedUserId));
             }
         }
-
         fetchUserId();
-    }, []);
+    }, [userId]);
 
-    const fetchBalance = async () => {
-        const response = await UserService.getUserBalance(userId);
-        const balance = await response.json();
-        setBalance(balance.toFixed(2));
-    };
+    const fetchUserBalance = async () => {
+        if (userId) {
+            const user = await userService.getUserById(userId!);
+            const userJson = await user.json();
+            if (userJson) {
+                setBalance(userJson.balance.toFixed(2));
+            }
+        }
+    }
 
     useEffect(() => {
-        fetchBalance();
-    }, []);
+        fetchUserBalance();
+    }, [userId]);
 
     const handleAddBalance = async (amount: number) => {
-        await userService.addUserBalance(userId, amount);
-        await fetchBalance();
+        await userService.addUserBalance(userId!, amount);
+        await fetchUserBalance();
     };
 
     return (
@@ -41,7 +44,7 @@ const Balance: React.FC = () => {
                 <title>Setback | Balance</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header balance={balance!} />
+            <Header userId={userId} balance={balance!} />
             <main className={styles.container}>
                 <div className={styles.balanceSection}>
                     <div className={styles.balanceHeader}>

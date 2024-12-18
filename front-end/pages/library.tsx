@@ -10,8 +10,8 @@ import userService from '@services/UserService';
 
 const Library: React.FC = () => {
     const [games, setGames] = useState<Array<Game>>([]);
-    const [userId, setUserId] = useState<number>(1);
-    const [balance, setBalance] = useState<number>(0);
+    const [userId, setUserId] = useState<number | null>(null);
+    const [balance, setBalance] = useState<number | null>(null);
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -23,7 +23,7 @@ const Library: React.FC = () => {
         fetchUserId();
 
         const fetchUserBalance = async () => {
-            const user = await userService.getUserById(userId);
+            const user = await userService.getUserById(userId!);
             const userJson = await user.json();
             if (userJson) {
                 setBalance(userJson.balance);
@@ -31,13 +31,15 @@ const Library: React.FC = () => {
         }
         fetchUserBalance();
 
-        const getGames = async () => {
-            const response = await LibraryService.getAllLibraryGames(userId);
-            const games = await response.json();
-            setGames(games);
-        };
-        getGames();
-    }, []);
+        if (userId) {
+            const getGames = async () => {
+                const response = await LibraryService.getAllLibraryGames(userId!);
+                const games = await response.json();
+                setGames(games);
+            };
+            getGames();
+        }
+    }, [userId]);
 
     return (
         <>
@@ -45,7 +47,7 @@ const Library: React.FC = () => {
                 <title>Setback | Library</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header balance={balance} />
+            <Header userId={userId} balance={balance} />
             <main className={styles.main}>
                 <span>
                     <h1 className={styles.title}>Library</h1>

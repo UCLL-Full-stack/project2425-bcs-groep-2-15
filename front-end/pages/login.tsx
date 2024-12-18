@@ -6,11 +6,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import UserService from '@services/UserService';
 
-interface LoginProps {
-    balance: number;
-}
-
-const Login: React.FC<LoginProps> = ({ balance }) => {
+const Login: React.FC = () => {
     const [username, setusername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -55,7 +51,7 @@ const Login: React.FC<LoginProps> = ({ balance }) => {
                 <title>Setback | Login</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header balance={null} />
+            <Header userId={null} balance={null} />
             <main className={styles.main}>
                 <div className={styles.loginContainer}>
                     <h1 className={styles.title}>Login</h1>
@@ -92,13 +88,5 @@ const Login: React.FC<LoginProps> = ({ balance }) => {
         </>
     );
 };
-
-export async function getServerSideProps() {
-    const balance = await getBalance();
-
-    return {
-        props: { balance },
-    };
-}
 
 export default Login;

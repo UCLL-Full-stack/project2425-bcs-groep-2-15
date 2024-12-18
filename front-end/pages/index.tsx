@@ -4,10 +4,12 @@ import styles from '@styles/home.module.css';
 import { getBalance } from './balance';
 import { useEffect, useState } from 'react';
 import userService from '@services/UserService';
+import login from './login';
 
 const Home: React.FC = () => {
-    const [userId, setUserId] = useState<number>(1);
-    const [balance, setBalance] = useState<number>(0);
+    const [userId, setUserId] = useState<number | null>(null);
+    const [balance, setBalance] = useState<number | null>(null);
+    const [username, setUsername] = useState<number | null>(null);
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -18,15 +20,26 @@ const Home: React.FC = () => {
         }
         fetchUserId();
 
-        const fetchUserBalance = async () => {
-            const user = await userService.getUserById(userId);
-            const userJson = await user.json();
-            if (userJson) {
-                setBalance(userJson.balance);
+        if (userId) {
+            const fetchUserBalance = async () => {
+                const user = await userService.getUserById(userId!);
+                const userJson = await user.json();
+                if (userJson) {
+                    setBalance(userJson.balance);
+                }
             }
+            fetchUserBalance();
+
+            const fetchUsername = async () => {
+                const user = await userService.getUserById(userId!);
+                const userJson = await user.json();
+                if (userJson) {
+                    setUsername(userJson.username);
+                }
+            }
+            fetchUsername();
         }
-        fetchUserBalance();
-    }, []);
+    }, [userId]);
 
     return (
         <>
@@ -34,26 +47,21 @@ const Home: React.FC = () => {
                 <title>Setback | Home</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header balance={balance} />
+            <Header userId={userId} balance={balance} />
             <main className={styles.main}>
-                <span>
-                    <h1 className={styles.title}>Setback</h1>
-                </span>
-
-                <div className={styles.description}>
-                    <h2>Welcome to the Setback platform.</h2>
-                </div>
+                {userId == null ? (
+                    <>
+                        <h1 className={styles.title}>Welcome to Setback.</h1>
+                        <div className={styles.description}>
+                            <h2><a href="/login">Log in here</a> to access the platform.</h2>
+                        </div>
+                    </>
+                ) : (
+                    <h1 className={styles.title}>Welcome to Setback, {username}.</h1>
+                )}
             </main>
         </>
     );
 };
-
-export async function getServerSideProps() {
-    const balance = await getBalance();
-
-    return {
-        props: { balance }
-    };
-}
 
 export default Home;
