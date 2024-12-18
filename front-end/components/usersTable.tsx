@@ -1,5 +1,4 @@
 import { User } from '@types';
-import styles from '@styles/login.module.css';
 
 interface usersTableProps {
     users: User[];
@@ -7,8 +6,8 @@ interface usersTableProps {
 
 const usersTable: React.FC<usersTableProps> = ({ users }) => {
     return (
-        <div className={styles.table}>
-            <table>
+        <div>
+            <table className="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Username</th>
@@ -18,7 +17,7 @@ const usersTable: React.FC<usersTableProps> = ({ users }) => {
                 </thead>
                 <tbody>
                 {users.map((user, index) => (
-                    <tr className={styles.td} key={index}>
+                    <tr key={index}>
                         <td>{user.username}</td>
                         <td>{user.password}</td>
                         <td>{user.role}</td>

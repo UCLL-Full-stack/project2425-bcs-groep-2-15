@@ -18,3 +18,23 @@
     font-weight: bold;
     font-size: 3rem;
 }
+
+.selectedUserSection {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin-top: 1rem;
+}
+
+.selectedUserProfilePic {
+    width: 20%;
+    height: 20%;
+}
+
+.selectedUserContent {
+    margin-left: 1rem;
+}
+
+.selectedUserUsername {
+    font-weight: bold;
+}

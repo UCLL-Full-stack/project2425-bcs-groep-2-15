@@ -1,15 +1,23 @@
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
-import { getBalance } from './balance';
 import { useEffect, useState } from 'react';
 import userService from '@services/UserService';
-import login from './login';
+import { Game, User } from '@types';
+import AdminPanel from '@components/index/adminPanel';
+import WelcomeMessage from '@components/index/welcomeMessage';
+import LibraryTable from '@components/libraryTable';
+import libraryService from '@services/LibraryService';
+import UserGamesTable from '@components/index/userGamesTable';
+import SelectedUser from '@components/index/selectedUser';
 
 const Home: React.FC = () => {
     const [userId, setUserId] = useState<number | null>(null);
     const [balance, setBalance] = useState<number | null>(null);
     const [username, setUsername] = useState<number | null>(null);
+    const [users, setUsers] = useState<User[]>([]);
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [selectedUserGames, setSelectedUserGames] = useState<Game[]>([]);
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -39,7 +47,33 @@ const Home: React.FC = () => {
             }
             fetchUsername();
         }
+
+        const fetchUsers = async () => {
+            try {
+                const response = await userService.getAllUsers();
+                if (!response.ok) {
+                    throw new Error("Failed to fetch users");
+                }
+                const usersListJson = await response.json();
+                setUsers(usersListJson);
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
+        fetchUsers();
     }, [userId]);
+
+    useEffect(() => {
+        if (selectedUser) {
+            const fetchSUG = async () => {
+                const userGames = await libraryService.getAllLibraryGames(selectedUser!.id);
+                const userGamesJson = await userGames.json();
+                setSelectedUserGames(userGamesJson)
+            }
+
+            fetchSUG();
+        }
+    }, [selectedUser]);
 
     return (
         <>
@@ -49,22 +83,20 @@ const Home: React.FC = () => {
             </Head>
             <Header userId={userId} balance={balance} />
             <main className={styles.main}>
-                {userId == null ? (
-                    <>
-                        <h1 className={styles.title}>Welcome to Setback.</h1>
-                        <div className={styles.description}>
-                            <h2><a href="/login">Log in here</a> to access the platform.</h2>
-                        </div>
-                    </>
+                {userId === null ? (
+                    <WelcomeMessage />
                 ) : userId === 2 ? (
-                    <h1 className={styles.title}>= ADMIN INTERFACE =</h1>
+                    <AdminPanel users={users} selectUser={setSelectedUser} />
                 ) : (
                     <h1 className={styles.title}>Welcome to Setback, {username}.</h1>
+                )}
+
+                {selectedUser && selectedUserGames && (
+                    <SelectedUser selectedUser={selectedUser} selectedUserGames={selectedUserGames} />
                 )}
             </main>
         </>
     );
-
 };
 
 export default Home;
