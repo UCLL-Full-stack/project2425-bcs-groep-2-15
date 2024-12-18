@@ -1,16 +1,19 @@
+import React, { useEffect, useState } from 'react';
+import { Game } from '@types';
+import gameService from '@services/GameService';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Header from '@components/header';
-import styles from '@styles/home.module.css';
-import { Game } from '@types';
-import StoreTable from '@components/storeTable';
-import React, { useEffect, useState } from 'react';
-import GameService from '@services/GameService';
-import { getBalance } from './balance';
-import { parse } from 'yaml';
 import userService from '@services/UserService';
+import styles from '@styles/home.module.css';
+import StoreTable from '@components/store/storeTable';
+import StoreGame from '@components/store/storeGame';
+import PurchaseService from '@services/PurchaseService';
 
-const Store: React.FC = () => {
-    const [games, setGames] = useState<Array<Game>>([]);
+const GameDetails: React.FC = () => {
+    const router = useRouter();
+    const { gameId } = router.query;
+    const [game, setGame] = React.useState<Game>();
     const [userId, setUserId] = useState<number | null>(null);
     const [balance, setBalance] = useState<number | null>(null);
 
@@ -31,19 +34,18 @@ const Store: React.FC = () => {
             }
         }
         fetchUserBalance();
-
-        const getGames = async () => {
-            const response = await GameService.getAllGames();
-            const games = await response.json();
-            setGames(games);
-        };
-        getGames();
     }, [userId]);
 
-    const updateBalance = async () => {
-        const newBalance = await getBalance();
-        setBalance(newBalance);
-    };
+    useEffect(() => {
+        if (gameId) {
+            const fetchGame = async () => {
+                const gameQuery = await gameService.getGameById(String(gameId));
+                const gameJson = await gameQuery.json();
+                setGame(gameJson);
+            }
+            fetchGame();
+        }
+    }, [gameId]);
 
     return (
         <>
@@ -53,13 +55,12 @@ const Store: React.FC = () => {
             </Head>
             <Header userId={userId} balance={balance} />
             <main className={styles.main}>
-                <span>
-                    <h1 className={styles.title}>Setback Store</h1>
-                </span>
-                <StoreTable games={games} updateBalance={updateBalance} />
+                {game && (
+                    <StoreGame game={game}/>
+                )}
             </main>
         </>
     );
 };
 
-export default Store;
+export default GameDetails;

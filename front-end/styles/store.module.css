@@ -147,3 +147,46 @@
     color: #19a9e4;
     font-weight: bold;
 }
+
+.gamePageDiv {
+    display: flex;
+    width: 50%;
+}
+
+.gamePageTable {
+    margin-left: 2rem;
+    display: flex;
+}
+
+.gamePageImage {
+    width: 50%;
+    height: auto;
+}
+
+.gamePageTitle {
+    font-weight: bold;
+    font-size: 4rem;
+    height: 40%;
+    white-space: nowrap;
+}
+
+.gamePagePrice {
+    font-size: 3rem;
+    width: 10%;
+}
+
+.gamePageDiscount {
+    font-size: 1rem;
+    color: white;
+    background-color: yellowgreen;
+    border: 2px solid black;
+    padding: 3% 5%;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    float: left;
+    margin-bottom: 1rem;
+}
+
+.gamePageCategories {
+    font-size: 1.5rem;
+}

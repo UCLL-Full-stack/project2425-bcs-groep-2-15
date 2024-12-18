@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Game } from '@types';
 import LibraryService from '@services/LibraryService';
 import PurchaseService from '@services/PurchaseService';
-import style from '../styles/store.module.css';
-import { getBalance } from '../pages/balance';
+import styles from '@styles/store.module.css';
 import userService from '@services/UserService';
+import { router } from 'next/client';
 
 interface StoreTableProps {
     games: Array<Game>;
@@ -87,14 +87,14 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
 
     return (
         <>
-            <div className={style.filterButtons}>
-                <button onClick={() => setFilter('all')} className={style.filterButton}>All</button>
-                <button onClick={() => setFilter('discounts')} className={style.filterButton}>Discounts</button>
-                <button onClick={() => setFilter('category')} className={style.filterButton}>By category</button>
+            <div className={styles.filterButtons}>
+                <button onClick={() => setFilter('all')} className={styles.filterButton}>All</button>
+                <button onClick={() => setFilter('discounts')} className={styles.filterButton}>Discounts</button>
+                <button onClick={() => setFilter('category')} className={styles.filterButton}>By category</button>
             </div>
 
             {filter === 'category' && (
-                <div className={style.categorySelect}>
+                <div className={styles.categorySelect}>
                     <select
                         value={selectedCategory || ''}
                         onChange={(e) => setSelectedCategory(e.target.value)}
@@ -108,7 +108,7 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
             )}
 
             {filterGames().length > 0 && (
-                <table className={style.table}>
+                <table className={styles.table}>
                     <thead>
                     <tr>
                         <th scope="col"></th>
@@ -120,30 +120,34 @@ const StoreTable: React.FC<StoreTableProps> = ({ games, updateBalance }) => {
                     </thead>
                     <tbody>
                     {filterGames().map((game, index) => (
-                        <tr key={index}>
-                            <td className={style.image}>
+                        <tr
+                            key={index}
+                            onClick={() => router.push(`/store/${game.id}`)}
+                            role="button"
+                        >
+                            <td className={styles.image}>
                                 <img
                                     src={game.image}
                                     alt={game.title}
                                 />
                             </td>
-                            <td className={style.titleAndCategories}>
-                                <div className={style.title}>{game.title}</div>
-                                <div className={style.categories}>{game.categories.join(', ')}</div>
+                            <td className={styles.titleAndCategories}>
+                                <div className={styles.title}>{game.title}</div>
+                                <div className={styles.categories}>{game.categories.join(', ')}</div>
                             </td>
-                            <td className={style.discountColumn}>
+                            <td className={styles.discountColumn}>
                                 {game.discount && game.discount > 0 ? (
-                                    <span className={style.discount}>{`-${game.discount}%`}</span>
+                                    <span className={styles.discount}>{`-${game.discount}%`}</span>
                                 ) : (
                                     ''
                                 )}
                             </td>
-                            <td className={style.price}>€{game.price.toFixed(2)}</td>
-                            <td className={style.purchaseColumn}>
+                            <td className={styles.price}>€{game.price.toFixed(2)}</td>
+                            <td className={styles.purchaseColumn}>
                                 {libraryGames?.some((ownedGame) => ownedGame.id === game.id) ? (
-                                    <span className={style.purchasedButton}>Purchased</span>
+                                    <span className={styles.purchasedButton}>Purchased</span>
                                 ) : (
-                                    <a href="#" onClick={() => handlePurchase(game)} className={style.purchaseButton}> Purchase </a>
+                                    <a href="#" onClick={() => handlePurchase(game)} className={styles.purchaseButton}> Purchase </a>
                                 )}
                             </td>
                         </tr>
