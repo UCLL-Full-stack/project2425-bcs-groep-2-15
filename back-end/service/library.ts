@@ -3,14 +3,6 @@ import { Library } from '../model/library';
 import libraryDb from '../repository/library.db';
 import database from '../repository/database';
 
-const getAllLibraryGames = async (userId: number): Promise<Game[]> => {
-    const library = await libraryDb.getLibraryById(userId);
-    if (!library) {
-        throw new Error(`Library with id ${userId} not found`);
-    }
-    return library.getGames();
-};
-
 const getLibraryById = async (id: number): Promise<Library | null> => {
     const library = await database.library.findUnique({
         where: { id },
@@ -35,6 +27,14 @@ const getLibraryById = async (id: number): Promise<Library | null> => {
         achievements: library.achievements,
         timePlayed: library.timePlayed
     });
+};
+
+const getAllLibraryGames = async (userId: number): Promise<Game[]> => {
+    const library = await libraryDb.getLibraryById(userId);
+    if (!library) {
+        throw new Error(`Library with id ${userId} not found`);
+    }
+    return library.getGames();
 };
 
 const addLibraryAchievements = async (id: number): Promise<Library> => {
@@ -80,8 +80,8 @@ const addGameToLibrary = async (id: number, game: Game): Promise<Game> => {
 };
 
 export default {
-    getAllLibraryGames,
     getLibraryById,
+    getAllLibraryGames,
     addLibraryAchievements,
     addGameToLibrary,
 };

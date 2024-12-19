@@ -20,7 +20,7 @@ const getLibraryById = async (userId: number) => {
 
 const addLibraryAchievements = async (userId: number) => {
     return fetch(`${BASE_URL}/libraries/${userId}/achievements`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         }
