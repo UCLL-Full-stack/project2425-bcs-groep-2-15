@@ -89,4 +89,37 @@ gameRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) =
     }
 });
 
+/**
+ * @swagger
+ * /games/{id}:
+ *   delete:
+ *     summary: Delete a game by id.
+ *     description: Deletes the game specified by its unique identifier.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *           required: true
+ *           description: The unique identifier of the game to delete.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       204:
+ *         description: Successfully deleted the game.
+ *       404:
+ *         description: Game not found.
+ *       500:
+ *         description: Internal server error.
+ */
+gameRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await gameService.deleteGame(Number(req.params.id));
+        res.status(204).end();
+    } catch (error) {
+        next(error);
+    }
+});
+
+
 export { gameRouter };

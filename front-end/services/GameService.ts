@@ -18,9 +18,19 @@ const getGameById = async (id: string) => {
     });
 };
 
+const deleteGame = async (id: string) => {
+    return fetch(`${BASE_URL}/games/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+};
+
 const GameService = {
     getAllGames,
-    getGameById
+    getGameById,
+    deleteGame,
 };
 
 export default GameService;

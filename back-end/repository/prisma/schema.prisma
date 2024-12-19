@@ -62,7 +62,7 @@ model Library {
 }
 
 model GamesInLibraries {
-  game      Game    @relation(fields: [gameId], references: [id])
+  game      Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
   gameId    Int
   library   Library @relation(fields: [libraryId], references: [id])
   libraryId Int

@@ -16,7 +16,14 @@ const getGameById = async (id: number): Promise<Game | null> => {
     return new Game(gameData);
 };
 
+const deleteGame = async (id: number): Promise<void> => {
+    await database.game.deleteMany({
+        where: { id }
+    });
+};
+
 export default {
     getAllGames,
-    getGameById
+    getGameById,
+    deleteGame
 };

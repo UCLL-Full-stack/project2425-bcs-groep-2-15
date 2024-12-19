@@ -16,6 +16,7 @@ const GameDetails: React.FC = () => {
     const [game, setGame] = React.useState<Game>();
     const [userId, setUserId] = useState<number | null>(null);
     const [balance, setBalance] = useState<number | null>(null);
+    const [userRole, setUserRole] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -31,9 +32,19 @@ const GameDetails: React.FC = () => {
             const userJson = await user.json();
             if (userJson) {
                 setBalance(userJson.balance);
+                setUserRole(userJson.role);
             }
         }
         fetchUserBalance();
+
+        if (userId) {
+            const fetchUserRole = async () => {
+                const response = await userService.getUserById(userId!);
+                const userJson = await response.json();
+                setUserRole(userJson.role);
+            }
+            fetchUserRole();
+        }
     }, [userId]);
 
     useEffect(() => {
@@ -47,6 +58,14 @@ const GameDetails: React.FC = () => {
         }
     }, [gameId]);
 
+    const handleDeleteGame = async () => {
+        const confirmDelete = window.confirm('Are you sure you want to purchase this game?');
+        if (confirmDelete) {
+            await gameService.deleteGame(String(gameId));
+            router.push("/store")
+        }
+    }
+
     return (
         <>
             <Head>
@@ -58,6 +77,9 @@ const GameDetails: React.FC = () => {
                 {game && (
                     <StoreGame game={game}/>
                 )}
+                { userRole === "Tester" ? (
+                    <button onClick={handleDeleteGame}>DELETE GAME</button>
+                ) : null};
             </main>
         </>
     );

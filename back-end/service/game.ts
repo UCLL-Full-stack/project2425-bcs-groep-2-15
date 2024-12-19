@@ -9,7 +9,15 @@ const getGameById = async (id: number): Promise<Game | null> => {
     return game;
 };
 
+const deleteGame = async (id: number): Promise<void> => {
+    if (await getGameById(id) === null) {
+        throw new Error(`Game with id ${id} not found`);
+    }
+    await gameDB.deleteGame(id);
+}
+
 export default {
     getAllGames,
-    getGameById
+    getGameById,
+    deleteGame,
 };
