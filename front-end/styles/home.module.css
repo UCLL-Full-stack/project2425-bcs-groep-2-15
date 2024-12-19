@@ -19,6 +19,19 @@
     font-size: 3rem;
 }
 
+.subtitle {
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.subsubtitle {
+    color: white;
+    text-align: center;
+    font-size: 1.25rem;
+    width: 50%;
+}
+
 .selectedUserSection {
     display: flex;
     justify-content: center;

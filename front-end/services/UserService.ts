@@ -44,6 +44,7 @@ const login = async (username: string, password: string, role: string) => {
     const userJson = await user.json();
     sessionStorage.setItem("username", username);
     sessionStorage.setItem("id", userJson.id);
+    sessionStorage.setItem("role", role);
 
     return fetch(`${BASE_URL}/users/login`, {
         method: "POST",

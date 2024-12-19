@@ -18,6 +18,7 @@ const Home: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [selectedUserGames, setSelectedUserGames] = useState<Game[]>([]);
+    const [role, setRole] = useState<string>("User");
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -37,6 +38,14 @@ const Home: React.FC = () => {
                 }
             }
             fetchUserBalance();
+
+            const fetchRole = async () => {
+                const role = await sessionStorage.getItem('role');
+                if (role) {
+                    setRole(role);
+                }
+            }
+            fetchRole();
 
             const fetchUsername = async () => {
                 const user = await userService.getUserById(userId!);
@@ -85,10 +94,13 @@ const Home: React.FC = () => {
             <main className={styles.main}>
                 {userId === null ? (
                     <WelcomeMessage />
-                ) : userId === 3 ? (
+                ) : role === "Admin" ? (
                     <AdminPanel users={users} selectUser={setSelectedUser} />
                 ) : (
-                    <h1 className={styles.title}>Welcome to Setback, {username}.</h1>
+                    <>
+                        <h1 className={styles.title}>Welcome to Setback, {username}.</h1>
+                        <h3 className={styles.subtitle}>New to Setback? Learn more <a href={"/about"}>here.</a></h3>
+                    </>
                 )}
 
                 {selectedUser && selectedUserGames && (
