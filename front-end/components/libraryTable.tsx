@@ -6,9 +6,10 @@ import styles from '@styles/library.module.css';
 type Props = {
     games: Array<Game>,
     library?: Library | null
+    userRole: string | null
 };
 
-const LibraryTable: React.FC<Props> = ({ games, library }: Props) => {
+const LibraryTable: React.FC<Props> = ({ games, library, userRole }: Props) => {
     const [selectedGame, setSelectedGame] = useState<Game | null>(null);
 
     return (
@@ -44,9 +45,11 @@ const LibraryTable: React.FC<Props> = ({ games, library }: Props) => {
                         <p className={styles.paragraph}>
                             <strong>Time played:</strong> {library?.timePlayed}h
                         </p>
-                        <p className={styles.paragraph}>
-                            <strong>Achievements:</strong> 0/{library?.achievements}
-                        </p>
+                        { userRole === "Tester" ? (
+                            <p className={styles.paragraph}><strong>Achievements:</strong> 25/{library?.achievements}</p>
+                        ) : (
+                            <p className={styles.paragraph}><strong>Achievements:</strong> 0/{library?.achievements}</p>
+                        )}
                     </div>
                 ) : (
                     <p className={styles.placeholder}>Please select a game from the sidebar.</p>

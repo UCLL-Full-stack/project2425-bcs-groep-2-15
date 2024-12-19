@@ -85,7 +85,7 @@ const Home: React.FC = () => {
             <main className={styles.main}>
                 {userId === null ? (
                     <WelcomeMessage />
-                ) : userId === 2 ? (
+                ) : userId === 3 ? (
                     <AdminPanel users={users} selectUser={setSelectedUser} />
                 ) : (
                     <h1 className={styles.title}>Welcome to Setback, {username}.</h1>

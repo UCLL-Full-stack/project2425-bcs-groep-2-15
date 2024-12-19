@@ -10,6 +10,7 @@ import LibraryService from '@services/LibraryService';
 import PurchaseService from '@services/PurchaseService';
 import { useRouter } from 'next/router';
 import StoreTable from '@components/store/storeTable';
+import libraryService from '@services/LibraryService';
 
 const Store: React.FC = () => {
     const [games, setGames] = useState<Array<Game>>([]);
@@ -94,6 +95,7 @@ const Store: React.FC = () => {
                     window.alert('You do not have enough money in your balance.');
                 } else {
                     await PurchaseService.newPurchase(userId, game.id);
+                    await libraryService.addLibraryAchievements(userId);
                     await fetchLibraryGames();
                     updateBalance();
                 }

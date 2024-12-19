@@ -33,6 +33,10 @@ export class Library {
         return this.achievements;
     }
 
+    setAchievements(achievements: number): void {
+        this.achievements = achievements;
+    }
+
     getTimePlayed(): number {
         return this.timePlayed;
     }

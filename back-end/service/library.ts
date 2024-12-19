@@ -37,6 +37,24 @@ const getLibraryById = async (id: number): Promise<Library | null> => {
     });
 };
 
+const addLibraryAchievements = async (id: number): Promise<Library> => {
+    const library = await getLibraryById(id);
+    if (!library) {
+        throw new Error(`Library with id ${id} not found`);
+    }
+
+    library.setAchievements(library.achievements + 5);
+
+    await database.library.update({
+        where: { id },
+        data: {
+            achievements: library.achievements
+        }
+    });
+
+    return library;
+}
+
 const addGameToLibrary = async (id: number, game: Game): Promise<Game> => {
     const library = await getLibraryById(id);
     if (!library) {
@@ -64,5 +82,6 @@ const addGameToLibrary = async (id: number, game: Game): Promise<Game> => {
 export default {
     getAllLibraryGames,
     getLibraryById,
-    addGameToLibrary
+    addLibraryAchievements,
+    addGameToLibrary,
 };

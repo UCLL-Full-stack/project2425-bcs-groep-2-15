@@ -111,6 +111,58 @@ libraryRouter.get('/:id', async (req: Request, res: Response, next: NextFunction
 
 /**
  * @swagger
+ * /libraries/achievements:
+ *   post:
+ *     summary: Add achievements to a library by ID.
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: The ID of the library to which achievements will be added.
+ *     responses:
+ *       200:
+ *         description: Successfully added achievements to the library.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   achievementId:
+ *                     type: number
+ *                     description: The unique ID of the achievement added.
+ *                   name:
+ *                     type: string
+ *                     description: The name of the achievement.
+ *                   dateUnlocked:
+ *                     type: string
+ *                     format: date-time
+ *                     description: The timestamp when the achievement was unlocked.
+ *       400:
+ *         description: Missing or invalid `id` parameter.
+ *       500:
+ *         description: Internal server error.
+ */
+libraryRouter.post('/:id/achievements', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+
+        if (!id || isNaN(Number(id))) {
+            return res.status(400).json({ error: 'Missing or invalid `id` parameter' });
+        }
+
+        const addedAchievements = await libraryService.addLibraryAchievements(Number(id));
+        res.status(200).json(addedAchievements);
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * @swagger
  * /libraries/games:
  *   post:
  *     summary: Add a game to the library.

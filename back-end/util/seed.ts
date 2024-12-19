@@ -67,6 +67,22 @@ const main = async () => {
         }
     });
 
+    const libraryTester = await prisma.library.create({
+        data: {
+            achievements: 25,
+            timePlayed: 600,
+            GamesInLibraries: {
+                create: [
+                    { gameId: edenSword.id },
+                    { gameId: nexus.id },
+                    { gameId: snakeTriad.id },
+                    { gameId: projectSalvo.id },
+                    { gameId: projectSalvoSalvation.id }
+                ]
+            }
+        }
+    });
+
     const libraryAdmin = await prisma.library.create({
         data: {
             achievements: 0,
@@ -79,6 +95,13 @@ const main = async () => {
         data: {
             description: 'This is my profile.',
             profilePic: '/images/profile/2.png'
+        }
+    });
+
+    const profileTester = await prisma.profile.create({
+        data: {
+            description: 'This is my profile.',
+            profilePic: '/images/profile/4.png'
         }
     });
 
@@ -102,6 +125,18 @@ const main = async () => {
     });
 
     const user2 = await prisma.user.create({
+        data: {
+            username: 'Tester',
+            password: '1234',
+            library: { connect: { id: libraryTester.id } },
+            profile: { connect: { id: profileTester.id } },
+            purchases: undefined,
+            balance: 99999,
+            role: 'Tester'
+        }
+    });
+
+    const user3 = await prisma.user.create({
         data: {
             username: 'Admin',
             password: '1234',

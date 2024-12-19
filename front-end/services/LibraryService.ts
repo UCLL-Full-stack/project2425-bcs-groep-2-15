@@ -18,9 +18,19 @@ const getLibraryById = async (userId: number) => {
     });
 };
 
+const addLibraryAchievements = async (userId: number) => {
+    return fetch(`${BASE_URL}/libraries/${userId}/achievements`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+};
+
 const LibraryService = {
     getAllLibraryGames,
     getLibraryById,
+    addLibraryAchievements,
 };
 
 export default LibraryService;

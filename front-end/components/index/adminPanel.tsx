@@ -31,7 +31,11 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ users, selectUser }) => {
                             <td>{user.id}</td>
                             <td>{user.username}</td>
                             <td>{user.password}</td>
-                            <td>{user.balance}</td>
+                            { user.role === "Admin" || user.role === "Tester" ? (
+                                <td>∞</td>
+                            ) : (
+                                <td>{user.balance}</td>
+                            )}
                             <td>{user.role}</td>
                         </tr>
                     ))}
