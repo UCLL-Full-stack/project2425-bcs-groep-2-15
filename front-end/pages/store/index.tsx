@@ -29,16 +29,22 @@ const Store: React.FC = () => {
             }
         }
         fetchUserId();
+    }, []);
 
-        const fetchUserBalance = async () => {
-            const user = await userService.getUserById(userId!);
-            const userJson = await user.json();
-            if (userJson) {
-                setBalance(userJson.balance);
+    useEffect(() => {
+        if (userId !== null) {
+            const fetchUserBalance = async () => {
+                const user = await userService.getUserById(userId);
+                const userJson = await user.json();
+                if (userJson) {
+                    setBalance(userJson.balance);
+                }
             }
+            fetchUserBalance();
         }
-        fetchUserBalance();
+    }, [userId]);
 
+    useEffect(() => {
         const getGames = async () => {
             const response = await GameService.getAllGames();
             const games = await response.json();
