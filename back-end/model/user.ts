@@ -124,3 +124,5 @@ export class User {
         );
     }
 }
+
+export { Role };

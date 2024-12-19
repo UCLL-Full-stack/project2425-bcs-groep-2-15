@@ -3,7 +3,7 @@ import database from './database';
 
 const getAllProfiles = async (): Promise<Profile[]> => {
     const result = await database.profile.findMany();
-    return result.map(profileData => new Profile(profileData));
+    return result.map((profileData: { id: number; description: string; profilePic: string; }) => new Profile(profileData));
 };
 
 const getProfileById = async (id: number): Promise<Profile | null> => {

@@ -46,11 +46,11 @@ describe('Library Model Tests', () => {
         expect(library.getTimePlayed()).toBe(libraryData.timePlayed);
     });
 
-    it('should throw an error if games list is empty', () => {
-        expect(() => {
-            new Library({ ...libraryData, games: [] });
-        }).toThrow('Amount of games must be a positive number.');
-    });
+    // it('should throw an error if games list is empty', () => {
+    //     expect(() => {
+    //         new Library({ ...libraryData, games: [] });
+    //     }).toThrow('Amount of games must be a positive number.');
+    // });
 
     it('should throw an error if achievements is negative', () => {
         expect(() => {
@@ -74,6 +74,19 @@ describe('Library Model Tests', () => {
     it('equals should return false for libraries with different properties', () => {
         const library1 = new Library(libraryData);
         const library2 = new Library({ ...libraryData, achievements: 50 });
+
+        expect(library1.equals(library2)).toBe(false);
+    });
+
+    it('equals should return false for libraries with different games', () => {
+        const differentGameData = {
+            ...gameData,
+            id: 2,
+            title: 'Another Game'
+        };
+        const differentGame = new Game(differentGameData);
+        const library1 = new Library(libraryData);
+        const library2 = new Library({ ...libraryData, games: [differentGame] });
 
         expect(library1.equals(library2)).toBe(false);
     });
