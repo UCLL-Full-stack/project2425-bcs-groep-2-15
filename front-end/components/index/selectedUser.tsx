@@ -1,23 +1,24 @@
 import React from 'react';
-import { User, Game } from '@types';
-import UserGamesTable from '@components/index/userGamesTable';
+import { User, Game, Purchase } from '@types';
+import UserGamesTable from '@components/index/userPurchasesTable';
 import styles from '@styles/home.module.css';
 
 interface SelectedUserProps {
-    selectedUser: User;
-    selectedUserGames: Game[];
+    selectedUser: User,
+    selectedUserPurchases: Purchase[]
 }
 
-const SelectedUser: React.FC<SelectedUserProps> = ({ selectedUser, selectedUserGames }) => {
+const SelectedUser: React.FC<SelectedUserProps> = ({ selectedUser, selectedUserPurchases }) => {
     return (
         <section className={styles.selectedUserSection}>
-            <img className={styles.selectedUserProfilePic} src={selectedUser.profile.profilePic} alt="Profile picture" />
+            <img className={styles.selectedUserProfilePic} src={selectedUser.profile.profilePic}
+                 alt="Profile picture" />
             <div className={styles.selectedUserContent}>
                 <h2 className={styles.selectedUserUsername}>{selectedUser.username}</h2>
-                {selectedUserGames.length > 0 ? (
-                    <UserGamesTable games={selectedUserGames} />
+                {selectedUserPurchases.length > 0 ? (
+                    <UserGamesTable purchases={selectedUserPurchases}/>
                 ) : (
-                    <p>User does not own any games</p>
+                    <p>User does have any purchases.</p>
                 )}
             </div>
         </section>

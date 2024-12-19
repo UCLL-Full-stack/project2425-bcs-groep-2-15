@@ -3,15 +3,39 @@ import { Purchase } from '../model/purchase';
 import { User } from '../model/user';
 import { PrismaClient } from '@prisma/client';
 import database from './database';
+import userDb from './user.db';
 
 const prisma = new PrismaClient();
 
 const mapPurchase = (purchaseData: any): Purchase => {
-    return new Purchase(purchaseData);
+    let user = purchaseData.user;
+    if (!user) {
+        user = userDb.getUserById(purchaseData.userId);
+    }
+    let game = purchaseData.game;
+    if (!game) {
+        game = userDb.getUserById(purchaseData.gameId);
+    }
+
+    return new Purchase({
+        id: purchaseData.id,
+        date: purchaseData.date,
+        cost: purchaseData.cost,
+        user: user,
+        game: game
+    });
 };
+
 
 const getAllPurchases = async (): Promise<Purchase[]> => {
     const purchasesData = await database.purchase.findMany();
+    return purchasesData.map(mapPurchase);
+};
+
+const getPurchasesOfUser = async (userId: number): Promise<Purchase[]> => {
+    const purchasesData = await database.purchase.findMany({
+        where: { userId: userId }
+    });
     return purchasesData.map(mapPurchase);
 };
 
@@ -27,7 +51,7 @@ const newPurchase = async (user: User, game: Game) => {
     user.setBalance(user.getBalance() - game.getPrice());
     await prisma.user.update({
         where: { id: user.id },
-        data: { balance: user.balance }
+        data: { balance: Number(user.balance.toFixed(2)) }
     });
 
     await prisma.gamesInLibraries.create({
@@ -50,6 +74,7 @@ const newPurchase = async (user: User, game: Game) => {
 
 export default {
     getAllPurchases,
+    getPurchasesOfUser,
     getPurchaseById,
     newPurchase
 };

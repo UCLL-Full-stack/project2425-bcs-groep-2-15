@@ -3,13 +3,15 @@ import Header from '@components/header';
 import styles from '@styles/home.module.css';
 import { useEffect, useState } from 'react';
 import userService from '@services/UserService';
-import { Game, User } from '@types';
+import { Game, Purchase, User } from '@types';
 import AdminPanel from '@components/index/adminPanel';
 import WelcomeMessage from '@components/index/welcomeMessage';
 import LibraryTable from '@components/libraryTable';
 import libraryService from '@services/LibraryService';
-import UserGamesTable from '@components/index/userGamesTable';
+import UserGamesTable from '@components/index/userPurchasesTable';
 import SelectedUser from '@components/index/selectedUser';
+import purchaseService from '@services/PurchaseService';
+import gameService from '@services/GameService';
 
 const Home: React.FC = () => {
     const [userId, setUserId] = useState<number | null>(null);
@@ -17,7 +19,7 @@ const Home: React.FC = () => {
     const [username, setUsername] = useState<number | null>(null);
     const [users, setUsers] = useState<User[]>([]);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [selectedUserGames, setSelectedUserGames] = useState<Game[]>([]);
+    const [selectedUserPurchases, setSelectedUserPurchases] = useState<Purchase[]>([]);
     const [role, setRole] = useState<string>("User");
 
     useEffect(() => {
@@ -74,13 +76,13 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         if (selectedUser) {
-            const fetchSUG = async () => {
-                const userGames = await libraryService.getAllLibraryGames(selectedUser!.id);
-                const userGamesJson = await userGames.json();
-                setSelectedUserGames(userGamesJson)
+            const fetchUserPurchases = async () => {
+                const userPurchases = await purchaseService.getPurchasesOfUser(selectedUser.id!);
+                const userPurchasesJson = await userPurchases.json();
+                setSelectedUserPurchases(userPurchasesJson)
             }
 
-            fetchSUG();
+            fetchUserPurchases();
         }
     }, [selectedUser]);
 
@@ -103,8 +105,8 @@ const Home: React.FC = () => {
                     </>
                 )}
 
-                {selectedUser && selectedUserGames && (
-                    <SelectedUser selectedUser={selectedUser} selectedUserGames={selectedUserGames} />
+                {selectedUser && selectedUserPurchases && (
+                    <SelectedUser selectedUser={selectedUser} selectedUserPurchases={selectedUserPurchases}/>
                 )}
             </main>
         </>

@@ -9,6 +9,15 @@ const getAllPurchases = async () => {
     });
 };
 
+const getPurchasesOfUser = async (userId: number) => {
+    return fetch(`${BASE_URL}/purchases/user/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
 const getPurchaseById = async (id: number) => {
     return fetch(`${BASE_URL}/purchases/${id}`, {
         method: 'GET',
@@ -30,6 +39,7 @@ const newPurchase = async (userId: number, gameId: number) => {
 
 const PurchaseService = {
     getAllPurchases,
+    getPurchasesOfUser,
     getPurchaseById,
     newPurchase
 };

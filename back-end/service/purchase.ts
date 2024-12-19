@@ -5,6 +5,14 @@ import gameDb from '../repository/game.db';
 
 const getAllPurchases = async (): Promise<Purchase[]> => await purchaseDb.getAllPurchases();
 
+const getPurchasesOfUser = async (userId: number): Promise<Purchase[]> => {
+    const user = await userDb.getUserById(userId);
+    if (!user) {
+        throw new Error(`User with id ${userId} not found`);
+    }
+    return await purchaseDb.getPurchasesOfUser(userId);
+}
+
 const getPurchaseById = (id: number): Promise<Purchase | null> => {
     if (purchaseDb.getPurchaseById(id) === null) {
         throw new Error(`Purchase with id ${id} not found`);
@@ -34,6 +42,7 @@ const newPurchase = async (userId: number, gameId: number) => {
 
 export default {
     getAllPurchases,
+    getPurchasesOfUser,
     getPurchaseById,
     newPurchase
 };

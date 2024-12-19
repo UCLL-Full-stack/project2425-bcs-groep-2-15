@@ -71,6 +71,43 @@ purchaseRouter.get('/', async (req: Request, res: Response, next: NextFunction) 
 
 /**
  * @swagger
+ * /purchases/user/{id}:
+ *   get:
+ *     summary: Get a list of purchases made by a specific user.
+ *     tags:
+ *      - Purchases
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The unique identifier of the user to retrieve purchases for.
+ *         schema:
+ *           type: number
+ *           format: int64
+ *     responses:
+ *       200:
+ *         description: A list of purchases made by the specified user.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Purchase'
+ *       404:
+ *         description: User not found.
+ */
+purchaseRouter.get('/user/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const purchases = await purchaseService.getPurchasesOfUser(Number(req.params.id));
+        res.status(200).json(purchases);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * @swagger
  * /purchases/{id}:
  *   get:
  *     summary: Retrieve a purchase by its ID.
