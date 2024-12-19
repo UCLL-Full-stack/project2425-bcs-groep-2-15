@@ -3,12 +3,13 @@ import { Game, Profile, User } from '@types';
 import styles from '@styles/profile.module.css';
 
 type Props = {
-    profile: Profile;
-    user: User;
-    games: Game[];
+    profile: Profile,
+    user: User,
+    games: Game[],
+    setEditProfileVisible: (value: (((prevState: boolean) => boolean) | boolean)) => void
 };
 
-const ProfileInterface: React.FC<Props> = ({ profile, user, games }: Props) => {
+const ProfileInterface: React.FC<Props> = ({ profile, user, games, setEditProfileVisible }: Props) => {
     return (
         <div className={styles.container}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
@@ -22,6 +23,7 @@ const ProfileInterface: React.FC<Props> = ({ profile, user, games }: Props) => {
                 <div>
                     <h2>{user.username}</h2>
                     <p>{profile.description}</p>
+                    <button className={styles.editButton} onClick={() => setEditProfileVisible(true)}>Edit</button>
                 </div>
             </div>
 
@@ -51,6 +53,6 @@ const ProfileInterface: React.FC<Props> = ({ profile, user, games }: Props) => {
             </div>
         </div>
     );
-}
+};
 
 export default ProfileInterface;

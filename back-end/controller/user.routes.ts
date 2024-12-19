@@ -361,7 +361,7 @@ userRouter.get('/:id/balance', async (req: Request, res: Response, next: NextFun
  *       404:
  *         description: User not found.
  */
-userRouter.post('/:id/balance', async (req: Request, res: Response, next: NextFunction) => {
+userRouter.put('/:id/balance', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
         const { amount } = req.body;

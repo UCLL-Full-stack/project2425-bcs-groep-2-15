@@ -69,7 +69,7 @@ const getUserBalance = async (id: number) => {
 
 const addUserBalance = async (id: number, amount: number) => {
     return fetch(`${BASE_URL}/users/${id}/balance`, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },

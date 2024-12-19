@@ -41,6 +41,7 @@
 
 import express, { NextFunction, Request, Response } from 'express';
 import profileService from '../service/profile';
+import userService from '../service/user';
 
 const profileRouter = express.Router();
 
@@ -100,5 +101,65 @@ profileRouter.get('/:id', async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 });
+
+/**
+ * @swagger
+ * /profiles/{id}:
+ *   put:
+ *     summary: Update a profile by id.
+ *     tags:
+ *       - Profiles
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *           required: true
+ *           description: The profile id.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               profilePic:
+ *                 type: string
+ *                 description: URL of the profile picture.
+ *               description:
+ *                 type: string
+ *                 description: Description of the profile.
+ *             required:
+ *               - profilePic
+ *               - description
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully.
+ *       400:
+ *         description: Missing required fields in the request body.
+ *       404:
+ *         description: Profile not found.
+ *       500:
+ *         description: Server error.
+ */
+profileRouter.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { profilePic, description } = req.body;
+
+        if (!profilePic) {
+            return res.status(400).json({ error: 'Missing profile picture' });
+        }
+
+        if (!description) {
+            return res.status(400).json({ error: 'Missing description' });
+        }
+
+        await profileService.updateProfile(Number(req.params.id), profilePic, description);
+        res.status(200).json({ message: 'Profile updated successfully' });
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 export { profileRouter };

@@ -18,9 +18,20 @@ const getProfileById = async (userId: number) => {
     });
 };
 
+const updateProfile = async (userId: number, profilePic: string, description: string) => {
+    return fetch(`${BASE_URL}/profiles/${userId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ profilePic, description })
+    });
+};
+
 const LibraryService = {
     getAllProfiles,
-    getProfileById
+    getProfileById,
+    updateProfile,
 };
 
 export default LibraryService;

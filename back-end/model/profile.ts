@@ -23,8 +23,16 @@ export class Profile {
         return this.description;
     }
 
+    setDescription(description: string) {
+        this.description = description;
+    }
+
     getProfilePic(): string {
         return this.profilePic;
+    }
+
+    setProfilePic(profilePic: string) {
+        this.profilePic = profilePic;
     }
 
     validate(profile: {

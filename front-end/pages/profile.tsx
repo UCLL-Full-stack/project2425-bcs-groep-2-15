@@ -9,7 +9,8 @@ import UserService from '@services/UserService';
 import { getBalance } from './balance';
 import { parse } from 'yaml';
 import userService from '@services/UserService';
-import ProfileInterface from '@components/profileInterface';
+import ProfileInterface from '@components/profile/profileInterface';
+import EditProfileInterface from '@components/profile/editProfileInterface';
 
 const Profile: React.FC = () => {
     const [profile, setProfile] = useState<Profile | null>(null);
@@ -18,6 +19,7 @@ const Profile: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [userId, setUserId] = useState<number | null>(null);
     const [balance, setBalance] = useState<number | null>(null);
+    const [editProfileVisible, setEditProfileVisible] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -68,6 +70,20 @@ const Profile: React.FC = () => {
         return <div>Loading...</div>;
     }
 
+    const updateProfile = async (profilePic: string, description: string) => {
+        setEditProfileVisible(false);
+        try {
+            await ProfileService.updateProfile(userId!, profilePic, description);
+            setProfile((prevProfile) => ({
+                ...prevProfile!,
+                profilePic,
+                description
+            }));
+        } catch (err) {
+            setError('Failed to update profile. Please try again.');
+        }
+    }
+
     return (
         <>
             <Head>
@@ -76,7 +92,10 @@ const Profile: React.FC = () => {
             </Head>
             <Header userId={userId} balance={balance} />
             <main className={styles.main}>
-                <ProfileInterface  games={games} profile={profile} user={user}/>
+                <ProfileInterface  games={games} profile={profile} user={user} setEditProfileVisible={setEditProfileVisible}/>
+                { editProfileVisible && (
+                    <EditProfileInterface userId={userId} profile={profile} updateProfile={updateProfile}/>
+                )}
             </main>
         </>
     );

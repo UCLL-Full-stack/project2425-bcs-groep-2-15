@@ -16,6 +16,19 @@ const getProfileById = async (id: number): Promise<Profile | null> => {
     return new Profile(profileData);
 };
 
+const updateProfile = async (id: number, profileData: Profile): Promise<void> => {
+    await database.profile.update({
+        where: {
+            id: id,
+        },
+        data: {
+            description: profileData.getDescription(),
+            profilePic: profileData.getProfilePic(),
+        },
+    });
+};
+
+
 // const newProfile = (user: User, game: Game): Purchase => {
 //     libraryGames.push(game);
 //     return game;
@@ -23,5 +36,6 @@ const getProfileById = async (id: number): Promise<Profile | null> => {
 
 export default {
     getAllProfiles,
-    getProfileById
+    getProfileById,
+    updateProfile,
 };
