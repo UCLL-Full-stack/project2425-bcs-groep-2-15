@@ -38,3 +38,29 @@
 .selectedUserUsername {
     font-weight: bold;
 }
+
+.filterButtons {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.filterButton {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #19a9e4;
+    color: white;
+    border: 2px solid black;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.filterButton:hover {
+    background-color: white;
+    color: #19a9e4;
+}

@@ -55,6 +55,7 @@
 
 .discount {
     color: white;
+    font-weight: bold;
     background-color: yellowgreen;
     border: 2px solid black;
     padding: 5% 7%;
@@ -77,7 +78,8 @@
 }
 
 .purchaseButton {
-    color: black;
+    color: white;
+    font-weight: bold;
     background-color: #19a9e4;
     border: 2px solid black;
     padding: 10% 15%;
@@ -94,6 +96,7 @@
 
 .purchasedButton {
     color: black;
+    font-weight: bold;
     background-color: rgba(128, 128, 128, 0.45);
     border: 2px solid black;
     padding: 10% 11%;
@@ -101,32 +104,6 @@
     cursor: default;
     transition: background-color 0.3s, color 0.3s;
     width: 2%;
-}
-
-.filterButtons {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.filterButton {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    background-color: #19a9e4;
-    color: white;
-    border: 2px solid black;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-    text-decoration: none;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.filterButton:hover {
-    background-color: white;
-    color: #19a9e4;
 }
 
 .categorySelect select {
