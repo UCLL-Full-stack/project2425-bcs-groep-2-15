@@ -59,10 +59,10 @@ const GameDetails: React.FC = () => {
     }, [gameId]);
 
     const handleDeleteGame = async () => {
-        const confirmDelete = window.confirm('Are you sure you want to purchase this game?');
+        const confirmDelete = window.confirm('Are you sure you want to delete this game?');
         if (confirmDelete) {
             await gameService.deleteGame(String(gameId));
-            router.push("/store")
+            await router.push("/store")
         }
     }
 
@@ -78,7 +78,7 @@ const GameDetails: React.FC = () => {
                     <StoreGame game={game}/>
                 )}
                 { userRole === "Tester" ? (
-                    <button onClick={handleDeleteGame}>DELETE GAME</button>
+                    <button className={styles.deleteGameButton} onClick={handleDeleteGame}>DELETE GAME</button>
                 ) : null};
             </main>
         </>
