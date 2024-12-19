@@ -31,6 +31,14 @@
  *                $ref: '#/components/schemas/Game'
  *              description: List of games associated with the profile.
  */
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Profiles
+ *     description: Endpoints related to profile operations.
+ */
+
 import express, { NextFunction, Request, Response } from 'express';
 import profileService from '../service/profile';
 
@@ -41,6 +49,8 @@ const profileRouter = express.Router();
  * /profiles:
  *   get:
  *     summary: Get a list of all profiles.
+ *     tags:
+ *      - Profiles
  *     responses:
  *       200:
  *         description: A list of profiles.
@@ -65,6 +75,8 @@ profileRouter.get('/', async (req: Request, res: Response, next: NextFunction) =
  * /profiles/{id}:
  *  get:
  *      summary: Get a profile by id.
+ *      tags:
+ *       - Profiles
  *      parameters:
  *          - in: path
  *            name: id

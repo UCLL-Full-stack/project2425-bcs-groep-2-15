@@ -39,6 +39,13 @@
  *           description: Date and time when the user was created.
  */
 
+/**
+ * @swagger
+ * tags:
+ *   - name: Users
+ *     description: Endpoints related to user operations.
+ */
+
 import express, { NextFunction, Request, Response } from 'express';
 import userService from '../service/user';
 
@@ -49,6 +56,8 @@ const userRouter = express.Router();
  * /users:
  *   get:
  *     summary: Get a list of all users.
+ *     tags:
+ *      - Users
  *     responses:
  *       200:
  *         description: A list of all users.
@@ -73,6 +82,8 @@ userRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
  * /users/{id}:
  *   get:
  *     summary: Retrieve a user by their ID.
+ *     tags:
+ *      - Users
  *     parameters:
  *       - in: path
  *         name: id
@@ -125,6 +136,8 @@ userRouter.get('/name/:username', async (req: Request, res: Response, next: Next
  * /users/login:
  *   post:
  *     summary: Login a user and return a JWT token.
+ *     tags:
+ *      - Users
  *     requestBody:
  *       required: true
  *       content:
@@ -192,6 +205,8 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
  * /users:
  *   post:
  *     summary: Create a new user.
+ *     tags:
+ *      - Users
  *     requestBody:
  *       required: true
  *       content:
@@ -271,6 +286,8 @@ userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
  * /users/{id}/balance:
  *   get:
  *     summary: Retrieve a user's balance.
+ *     tags:
+ *      - Users
  *     parameters:
  *       - in: path
  *         name: id
@@ -308,6 +325,8 @@ userRouter.get('/:id/balance', async (req: Request, res: Response, next: NextFun
  * /users/{id}/balance:
  *   patch:
  *     summary: Add balance to a user's account.
+ *     tags:
+ *      - Users
  *     parameters:
  *       - in: path
  *         name: id

@@ -31,6 +31,13 @@
  *           description: The total amount paid for the purchase.
  */
 
+/**
+ * @swagger
+ * tags:
+ *   - name: Purchases
+ *     description: Endpoints related to purchase operations.
+ */
+
 import express, { NextFunction, Request, Response } from 'express';
 import purchaseService from '../service/purchase';
 
@@ -41,6 +48,8 @@ const purchaseRouter = express.Router();
  * /purchases:
  *   get:
  *     summary: Get a list of all purchases.
+ *     tags:
+ *      - Purchases
  *     responses:
  *       200:
  *         description: A list of all purchases.
@@ -65,6 +74,8 @@ purchaseRouter.get('/', async (req: Request, res: Response, next: NextFunction) 
  * /purchases/{id}:
  *   get:
  *     summary: Retrieve a purchase by its ID.
+ *     tags:
+ *      - Purchases
  *     parameters:
  *       - in: path
  *         name: id
@@ -108,6 +119,8 @@ purchaseRouter.get('/:id', async (req: Request, res: Response, next: NextFunctio
  * /purchases:
  *   post:
  *     summary: Create a new purchase.
+ *     tags:
+ *      - Purchases
  *     requestBody:
  *       required: true
  *       content:

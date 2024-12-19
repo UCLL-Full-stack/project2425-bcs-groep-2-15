@@ -36,6 +36,12 @@
  *           description: Optional discount on the game, expressed as a percentage.
  */
 
+/**
+ * @swagger
+ * tags:
+ *   - name: Libraries
+ *     description: Endpoints related to library operations.
+ */
 
 import express, { NextFunction, Request, Response } from 'express';
 import libraryService from '../service/library';
@@ -48,6 +54,8 @@ const libraryRouter = express.Router();
  * /libraries/games:
  *   get:
  *     summary: Get a list of games in the library by ID.
+ *     tags:
+ *      - Libraries
  *     parameters:
  *       - in: query
  *         name: id
@@ -82,6 +90,8 @@ libraryRouter.get('/:id/games', async (req: Request, res: Response, next: NextFu
  * /libraries/{id}:
  *   get:
  *     summary: Get library details by ID.
+ *     tags:
+ *      - Libraries
  *     parameters:
  *       - in: path
  *         name: id
@@ -114,6 +124,8 @@ libraryRouter.get('/:id', async (req: Request, res: Response, next: NextFunction
  * /libraries/achievements:
  *   post:
  *     summary: Add achievements to a library by ID.
+ *     tags:
+ *      - Libraries
  *     parameters:
  *       - in: query
  *         name: id
@@ -166,6 +178,8 @@ libraryRouter.put('/:id/achievements', async (req: Request, res: Response, next:
  * /libraries/games:
  *   post:
  *     summary: Add a game to the library.
+ *     tags:
+ *      - Libraries
  *     parameters:
  *       - in: query
  *         name: id

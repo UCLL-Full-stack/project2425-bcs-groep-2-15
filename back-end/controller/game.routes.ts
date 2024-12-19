@@ -31,6 +31,14 @@
  *              format: float
  *              description: Price of the game.
  */
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Games
+ *     description: Endpoints related to game operations.
+ */
+
 import express, { NextFunction, Request, Response } from 'express';
 import gameService from '../service/game';
 
@@ -41,6 +49,8 @@ const gameRouter = express.Router();
  * /games:
  *   get:
  *     summary: Get a list of all games.
+ *     tags:
+ *      - Games
  *     responses:
  *       200:
  *         description: A list of games.
@@ -63,8 +73,10 @@ gameRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
 /**
  * @swagger
  * /games/{id}:
- *  get:
+ *   get:
  *      summary: Get a game by id.
+ *      tags:
+ *       - Games
  *      parameters:
  *          - in: path
  *            name: id
@@ -94,6 +106,8 @@ gameRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) =
  * /games/{id}:
  *   delete:
  *     summary: Delete a game by id.
+ *     tags:
+ *      - Games
  *     description: Deletes the game specified by its unique identifier.
  *     parameters:
  *       - in: path
