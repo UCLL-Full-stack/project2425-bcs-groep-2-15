@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { Game } from '@types';
+import { Game, Library } from '@types';
 import styles from '@styles/library.module.css';
 
 type Props = {
-    games: Array<Game>;
+    games: Array<Game>,
+    library?: Library | null
 };
 
-const LibraryTable: React.FC<Props> = ({ games }: Props) => {
+const LibraryTable: React.FC<Props> = ({ games, library }: Props) => {
     const [selectedGame, setSelectedGame] = useState<Game | null>(null);
 
     return (
@@ -18,7 +19,7 @@ const LibraryTable: React.FC<Props> = ({ games }: Props) => {
                         key={index}
                         onClick={() => setSelectedGame(game)}
                         className={classNames(styles.button, {
-                            [styles.buttonSelected]: selectedGame?.title === game.title,
+                            [styles.buttonSelected]: selectedGame?.title === game.title
                         })}
                     >
                         {game.title}
@@ -29,7 +30,7 @@ const LibraryTable: React.FC<Props> = ({ games }: Props) => {
             <div
                 className={classNames(styles.content, {
                     [styles.contentCentered]: !selectedGame,
-                    [styles.contentStart]: selectedGame,
+                    [styles.contentStart]: selectedGame
                 })}
             >
                 {selectedGame ? (
@@ -41,10 +42,10 @@ const LibraryTable: React.FC<Props> = ({ games }: Props) => {
                         />
                         <h2 className={styles.title}>{selectedGame.title}</h2>
                         <p className={styles.paragraph}>
-                            {/*<strong>Time played:</strong> {selectedGame.playTime}h*/}
+                            <strong>Time played:</strong> {library?.timePlayed}h
                         </p>
                         <p className={styles.paragraph}>
-                            {/*<strong>Achievements:</strong> {selectedGame.achievementsUnlocked}/{selectedGame.totalAchievements}*/}
+                            <strong>Achievements:</strong> 0/{library?.achievements}
                         </p>
                     </div>
                 ) : (

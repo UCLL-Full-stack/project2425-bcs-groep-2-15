@@ -2,16 +2,17 @@ import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
 import LibraryTable from '@components/libraryTable';
+import { Library } from '@types';
 import { Game } from '@types';
 import { useEffect, useState } from 'react';
 import LibraryService from '@services/LibraryService';
-import { getBalance } from './balance';
 import userService from '@services/UserService';
 
 const Library: React.FC = () => {
     const [games, setGames] = useState<Array<Game>>([]);
     const [userId, setUserId] = useState<number | null>(null);
     const [balance, setBalance] = useState<number | null>(null);
+    const [library, setLibrary] = useState<Library | null>(null);
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -38,6 +39,13 @@ const Library: React.FC = () => {
                 setGames(games);
             };
             getGames();
+
+            const fetchLibrary = async () => {
+                const response = await LibraryService.getLibraryById(userId);
+                const libraryJson = await response.json();
+                setLibrary(libraryJson);
+            }
+            fetchLibrary();
         }
     }, [userId]);
 
@@ -49,12 +57,8 @@ const Library: React.FC = () => {
             </Head>
             <Header userId={userId} balance={balance} />
             <main className={styles.main}>
-                <span>
-                    <h1 className={styles.title}>Library</h1>
-                </span>
-
                 {games.length > 0 ? (
-                    <LibraryTable games={games} />
+                    <LibraryTable games={games} library={library} />
                 ) : (
                     <h2>You do not own any games yet.</h2>
                     )}

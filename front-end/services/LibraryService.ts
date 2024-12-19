@@ -9,8 +9,18 @@ const getAllLibraryGames = async (userId: number) => {
     });
 };
 
+const getLibraryById = async (userId: number) => {
+    return fetch(`${BASE_URL}/libraries/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+};
+
 const LibraryService = {
-    getAllLibraryGames
+    getAllLibraryGames,
+    getLibraryById,
 };
 
 export default LibraryService;
