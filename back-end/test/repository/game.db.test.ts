@@ -38,7 +38,7 @@ const mockGameData: {
         id: 2,
         title: 'Game 2',
         image: 'path/to/image2.jpg',
-        categories: [$Enums.Genre.Adventure], // Correctly typed as Genre[]
+        categories: [$Enums.Genre.Adventure], 
         price: 49.99,
         discount: null
     }
