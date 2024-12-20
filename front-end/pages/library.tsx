@@ -9,9 +9,9 @@ import userService from '@services/UserService';
 import UserService from '@services/UserService';
 import fetchUserInfo from "../hooks/fetchUserInfo";
 
-const Library: React.FC = () => {
+const LibraryPage: React.FC = () => {
     const [games, setGames] = useState<Array<Game>>([]);
-    const [library, setLibrary] = useState<Library | null>(null);
+    const [userLibrary, setUserLibrary] = useState<Library | null>(null);
     const { userId, userRole, userBalance } = fetchUserInfo();
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const Library: React.FC = () => {
             const fetchLibrary = async () => {
                 const response = await LibraryService.getLibraryById(userId);
                 const libraryJson = await response.json();
-                setLibrary(libraryJson);
+                setUserLibrary(libraryJson);
                 console.log(libraryJson);
             }
             fetchLibrary();
@@ -42,7 +42,7 @@ const Library: React.FC = () => {
             <Header userId={userId} userRole={userRole} userBalance={userBalance} />
             <main className={styles.main}>
                 {games.length > 0 ? (
-                    <LibraryTable games={games} library={library} userRole={userRole}/>
+                    <LibraryTable games={games} library={userLibrary} userRole={userRole}/>
                 ) : (
                     <h2>You do not own any games yet.</h2>
                     )}
@@ -51,4 +51,4 @@ const Library: React.FC = () => {
     );
 };
 
-export default Library;
+export default LibraryPage;

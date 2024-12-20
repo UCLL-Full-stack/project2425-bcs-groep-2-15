@@ -11,7 +11,7 @@ import ProfileInterface from '@components/profile/profileInterface';
 import EditProfileInterface from '@components/profile/editProfileInterface';
 import fetchUserInfo from "../hooks/fetchUserInfo";
 
-const Profile: React.FC = () => {
+const ProfilePage: React.FC = () => {
     const [profile, setProfile] = useState<Profile | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const [games, setGames] = useState<Game[]>([]);
@@ -84,4 +84,4 @@ const Profile: React.FC = () => {
     );
 };
 
-export default Profile;
+export default ProfilePage;
