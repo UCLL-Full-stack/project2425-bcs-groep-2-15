@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useRouter} from 'next/router';
-import styles from '@styles/login.module.css';
-import UserService from '@services/UserService';
+import styles from '../../styles/login.module.css';
+import UserService from '../../services/UserService';
 
 const LoginForm: React.FC = () => {
     const [username, setUsername] = useState("");
