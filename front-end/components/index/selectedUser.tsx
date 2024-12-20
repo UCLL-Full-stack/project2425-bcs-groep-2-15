@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Game, Purchase } from '@types';
+import {Purchase, User} from '@types';
 import UserGamesTable from '@components/index/userPurchasesTable';
 import styles from '@styles/home.module.css';
 

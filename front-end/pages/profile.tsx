@@ -1,13 +1,11 @@
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/profile.module.css';
-import React, { useEffect, useState } from 'react';
-import { Game, Profile, User } from '@types';
+import React, {useEffect, useState} from 'react';
+import {Game, Profile, User} from '@types';
 import LibraryService from '@services/LibraryService';
 import ProfileService from '@services/ProfileService';
 import UserService from '@services/UserService';
-import { getBalance } from './balance';
-import { parse } from 'yaml';
 import userService from '@services/UserService';
 import ProfileInterface from '@components/profile/profileInterface';
 import EditProfileInterface from '@components/profile/editProfileInterface';

@@ -1,5 +1,5 @@
-import { Game } from '../model/game';
-import { Library } from '../model/library';
+import {Game} from '../model/game';
+import {Library} from '../model/library';
 import database from './database';
 
 const mapLibrary = (libraryData: any): Library => {

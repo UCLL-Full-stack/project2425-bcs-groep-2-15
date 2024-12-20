@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import classNames from 'classnames';
-import { Game, Library } from '@types';
+import {Game, Library} from '@types';
 import styles from '@styles/library.module.css';
 
 type Props = {

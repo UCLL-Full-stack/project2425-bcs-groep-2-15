@@ -1,7 +1,7 @@
-import { Game } from '../model/game';
-import { Purchase } from '../model/purchase';
-import { User } from '../model/user';
-import { PrismaClient } from '@prisma/client';
+import {Game} from '../model/game';
+import {Purchase} from '../model/purchase';
+import {User} from '../model/user';
+import {PrismaClient} from '@prisma/client';
 import database from './database';
 import userDb from './user.db';
 

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import ProfileService from '@services/ProfileService';
+import React, {useState} from 'react';
 import styles from '@styles/profile.module.css';
-import { Profile } from '@types';
+import {Profile} from '@types';
 
 interface EditProfileInterfaceProps {
     profile: Profile,

@@ -1,5 +1,5 @@
 import gameRepository from '../../repository/game.db';
-import { Game } from '../../model/game';
+import {Game} from '../../model/game';
 
 describe('Game Repository', () => {
     it('should return all games when getAllGames is called', () => {

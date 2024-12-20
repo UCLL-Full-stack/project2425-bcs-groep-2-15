@@ -1,6 +1,6 @@
 import gameService from '../../service/game';
 import gameDB from '../../repository/game.db';
-import { Game } from '../../model/game';
+import {Game} from '../../model/game';
 
 jest.mock('../../repository/game.db');
 

@@ -1,4 +1,4 @@
-import { Game, Purchase, User } from '@types';
+import {Purchase} from '@types';
 import styles from '@styles/login.module.css';
 
 interface userGamesTableProps {

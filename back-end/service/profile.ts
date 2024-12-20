@@ -1,6 +1,6 @@
 import profileDb from '../repository/profile.db';
-import { Profile } from '../model/profile';
-import { PrismaClient } from '@prisma/client';
+import {Profile} from '../model/profile';
+import {PrismaClient} from '@prisma/client';
 
 const prisma = new PrismaClient();
 

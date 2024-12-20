@@ -1,12 +1,11 @@
-import { Purchase } from '../model/purchase';
-import { User } from '../model/user';
+import {Purchase} from '../model/purchase';
+import {User} from '../model/user';
 import userDb from '../repository/user.db';
-import { Library } from '../model/library';
-import { Profile } from '../model/profile';
+import {Library} from '../model/library';
+import {Profile} from '../model/profile';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {Role} from "../types";
-import { AuthenticationResponse, UserInput } from '../types';
+import {AuthenticationResponse, Role, UserInput} from "../types";
 
 const getAllUsers = async (): Promise<User[]> => await userDb.getAllUsers();
 

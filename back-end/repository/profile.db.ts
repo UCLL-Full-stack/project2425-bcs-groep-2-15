@@ -1,4 +1,4 @@
-import { Profile } from '../model/profile';
+import {Profile} from '../model/profile';
 import database from './database';
 
 const getAllProfiles = async (): Promise<Profile[]> => {

@@ -38,7 +38,7 @@
  *     description: Endpoints related to purchase operations.
  */
 
-import express, { NextFunction, Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import purchaseService from '../service/purchase';
 
 const purchaseRouter = express.Router();

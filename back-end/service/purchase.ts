@@ -1,5 +1,5 @@
 import purchaseDb from '../repository/purchase.db';
-import { Purchase } from '../model/purchase';
+import {Purchase} from '../model/purchase';
 import userDb from '../repository/user.db';
 import gameDb from '../repository/game.db';
 

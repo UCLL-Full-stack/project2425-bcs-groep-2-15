@@ -1,16 +1,15 @@
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
-import { Game } from '@types';
-import React, { useEffect, useState } from 'react';
+import {Game} from '@types';
+import React, {useEffect, useState} from 'react';
 import GameService from '@services/GameService';
-import { getBalance } from '../balance';
+import {getBalance} from '../balance';
 import userService from '@services/UserService';
 import LibraryService from '@services/LibraryService';
-import PurchaseService from '@services/PurchaseService';
-import { useRouter } from 'next/router';
-import StoreTable from '@components/store/storeTable';
 import libraryService from '@services/LibraryService';
+import PurchaseService from '@services/PurchaseService';
+import StoreTable from '@components/store/storeTable';
 
 const Store: React.FC = () => {
     const [games, setGames] = useState<Array<Game>>([]);

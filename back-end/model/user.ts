@@ -1,7 +1,7 @@
-import { Library } from '../model/library';
-import { Profile } from '../model/profile';
-import { Purchase } from './purchase';
-import { Role } from "../types";
+import {Library} from '../model/library';
+import {Profile} from '../model/profile';
+import {Purchase} from './purchase';
+import {Role} from "../types";
 
 export class User {
     id: number;

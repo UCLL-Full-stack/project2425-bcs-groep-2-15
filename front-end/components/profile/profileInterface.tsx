@@ -1,5 +1,5 @@
 import React from 'react';
-import { Game, Profile, User } from '@types';
+import {Game, Profile, User} from '@types';
 import styles from '@styles/profile.module.css';
 
 type Props = {

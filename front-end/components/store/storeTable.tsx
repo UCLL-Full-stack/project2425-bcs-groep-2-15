@@ -1,6 +1,6 @@
-import { Game } from '@types';
+import {Game} from '@types';
 import styles from '@styles/store.module.css';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 
 interface StoreTableProps {
 }

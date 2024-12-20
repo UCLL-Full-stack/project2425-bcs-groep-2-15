@@ -1,7 +1,7 @@
 import libraryService from '../../service/library';
 import libraryDB from '../../repository/library.db';
-import { Game } from '../../model/game';
-import { Library } from '../../model/library';
+import {Game} from '../../model/game';
+import {Library} from '../../model/library';
 
 jest.mock('../../repository/library.db');
 

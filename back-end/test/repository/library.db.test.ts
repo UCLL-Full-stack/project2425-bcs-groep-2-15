@@ -1,6 +1,6 @@
 import libraryDb from '../../repository/library.db';
-import { Library } from '../../model/library';
-import { Game } from '../../model/game';
+import {Library} from '../../model/library';
+import {Game} from '../../model/game';
 import gameDb from '../../repository/game.db';
 
 describe('Library Database', () => {

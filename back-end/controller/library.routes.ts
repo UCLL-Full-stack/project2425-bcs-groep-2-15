@@ -43,9 +43,9 @@
  *     description: Endpoints related to library operations.
  */
 
-import express, { NextFunction, Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import libraryService from '../service/library';
-import { Game } from '../model/game';
+import {Game} from '../model/game';
 
 const libraryRouter = express.Router();
 

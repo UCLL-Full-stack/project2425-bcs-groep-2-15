@@ -46,7 +46,7 @@
  *     description: Endpoints related to user operations.
  */
 
-import express, { NextFunction, Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import userService from '../service/user';
 
 const userRouter = express.Router();

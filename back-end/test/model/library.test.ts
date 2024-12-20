@@ -1,6 +1,6 @@
-import { Library } from '../../model/library';
-import { Game } from '../../model/game';
-import { Genre } from '../../types';
+import {Library} from '../../model/library';
+import {Game} from '../../model/game';
+import {Genre} from '../../types';
 
 describe('Library Model Tests', () => {
     let libraryData: {

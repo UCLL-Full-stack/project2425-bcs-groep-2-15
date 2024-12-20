@@ -1,7 +1,7 @@
 // Execute: npx ts-node util/seed.ts
 
-import { PrismaClient } from '@prisma/client';
-import { User } from '../model/user';
+import {PrismaClient} from '@prisma/client';
+import {User} from '../model/user';
 
 const prisma = new PrismaClient();
 

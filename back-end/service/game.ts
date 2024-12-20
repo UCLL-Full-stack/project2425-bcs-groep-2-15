@@ -1,5 +1,5 @@
 import gameDB from '../repository/game.db';
-import { Game } from '../model/game';
+import {Game} from '../model/game';
 
 const getAllGames = async (): Promise<Game[]> => await gameDB.getAllGames();
 

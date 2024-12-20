@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import userService from '@services/UserService';
 import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";

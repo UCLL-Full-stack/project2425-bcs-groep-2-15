@@ -1,17 +1,13 @@
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import userService from '@services/UserService';
-import { Game, Purchase, User } from '@types';
+import {Purchase, User} from '@types';
 import AdminPanel from '@components/index/adminPanel';
 import WelcomeMessage from '@components/index/welcomeMessage';
-import LibraryTable from '@components/libraryTable';
-import libraryService from '@services/LibraryService';
-import UserGamesTable from '@components/index/userPurchasesTable';
 import SelectedUser from '@components/index/selectedUser';
 import purchaseService from '@services/PurchaseService';
-import gameService from '@services/GameService';
 
 const Home: React.FC = () => {
     const [userId, setUserId] = useState<number | null>(null);

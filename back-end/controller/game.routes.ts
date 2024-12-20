@@ -39,7 +39,7 @@
  *     description: Endpoints related to game operations.
  */
 
-import express, { NextFunction, Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import gameService from '../service/game';
 
 const gameRouter = express.Router();

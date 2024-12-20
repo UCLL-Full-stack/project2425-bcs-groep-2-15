@@ -1,4 +1,4 @@
-import { Genre as PrismaGenre } from '@prisma/client';
+import {Genre as PrismaGenre} from '@prisma/client';
 
 enum Role {
     User = "User",

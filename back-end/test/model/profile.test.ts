@@ -1,4 +1,4 @@
-import { Profile } from '../../../back-end/model/profile';
+import {Profile} from '../../../back-end/model/profile';
 
 describe('Profile', () => {
     let validProfileData: { id: number; description: string; profilePic: string };

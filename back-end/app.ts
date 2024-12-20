@@ -4,11 +4,11 @@ import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { gameRouter } from './controller/game.routes';
-import { libraryRouter } from './controller/library.routes';
-import { purchaseRouter } from './controller/purchase.routes';
-import { userRouter } from './controller/user.routes';
-import { profileRouter } from './controller/profile.routes';
+import {gameRouter} from './controller/game.routes';
+import {libraryRouter} from './controller/library.routes';
+import {purchaseRouter} from './controller/purchase.routes';
+import {userRouter} from './controller/user.routes';
+import {profileRouter} from './controller/profile.routes';
 
 const app = express();
 dotenv.config();

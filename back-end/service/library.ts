@@ -1,5 +1,5 @@
-import { Game } from '../model/game';
-import { Library } from '../model/library';
+import {Game} from '../model/game';
+import {Library} from '../model/library';
 import libraryDb from '../repository/library.db';
 import database from '../repository/database';
 

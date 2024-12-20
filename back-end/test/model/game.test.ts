@@ -1,5 +1,5 @@
-import { Game } from '../../model/game';
-import { Genre } from '../../types';
+import {Game} from '../../model/game';
+import {Genre} from '../../types';
 
 describe('Game Model Tests', () => {
     let gameData: {

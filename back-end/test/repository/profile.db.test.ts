@@ -1,5 +1,5 @@
 import profileDb from '../../repository/profile.db';
-import { Profile } from '../../model/profile';
+import {Profile} from '../../model/profile';
 
 describe('Profile Database', () => {
     it('should return all profiles', () => {

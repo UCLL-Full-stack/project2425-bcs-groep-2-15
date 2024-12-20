@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Game } from '@types';
+import React, {useEffect, useState} from 'react';
+import {Game} from '@types';
 import gameService from '@services/GameService';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import Head from 'next/head';
 import Header from '@components/header';
 import userService from '@services/UserService';
 import styles from '@styles/home.module.css';
-import StoreTable from '@components/store/storeTable';
 import StoreGame from '@components/store/storeGame';
-import PurchaseService from '@services/PurchaseService';
 
 const GameDetails: React.FC = () => {
     const router = useRouter();

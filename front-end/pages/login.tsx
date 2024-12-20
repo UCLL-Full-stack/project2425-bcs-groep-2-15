@@ -2,8 +2,8 @@ import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/login.module.css';
 import LoginForm from '@components/loginForm';
-import { User } from '@types';
-import { useEffect, useState } from 'react';
+import {User} from '@types';
+import {useEffect, useState} from 'react';
 import userService from '@services/UserService';
 import UsersTable from '@components/usersTable';
 

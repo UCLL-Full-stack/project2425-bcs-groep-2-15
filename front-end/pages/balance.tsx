@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/balance.module.css';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import UserService from '@services/UserService';
 import userService from '@services/UserService';
 

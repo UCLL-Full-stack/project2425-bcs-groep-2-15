@@ -39,9 +39,8 @@
  *     description: Endpoints related to profile operations.
  */
 
-import express, { NextFunction, Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import profileService from '../service/profile';
-import userService from '../service/user';
 
 const profileRouter = express.Router();
 

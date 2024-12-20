@@ -1,4 +1,4 @@
-import { Game } from '@types';
+import {Game} from '@types';
 import React from 'react';
 import styles from '@styles/store.module.css';
 

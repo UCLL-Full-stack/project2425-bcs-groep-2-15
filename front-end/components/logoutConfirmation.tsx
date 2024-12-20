@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '@styles/login.module.css';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import UserService from '@services/UserService';
 
 interface LogoutConfirmationProps {

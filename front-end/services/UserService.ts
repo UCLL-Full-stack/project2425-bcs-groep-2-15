@@ -1,4 +1,4 @@
-import { Library, Profile } from '@types';
+import {Library, Profile} from '@types';
 
 const BASE_URL = 'http://localhost:3000';
 
