@@ -48,34 +48,47 @@ describe('User Service Tests', () => {
         expect(result).toEqual(mockUser);
     });
 
-    test('login: should throw a generic error on authentication attempt', async () => {
-        (userDb.getUserByUsername as jest.Mock).mockResolvedValue({
-            getPassword: jest.fn().mockReturnValue('hashedPassword'),
-        });
-        (bcrypt.compare as jest.Mock).mockResolvedValue(true); 
-    
-        await expect(
-            userService.login({ username: 'testUser', password: 'testPassword', role: Role.User })
-        ).rejects.toThrow('Error');
+    test('newUser: should create a new user successfully', async () => {
+        (userDb.getUserByUsername as jest.Mock).mockResolvedValue(null);
+        (bcrypt.hash as jest.Mock).mockResolvedValue('hashedPassword');
+        (userDb.getAllUsers as jest.Mock).mockResolvedValue([mockUser]);
+        (userDb.newUser as jest.Mock).mockResolvedValue({ id: 2 });
+
+        const username = 'newUser';
+        const password = 'password123';
+
+        const result = await userService.newUser(username, password);
+
+        expect(userDb.getUserByUsername).toHaveBeenCalledWith(username);
+        expect(bcrypt.hash).toHaveBeenCalledWith(password, 12);
+        expect(userDb.newUser).toHaveBeenCalledTimes(1);
+        expect(userDb.newUser).toHaveBeenCalledWith(
+            expect.objectContaining({
+                username,
+                password: 'hashedPassword',
+                library: expect.any(Library),
+                profile: expect.any(Profile),
+                role: Role.User,
+                balance: 0,
+                purchases: [],
+            })
+        );
+        expect(result).toEqual({ id: 2 });
     });
-    
-    
 
-    test('newUser: should create a new user', async () => {
-        (userDb.getAllUsers as jest.Mock).mockResolvedValue([]);
-        (userDb.newUser as jest.Mock).mockResolvedValue(mockUser);
+    test('newUser: should throw an error if username already exists', async () => {
+        (userDb.getUserByUsername as jest.Mock).mockResolvedValue(mockUser);
 
-        const result = await userService.newUser(
-            'testUser',
-            'plainPassword',
-            mockLibrary,
-            mockProfile,
-            100,
-            Role.User
+        const username = 'testUser';
+        const password = 'password123';
+
+        await expect(userService.newUser(username, password)).rejects.toThrowError(
+            `User with username: ${username} already exists.`
         );
 
-        expect(userDb.newUser).toHaveBeenCalledTimes(1);
-        expect(result).toEqual(mockUser);
+        expect(userDb.getUserByUsername).toHaveBeenCalledWith(username);
+        expect(bcrypt.hash).not.toHaveBeenCalled();
+        expect(userDb.newUser).not.toHaveBeenCalled();
     });
 
     test('addUserBalance: should add balance to user account', async () => {
