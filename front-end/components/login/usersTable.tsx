@@ -16,7 +16,7 @@ const usersTable: React.FC<usersTableProps> = ({ users }) => {
                 </tr>
                 </thead>
                 <tbody>
-                {users.map((user, index) => (
+                {users.slice(0, 3).map((user, index) => (
                     <tr key={index}>
                         <td>{user.username}</td>
                         <td>{user.password}</td>

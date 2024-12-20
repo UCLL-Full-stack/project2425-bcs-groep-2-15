@@ -23,7 +23,7 @@ const getUserByUsername = (username: string): Promise<User | null> => {
     return userDb.getUserByUsername(username)!;
 };
 
-const newUser = async (username: string, password: string, library: Library, profile: Profile, balance: number, role: Role) => {
+const newUser = async (username: string, password: string) => {
     const existingUser = await userDb.getUserByUsername(username);
     if (existingUser) {
         throw new Error(`User with username: ${username} already exists.`);
@@ -33,6 +33,8 @@ const newUser = async (username: string, password: string, library: Library, pro
     console.log(hashedPassword);
 
     const id = (await userDb.getAllUsers()).length + 1;
+    const library = new Library({id, games: [], achievements: 0, timePlayed: 0})
+    const profile = new Profile({id, profilePic: "/images/profile/1.png", description: `This is the profile of ${username}.`})
     const purchases: Purchase[] = [];
 
     const user = new User({
@@ -42,8 +44,8 @@ const newUser = async (username: string, password: string, library: Library, pro
         library,
         profile,
         purchases,
-        balance,
-        role,
+        balance: 0,
+        role: Role.User,
     });
 
     return userDb.newUser(user);

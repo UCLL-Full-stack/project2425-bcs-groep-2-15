@@ -5,7 +5,7 @@ const WelcomeMessage: React.FC = () => (
     <>
         <h1 className={styles.title}>Welcome to Setback.</h1>
         <div className={styles.description}>
-            <h2><a href="/login">Log in here</a> to access the platform.</h2>
+            <h2><a href="/login" style={{ color: '#5bc4f9' }}>Log in here</a> to access the platform.</h2>
         </div>
     </>
 );

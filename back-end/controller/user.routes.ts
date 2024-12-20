@@ -226,22 +226,6 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
  *               password:
  *                 type: string
  *                 description: The password for the new user.
- *               balance:
- *                 type: number
- *                 description: The user's initial balance.
- *               library:
- *                 type: object
- *                 description: The library object for the user.
- *                 additionalProperties: true
- *               profile:
- *                 type: object
- *                 description: The profile object for the user.
- *                 additionalProperties: true
- *               purchases:
- *                 type: array
- *                 items:
- *                   $ref: '#/components/schemas/Purchase'
- *                 description: Initial purchases array for the user.
  *     responses:
  *       201:
  *         description: The user was created successfully.
@@ -254,7 +238,7 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
  */
 userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { username, password, balance, library, profile, role } = req.body;
+        const { username, password } = req.body;
 
         if (!username) {
             return res.status(400).json({ error: 'Missing username' });
@@ -264,23 +248,7 @@ userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
             return res.status(400).json({ error: 'Missing password' });
         }
 
-        if (!balance || isNaN(balance)) {
-            return res.status(400).json({ error: 'Invalid balance' });
-        }
-
-        if (!library) {
-            return res.status(400).json({ error: 'Missing library' });
-        }
-
-        if (!profile) {
-            return res.status(400).json({ error: 'Missing profile' });
-        }
-
-        if (!role) {
-            return res.status(400).json({ error: 'Missing role' });
-        }
-
-        const user = userService.newUser(username, password, library, profile, balance, role);
+        const user = userService.newUser(username, password);
         res.status(201).json(user);
     } catch (error) {
         next(error);

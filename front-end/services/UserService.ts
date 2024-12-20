@@ -29,13 +29,13 @@ const getUserByUsername = async (username: string) => {
     });
 };
 
-const newUser = async (username: string, password: string, library: Library, profile: Profile, balance: number) => {
+const newUser = async (username: string, password: string) => {
     return fetch(`${BASE_URL}/users`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password, balance, library, profile })
+        body: JSON.stringify({ username, password })
     });
 };
 

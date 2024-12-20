@@ -71,7 +71,7 @@ const Home: React.FC = () => {
                 ) : (
                     <>
                         <h1 className={styles.title}>Welcome to Setback, {username}.</h1>
-                        <h3 className={styles.subtitle}>New to Setback? Learn more <a href={"/about"}>here.</a></h3>
+                        <h3 className={styles.subtitle}>New to Setback? Learn more <a style={{ color: '#5bc4f9' }} href={"/about"}>here.</a></h3>
                     </>
                 )}
 

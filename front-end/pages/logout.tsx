@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/login.module.css';
-import LogoutConfirmation from '@components/logoutConfirmation';
+import LogoutConfirmation from '@components/login/logoutConfirmation';
 import fetchUserInfo from "../hooks/fetchUserInfo";
 
 const Logout: React.FC = () => {

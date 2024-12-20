@@ -77,6 +77,7 @@ const LoginForm: React.FC = () => {
                 </button>
             </form>
             {error && <div className={styles.error}>{error}</div>}
+            <p style={{marginTop: "1rem", marginBottom: "0rem"}}>No account yet? <a href={"/register"} style={{ color: '#5bc4f9' }}>Click here</a> to register.</p>
         </div>
     );
 };

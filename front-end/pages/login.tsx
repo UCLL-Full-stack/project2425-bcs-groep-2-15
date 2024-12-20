@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
-import LoginForm from '@components/loginForm';
+import LoginForm from '@components/login/loginForm';
 import {User} from '@types';
 import {useEffect, useState} from 'react';
 import userService from '@services/UserService';
-import UsersTable from '@components/usersTable';
+import UsersTable from '@components/login/usersTable';
 
 const Login: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
