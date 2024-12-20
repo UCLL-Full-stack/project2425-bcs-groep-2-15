@@ -78,9 +78,6 @@ describe('User Service Tests', () => {
         expect(result).toEqual(mockUser);
     });
 
-
-    
-
     test('addUserBalance: should add balance to user account', async () => {
         (userDb.getUserById as jest.Mock).mockResolvedValue(mockUser);
         (userDb.addBalance as jest.Mock).mockResolvedValue(150);
