@@ -1,35 +1,35 @@
 /**
  * @swagger
- *   components:
- *    securitySchemes:
+ * components:
+ *   securitySchemes:
  *     bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
- *    schemas:
- *      Game:
- *          type: object
- *          properties:
- *            id:
- *              type: number
- *              format: int64
- *              description: Unique identifier for the game.
- *            title:
- *              type: string
- *              description: Title of the game.
- *            image:
- *              type: string
- *              description: URL or path to the game image.
- *            categories:
- *              type: array
- *              items:
- *                type: string
- *                enum: [Action, Adventure, Fighting, FPS, RPG]
- *              description: List of categories or genres of the game.
- *            price:
- *              type: number
- *              format: float
- *              description: Price of the game.
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   schemas:
+ *     Game:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           format: int64
+ *           description: Unique identifier for the game.
+ *         title:
+ *           type: string
+ *           description: Title of the game.
+ *         image:
+ *           type: string
+ *           description: URL or path to the game image.
+ *         categories:
+ *           type: array
+ *           items:
+ *             type: string
+ *             enum: [Action, Adventure, Fighting, FPS, RPG]
+ *           description: List of categories or genres of the game.
+ *         price:
+ *           type: number
+ *           format: float
+ *           description: Price of the game.
  */
 
 /**
@@ -39,7 +39,7 @@
  *     description: Endpoints related to game operations.
  */
 
-import express, {NextFunction, Request, Response} from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import gameService from '../service/game';
 
 const gameRouter = express.Router();
@@ -52,7 +52,7 @@ const gameRouter = express.Router();
  *       - bearerAuth: []
  *     summary: Get a list of all games.
  *     tags:
- *      - Games
+ *       - Games
  *     responses:
  *       200:
  *         description: A list of games.
@@ -61,7 +61,7 @@ const gameRouter = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                  $ref: '#/components/schemas/Game'
+ *                 $ref: '#/components/schemas/Game'
  */
 gameRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -78,23 +78,23 @@ gameRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
  *   get:
  *     security:
  *       - bearerAuth: []
- *      summary: Get a game by id.
- *      tags:
+ *     summary: Get a game by id.
+ *     tags:
  *       - Games
- *      parameters:
- *          - in: path
- *            name: id
- *            schema:
- *              type: integer
- *              required: true
- *              description: The game id.
- *      responses:
- *          200:
- *              description: A game object.
- *              content:
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/schemas/Game'
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The game id.
+ *     responses:
+ *       200:
+ *         description: A game object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Game'
  */
 gameRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -113,17 +113,15 @@ gameRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) =
  *       - bearerAuth: []
  *     summary: Delete a game by id.
  *     tags:
- *      - Games
+ *       - Games
  *     description: Deletes the game specified by its unique identifier.
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
- *           required: true
- *           description: The unique identifier of the game to delete.
- *     security:
- *       - bearerAuth: []
+ *         required: true
+ *         description: The unique identifier of the game to delete.
  *     responses:
  *       204:
  *         description: Successfully deleted the game.
@@ -140,6 +138,5 @@ gameRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 });
-
 
 export { gameRouter };

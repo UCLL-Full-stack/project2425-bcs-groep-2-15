@@ -1,35 +1,35 @@
 /**
  * @swagger
- *   components:
- *    securitySchemes:
+ * components:
+ *   securitySchemes:
  *     bearerAuth:
- *      type: http
- *      scheme: bearer
- *      bearerFormat: JWT
- *    schemas:
- *      Profile:
- *          type: object
- *          properties:
- *            id:
- *              type: number
- *              format: int64
- *              description: Unique identifier for the profile.
- *            name:
- *              type: string
- *              description: Name of the profile.
- *            email:
- *              type: string
- *              format: email
- *              description: Email address of the profile.
- *            createdAt:
- *              type: string
- *              format: date-time
- *              description: Date when the profile was created.
- *            games:
- *              type: array
- *              items:
- *                $ref: '#/components/schemas/Game'
- *              description: List of games associated with the profile.
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   schemas:
+ *     Profile:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           format: int64
+ *           description: Unique identifier for the profile.
+ *         name:
+ *           type: string
+ *           description: Name of the profile.
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: Email address of the profile.
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: Date when the profile was created.
+ *         games:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Game'
+ *           description: List of games associated with the profile.
  */
 
 /**
@@ -39,7 +39,7 @@
  *     description: Endpoints related to profile operations.
  */
 
-import express, {NextFunction, Request, Response} from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import profileService from '../service/profile';
 
 const profileRouter = express.Router();
@@ -52,7 +52,7 @@ const profileRouter = express.Router();
  *       - bearerAuth: []
  *     summary: Get a list of all profiles.
  *     tags:
- *      - Profiles
+ *       - Profiles
  *     responses:
  *       200:
  *         description: A list of profiles.
@@ -61,7 +61,7 @@ const profileRouter = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                  $ref: '#/components/schemas/Profile'
+ *                 $ref: '#/components/schemas/Profile'
  */
 profileRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -75,26 +75,26 @@ profileRouter.get('/', async (req: Request, res: Response, next: NextFunction) =
 /**
  * @swagger
  * /profiles/{id}:
- *  get:
+ *   get:
  *     security:
  *       - bearerAuth: []
- *      summary: Get a profile by id.
- *      tags:
+ *     summary: Get a profile by id.
+ *     tags:
  *       - Profiles
- *      parameters:
- *          - in: path
- *            name: id
- *            schema:
- *              type: integer
- *              required: true
- *              description: The profile id.
- *      responses:
- *          200:
- *              description: A profile object.
- *              content:
- *                  application/json:
- *                      schema:
- *                          $ref: '#/components/schemas/Profile'
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: The profile id.
+ *     responses:
+ *       200:
+ *         description: A profile object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Profile'
  */
 profileRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -119,8 +119,8 @@ profileRouter.get('/:id', async (req: Request, res: Response, next: NextFunction
  *         name: id
  *         schema:
  *           type: integer
- *           required: true
- *           description: The profile id.
+ *         required: true
+ *         description: The profile id.
  *     requestBody:
  *       required: true
  *       content:
@@ -165,6 +165,5 @@ profileRouter.put('/:id', async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 });
-
 
 export { profileRouter };

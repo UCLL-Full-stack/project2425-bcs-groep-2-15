@@ -30,7 +30,6 @@ const newUser = async (username: string, password: string) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
-    console.log(hashedPassword);
 
     const id = (await userDb.getAllUsers()).length + 1;
     const library = new Library({id, games: [], achievements: 0, timePlayed: 0})
