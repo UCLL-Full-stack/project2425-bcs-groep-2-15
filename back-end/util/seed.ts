@@ -9,6 +9,7 @@ const main = async () => {
     await prisma.purchase.deleteMany();
     await prisma.user.deleteMany();
     await prisma.profile.deleteMany();
+    await prisma.gamesInLibraries.deleteMany();
     await prisma.library.deleteMany();
     await prisma.game.deleteMany();
 
