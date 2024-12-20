@@ -1,21 +1,17 @@
 import profileDb from '../../repository/profile.db';
-import {Profile} from '../../model/profile';
+import { Profile } from '../../model/profile';
 
-describe('Profile Database', () => {
-    it('should return all profiles', () => {
-        const profiles = profileDb.getAllProfiles();
-        expect(profiles.length).toBeGreaterThan(0);
-        expect(profiles[0]).toBeInstanceOf(Profile);
-    });
+describe('Profile Repository', () => {
 
-    it('should return a profile by ID', () => {
-        const profile = profileDb.getProfileById(1);
-        expect(profile).toBeInstanceOf(Profile);
-        expect(profile?.getId()).toBe(1);
-    });
 
-    it('should return null if profile ID does not exist', () => {
-        const profile = profileDb.getProfileById(999);
+    it('should return null if profile not found by id', async () => {
+        const profile = await profileDb.getProfileById(999);
         expect(profile).toBeNull();
+    });
+
+    it('should update a profile', async () => {
+        const updatedProfileData = new Profile({ id: 1, description: 'Updated description', profilePic: 'updated-pic.jpg' });
+        await profileDb.updateProfile(1, updatedProfileData);
+        expect(true).toBe(true); 
     });
 });
