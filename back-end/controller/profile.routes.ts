@@ -48,6 +48,8 @@ const profileRouter = express.Router();
  * @swagger
  * /profiles:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a list of all profiles.
  *     tags:
  *      - Profiles
@@ -74,6 +76,8 @@ profileRouter.get('/', async (req: Request, res: Response, next: NextFunction) =
  * @swagger
  * /profiles/{id}:
  *  get:
+ *     security:
+ *       - bearerAuth: []
  *      summary: Get a profile by id.
  *      tags:
  *       - Profiles
@@ -105,6 +109,8 @@ profileRouter.get('/:id', async (req: Request, res: Response, next: NextFunction
  * @swagger
  * /profiles/{id}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Update a profile by id.
  *     tags:
  *       - Profiles

@@ -55,6 +55,8 @@ const userRouter = express.Router();
  * @swagger
  * /users:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a list of all users.
  *     tags:
  *      - Users
@@ -81,6 +83,8 @@ userRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
  * @swagger
  * /users/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Retrieve a user by their ID.
  *     tags:
  *      - Users
@@ -204,6 +208,8 @@ userRouter.post('/login', async (req: Request, res: Response, next: NextFunction
  * @swagger
  * /users:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Create a new user.
  *     tags:
  *      - Users
@@ -285,6 +291,8 @@ userRouter.post('/', async (req: Request, res: Response, next: NextFunction) => 
  * @swagger
  * /users/{id}/balance:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Retrieve a user's balance.
  *     tags:
  *      - Users
@@ -324,6 +332,8 @@ userRouter.get('/:id/balance', async (req: Request, res: Response, next: NextFun
  * @swagger
  * /users/{id}/balance:
  *   patch:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Add balance to a user's account.
  *     tags:
  *      - Users

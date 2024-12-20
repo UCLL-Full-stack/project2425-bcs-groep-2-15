@@ -53,6 +53,8 @@ const libraryRouter = express.Router();
  * @swagger
  * /libraries/games:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a list of games in the library by ID.
  *     tags:
  *      - Libraries
@@ -89,6 +91,8 @@ libraryRouter.get('/:id/games', async (req: Request, res: Response, next: NextFu
  * @swagger
  * /libraries/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get library details by ID.
  *     tags:
  *      - Libraries
@@ -123,6 +127,8 @@ libraryRouter.get('/:id', async (req: Request, res: Response, next: NextFunction
  * @swagger
  * /libraries/achievements:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Add achievements to a library by ID.
  *     tags:
  *      - Libraries
@@ -177,6 +183,8 @@ libraryRouter.put('/:id/achievements', async (req: Request, res: Response, next:
  * @swagger
  * /libraries/games:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Add a game to the library.
  *     tags:
  *      - Libraries

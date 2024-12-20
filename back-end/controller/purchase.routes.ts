@@ -47,6 +47,8 @@ const purchaseRouter = express.Router();
  * @swagger
  * /purchases:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a list of all purchases.
  *     tags:
  *      - Purchases
@@ -73,6 +75,8 @@ purchaseRouter.get('/', async (req: Request, res: Response, next: NextFunction) 
  * @swagger
  * /purchases/user/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get a list of purchases made by a specific user.
  *     tags:
  *      - Purchases
@@ -110,6 +114,8 @@ purchaseRouter.get('/user/:id', async (req: Request, res: Response, next: NextFu
  * @swagger
  * /purchases/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Retrieve a purchase by its ID.
  *     tags:
  *      - Purchases
@@ -155,6 +161,8 @@ purchaseRouter.get('/:id', async (req: Request, res: Response, next: NextFunctio
  * @swagger
  * /purchases:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Create a new purchase.
  *     tags:
  *      - Purchases
