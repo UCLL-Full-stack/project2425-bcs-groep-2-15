@@ -6,10 +6,10 @@ type Props = {
     profile: Profile,
     user: User,
     games: Game[],
-    setEditProfileVisible: (value: (((prevState: boolean) => boolean) | boolean)) => void
+    setEditProfileVisibility: () => void
 };
 
-const ProfileInterface: React.FC<Props> = ({ profile, user, games, setEditProfileVisible }: Props) => {
+const ProfileInterface: React.FC<Props> = ({ profile, user, games, setEditProfileVisibility }: Props) => {
     return (
         <div className={styles.container}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
@@ -23,7 +23,7 @@ const ProfileInterface: React.FC<Props> = ({ profile, user, games, setEditProfil
                 <div>
                     <h2>{user.username}</h2>
                     <p>{profile.description}</p>
-                    <button className={styles.editButton} onClick={() => setEditProfileVisible(true)}>Edit</button>
+                    <button className={styles.editButton} onClick={() => setEditProfileVisibility()}>Edit</button>
                 </div>
             </div>
 

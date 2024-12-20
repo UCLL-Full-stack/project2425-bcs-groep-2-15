@@ -49,6 +49,10 @@ const Profile: React.FC = () => {
         return <div>Loading...</div>;
     }
 
+    const setEditProfileVisibility = () => {
+        setEditProfileVisible(!editProfileVisible);
+    }
+
     const updateProfile = async (profilePic: string, description: string) => {
         setEditProfileVisible(false);
         try {
@@ -71,7 +75,7 @@ const Profile: React.FC = () => {
             </Head>
             <Header userId={userId} userRole={userRole} userBalance={userBalance} />
             <main className={styles.main}>
-                <ProfileInterface  games={games} profile={profile} user={user} setEditProfileVisible={setEditProfileVisible}/>
+                <ProfileInterface  games={games} profile={profile} user={user} setEditProfileVisibility={setEditProfileVisibility}/>
                 { editProfileVisible && (
                     <EditProfileInterface userId={userId} profile={profile} updateProfile={updateProfile}/>
                 )}
