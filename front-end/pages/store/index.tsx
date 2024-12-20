@@ -4,8 +4,6 @@ import styles from '@styles/home.module.css';
 import {Game} from '@types';
 import React, {useEffect, useState} from 'react';
 import GameService from '@services/GameService';
-import {getBalance} from '../balance';
-import userService from '@services/UserService';
 import LibraryService from '@services/LibraryService';
 import libraryService from '@services/LibraryService';
 import PurchaseService from '@services/PurchaseService';
