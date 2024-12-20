@@ -1,50 +1,24 @@
 import Head from 'next/head';
 import Header from '@components/header';
 import styles from '@styles/home.module.css';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import userService from '@services/UserService';
 import {Purchase, User} from '@types';
 import AdminPanel from '@components/index/adminPanel';
 import WelcomeMessage from '@components/index/welcomeMessage';
 import SelectedUser from '@components/index/selectedUser';
 import purchaseService from '@services/PurchaseService';
+import fetchUserInfo from "../hooks/fetchUserInfo";
 
 const Home: React.FC = () => {
-    const [userId, setUserId] = useState<number | null>(null);
-    const [balance, setBalance] = useState<number | null>(null);
     const [username, setUsername] = useState<number | null>(null);
     const [users, setUsers] = useState<User[]>([]);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [selectedUserPurchases, setSelectedUserPurchases] = useState<Purchase[]>([]);
-    const [role, setRole] = useState<string>("User");
+    const { userId, userRole, userBalance } = fetchUserInfo();
 
     useEffect(() => {
-        const fetchUserId = async () => {
-            const storedUserId = await sessionStorage.getItem('id');
-            if (storedUserId) {
-                setUserId(Number(storedUserId));
-            }
-        }
-        fetchUserId();
-
         if (userId) {
-            const fetchUserBalance = async () => {
-                const user = await userService.getUserById(userId!);
-                const userJson = await user.json();
-                if (userJson) {
-                    setBalance(userJson.balance);
-                }
-            }
-            fetchUserBalance();
-
-            const fetchRole = async () => {
-                const role = await sessionStorage.getItem('role');
-                if (role) {
-                    setRole(role);
-                }
-            }
-            fetchRole();
-
             const fetchUsername = async () => {
                 const user = await userService.getUserById(userId!);
                 const userJson = await user.json();
@@ -88,11 +62,11 @@ const Home: React.FC = () => {
                 <title>Setback | Home</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header userId={userId} balance={balance} />
+            <Header userId={userId} userRole={userRole} userBalance={userBalance} />
             <main className={styles.main}>
                 {userId === null ? (
                     <WelcomeMessage />
-                ) : role === "Admin" ? (
+                ) : userRole === "Admin" ? (
                     <AdminPanel users={users} selectUser={setSelectedUser} />
                 ) : (
                     <>

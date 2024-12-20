@@ -10,38 +10,15 @@ import LibraryService from '@services/LibraryService';
 import libraryService from '@services/LibraryService';
 import PurchaseService from '@services/PurchaseService';
 import StoreTable from '@components/store/storeTable';
+import fetchUserInfo from "../../hooks/fetchUserInfo";
 
 const Store: React.FC = () => {
     const [games, setGames] = useState<Array<Game>>([]);
-    const [userId, setUserId] = useState<number | null>(null);
-    const [balance, setBalance] = useState<number | null>(null);
     const [libraryGames, setLibraryGames] = useState<Game[]>([]);
     const [filter, setFilter] = useState<'all' | 'discounts' | 'category'>('all');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [categories, setCategories] = useState<string[]>([]);
-
-    useEffect(() => {
-        const fetchUserId = async () => {
-            const storedUserId = await sessionStorage.getItem('id');
-            if (storedUserId) {
-                setUserId(Number(storedUserId));
-            }
-        }
-        fetchUserId();
-    }, []);
-
-    useEffect(() => {
-        if (userId !== null) {
-            const fetchUserBalance = async () => {
-                const user = await userService.getUserById(userId);
-                const userJson = await user.json();
-                if (userJson) {
-                    setBalance(userJson.balance);
-                }
-            }
-            fetchUserBalance();
-        }
-    }, [userId]);
+    const { userId, userRole, userBalance, refreshUserInfo } = fetchUserInfo();
 
     useEffect(() => {
         const getGames = async () => {
@@ -63,12 +40,6 @@ const Store: React.FC = () => {
                 console.error('Error fetching library games:', error);
             }
         }
-    };
-
-    const updateBalance = async () => {
-        const newBalance = await getBalance();
-        const roundedBalance = Math.round(newBalance * 100) / 100;
-        setBalance(roundedBalance);
     };
 
     useEffect(() => {
@@ -93,16 +64,16 @@ const Store: React.FC = () => {
     };
 
     const handlePurchase = async (game: Game) => {
-        if (balance && userId) {
+        if (userBalance && userId) {
             const confirmPurchase = window.confirm('Are you sure you want to purchase this game?');
             if (confirmPurchase) {
-                if (balance < game.price) {
+                if (userBalance < game.price) {
                     window.alert('You do not have enough money in your balance.');
                 } else {
                     await PurchaseService.newPurchase(userId, game.id);
                     await libraryService.addLibraryAchievements(userId);
                     await fetchLibraryGames();
-                    updateBalance();
+                    await refreshUserInfo();
                 }
             }
         }
@@ -114,7 +85,7 @@ const Store: React.FC = () => {
                 <title>Setback | Store</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header userId={userId} balance={balance} />
+            <Header userId={userId} userRole={userRole} userBalance={userBalance} />
             <main className={styles.main}>
                 <span>
                     <h1 className={styles.title}>Setback Store</h1>

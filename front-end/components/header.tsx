@@ -3,10 +3,11 @@ import styles from '@styles/header.module.css';
 
 interface HeaderProps {
     userId: number | null;
-    balance: number | null;
+    userRole: string | null;
+    userBalance: number | null;
 }
 
-const Header: React.FC<HeaderProps> = ({ userId, balance }) => {
+const Header: React.FC<HeaderProps> = ({ userId, userRole, userBalance }) => {
     return (
         <header className={styles.header}>
             <div>
@@ -34,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ userId, balance }) => {
             <div>
                 
                 <Link href="/balance" className={styles.balance}>
-                    {userId == null ? null : userId == 2 || userId === 3 ? `Balance: ∞` : `Balance: €${balance}`}
+                    {userId == null ? null : userRole == "Admin" || userRole == "Tester" ? `Balance: ∞` : `Balance: €${userBalance}`}
                 </Link>
             </div>
         </header>
@@ -42,11 +43,3 @@ const Header: React.FC<HeaderProps> = ({ userId, balance }) => {
 };
 
 export default Header;
-
-// {balance != null ? (
-//     <Link href="/balance" className={styles.balance}>
-//         {`Balance: €${balance}`}
-//     </Link>
-// ) : (
-//     <span className={styles.balance}></span>
-// )}

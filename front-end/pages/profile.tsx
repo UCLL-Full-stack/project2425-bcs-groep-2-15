@@ -9,34 +9,15 @@ import UserService from '@services/UserService';
 import userService from '@services/UserService';
 import ProfileInterface from '@components/profile/profileInterface';
 import EditProfileInterface from '@components/profile/editProfileInterface';
+import fetchUserInfo from "../hooks/fetchUserInfo";
 
 const Profile: React.FC = () => {
     const [profile, setProfile] = useState<Profile | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const [games, setGames] = useState<Game[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [userId, setUserId] = useState<number | null>(null);
-    const [balance, setBalance] = useState<number | null>(null);
     const [editProfileVisible, setEditProfileVisible] = useState<boolean>(false);
-
-    useEffect(() => {
-        const fetchUserId = async () => {
-            const storedUserId = await sessionStorage.getItem('id');
-            if (storedUserId) {
-                setUserId(Number(storedUserId));
-            }
-        }
-        fetchUserId();
-
-        const fetchUserBalance = async () => {
-            const user = await userService.getUserById(userId!);
-            const userJson = await user.json();
-            if (userJson) {
-                setBalance(userJson.balance);
-            }
-        }
-        fetchUserBalance();
-    }, [userId]);
+    const { userId, userRole, userBalance } = fetchUserInfo();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -88,7 +69,7 @@ const Profile: React.FC = () => {
                 <title>Setback | Profile</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header userId={userId} balance={balance} />
+            <Header userId={userId} userRole={userRole} userBalance={userBalance} />
             <main className={styles.main}>
                 <ProfileInterface  games={games} profile={profile} user={user} setEditProfileVisible={setEditProfileVisible}/>
                 { editProfileVisible && (

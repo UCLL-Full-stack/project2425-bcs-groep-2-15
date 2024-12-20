@@ -4,38 +4,14 @@ import styles from '@styles/balance.module.css';
 import React, {useEffect, useState} from 'react';
 import UserService from '@services/UserService';
 import userService from '@services/UserService';
+import fetchUserInfo from "../hooks/fetchUserInfo";
 
 const Balance: React.FC = () => {
-    const [userId, setUserId] = useState<number | null>(null);
-    const [balance, setBalance] = useState<number | null>(null);
-
-    useEffect(() => {
-        const fetchUserId = async () => {
-            const storedUserId = await sessionStorage.getItem('id');
-            if (storedUserId) {
-                setUserId(Number(storedUserId));
-            }
-        }
-        fetchUserId();
-    }, [userId]);
-
-    const fetchUserBalance = async () => {
-        if (userId) {
-            const user = await userService.getUserById(userId!);
-            const userJson = await user.json();
-            if (userJson) {
-                setBalance(userJson.balance.toFixed(2));
-            }
-        }
-    }
-
-    useEffect(() => {
-        fetchUserBalance();
-    }, [userId]);
+    const { userId, userRole, userBalance, refreshUserInfo } = fetchUserInfo();
 
     const handleAddBalance = async (amount: number) => {
         await userService.addUserBalance(userId!, amount);
-        await fetchUserBalance();
+        await refreshUserInfo();
     };
 
     return (
@@ -44,13 +20,13 @@ const Balance: React.FC = () => {
                 <title>Setback | Balance</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header userId={userId} balance={balance!} />
+            <Header userId={userId} userRole={userRole} userBalance={userBalance} />
             <main className={styles.container}>
                 <div className={styles.balanceSection}>
                     <div className={styles.balanceHeader}>
                         <h1>Balance</h1>
                         <h2>Your current balance is:</h2>
-                        <h3>€{balance}</h3>
+                        <h3>€{userBalance}</h3>
                     </div>
 
                     <div className={styles.profileTable}>
@@ -84,8 +60,7 @@ export const getBalance = async (): Promise<number> => {
         console.error("Error fetching user balance:", error);
     }
 
-    // @ts-ignore
-    return balance.toFixed(2);
+    return balance;
 };
 
 export default Balance;
