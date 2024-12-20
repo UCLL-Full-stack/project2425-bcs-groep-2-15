@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Header from '@components/header';
-import styles from '@styles/login.module.css';
+import styles from '@styles/home.module.css';
 import LoginForm from '@components/loginForm';
 import {User} from '@types';
 import {useEffect, useState} from 'react';
@@ -27,20 +27,16 @@ const Login: React.FC = () => {
         fetchUsers();
     }, []);
 
-    const handleLoginSuccess = () => {
-        console.log("User logged in successfully!");
-    };
-
     return (
         <>
             <Head>
                 <title>Setback | Login</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <Header userId={null} balance={null} />
+            <Header userId={null} userRole={null} userBalance={null} />
             <main className={styles.main}>
                 <div>
-                    <LoginForm onLoginSuccess={handleLoginSuccess} />
+                    <LoginForm />
                     <UsersTable users={users}/>
                 </div>
             </main>

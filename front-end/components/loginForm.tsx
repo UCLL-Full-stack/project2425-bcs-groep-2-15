@@ -3,11 +3,7 @@ import {useRouter} from 'next/router';
 import styles from '@styles/login.module.css';
 import UserService from '@services/UserService';
 
-interface LoginFormProps {
-    onLoginSuccess: () => void;
-}
-
-const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
+const LoginForm: React.FC = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -29,21 +25,26 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
         try {
             const user = await UserService.getUserByUsername(username);
             const userJson = await user.json();
+            if (!userJson) {
+                setError("Username or password is invalid");
+                return;
+            }
+
             const response = await UserService.login(username, password, userJson.role);
             if (!response.ok) {
                 const errorData = await response.json();
-                setError(errorData.error || "Invalid username or password");
+                setError(errorData.error || "An unexpected error occurred");
             } else {
                 const data = await response.json();
                 sessionStorage.setItem("authToken", data.token);
-                sessionStorage.setItem("user", JSON.stringify(data.user));
-                onLoginSuccess();
+                sessionStorage.setItem("user", JSON.stringify({ username: data.username, role: data.role }));
                 await router.push("/");
             }
         } catch (error) {
-            setError("An unexpected error occurred");
+            setError("Username or password is invalid");
         }
     };
+
 
     return (
         <div className={styles.loginContainer}>

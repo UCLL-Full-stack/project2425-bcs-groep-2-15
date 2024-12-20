@@ -24,9 +24,28 @@ const getUserByUsername = (username: string): Promise<User | null> => {
 };
 
 const newUser = async (username: string, password: string, library: Library, profile: Profile, balance: number, role: Role) => {
+    const existingUser = await userDb.getUserByUsername(username);
+    if (existingUser) {
+        throw new Error(`User with username: ${username} already exists.`);
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+    console.log(hashedPassword);
+
     const id = (await userDb.getAllUsers()).length + 1;
     const purchases: Purchase[] = [];
-    const user = new User({ id, username, password, library, profile, purchases, balance, role });
+
+    const user = new User({
+        id,
+        username,
+        password: hashedPassword,
+        library,
+        profile,
+        purchases,
+        balance,
+        role,
+    });
+
     return userDb.newUser(user);
 };
 
@@ -40,25 +59,40 @@ const addUserBalance = async (id: number, amount: number): Promise<number> => {
     return userDb.addBalance(user!, amount);
 };
 
-const login = async({ username, password, role }: UserInput): Promise<AuthenticationResponse> => {
+const login = async ({ username, password, role }: UserInput): Promise<AuthenticationResponse | Error> => {
     if (!username || !password || !role) {
-        throw new Error("Missing arguments. Try again")
+        return new Error("Invalid input");
     }
-    const user = await getUserByUsername(username);
-    if (!user) {
-        throw new Error(`User with username ${username} not found`);
-    }
-    const result = await bcrypt.compare(password, user.getPassword());
 
-    if (result) {
-        throw new Error('Error');
+    const user = await getUserByUsername(username);
+
+    if (!user) {
+        throw new Error("Username or password is invalid");
     }
+
+    const isPasswordCorrect = user.id < 4
+        ? password === user.getPassword()
+        : await bcrypt.compare(password, user.getPassword());
+
+    if (!isPasswordCorrect) {
+        throw new Error("Username or password is invalid");
+    }
+
+    const jwtSecret = process.env.JWT_SECRET;
+    const token = jwt.sign(
+        {
+            username: user.getUsername(),
+            role: user.getRole(),
+        },
+        jwtSecret!,
+        { expiresIn: '8h' }
+    );
 
     return {
-        token: generateJwtToken(username, role),
-        username: username,
-        role: role
-    }
+        token: token,
+        username: user.getUsername(),
+        role: user.getRole(),
+    };
 };
 
 const generateJwtToken = (username: string, role: Role): string => {
@@ -67,16 +101,11 @@ const generateJwtToken = (username: string, role: Role): string => {
         throw new Error("JWT_SECRET is not defined in environment variables.");
     }
 
-    const options = { expiresIn: `${process.env.JWT_EXPIRES_HOURS}h`, issuer: 'courses_app' };
+    const expiresIn = `${process.env.JWT_EXPIRES_HOURS || 8}h`;
+    const options = { expiresIn, issuer: 'courses_app' };
 
-    try {
-        return jwt.sign({ username, role }, jwtSecret, options);
-    } catch (error) {
-        console.error(error);
-        throw new Error('Error generating JWT token, see server log for details.');
-    }
+    return jwt.sign({ username, role }, jwtSecret, options);
 };
-
 
 export default {
     getAllUsers,
